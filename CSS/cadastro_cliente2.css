@@ -1,0 +1,159 @@
+/* Configurações Globais */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background-color: #700c0d; /* Fundo vermelho escuro/vinho */
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Card Principal */
+.container {
+  background-color: #fdfaf3; /* Fundo creme/bege claro */
+  width: 100%;
+  max-width: 750px;
+  padding: 40px 50px;
+  border-radius: 4px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Título */
+h2 {
+  color: #700c0d;
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+/* Estrutura do Formulário */
+.address-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+}
+
+.form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.full-width {
+  width: 100%;
+}
+
+/* Labels e Asterisco */
+label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 6px;
+}
+
+.required {
+  color: #e63946;
+  font-weight: bold;
+}
+
+.label-with-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cep-link {
+  font-size: 11px;
+  color: #0066cc;
+  text-decoration: underline;
+}
+
+/* Inputs e Selects */
+input, select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 2px solid #b38886; /* Borda amarronzada/rosada */
+  border-radius: 6px;
+  background-color: #fdfaf3;
+  font-size: 13px;
+  color: #333;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+input::placeholder {
+  color: #888;
+}
+
+input:focus, select:focus {
+  border-color: #700c0d;
+}
+
+/* Customização do Select */
+select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%33333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 14px;
+  padding-right: 30px;
+}
+
+/* Botão Cadastrar */
+.btn-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.btn-submit {
+  background-color: #700c0d;
+  color: #fff;
+  border: none;
+  padding: 12px 0;
+  width: 60%;
+  max-width: 350px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn-submit:hover {
+  background-color: #540809;
+}
+
+.btn-submit:active {
+  transform: scale(0.99);
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 600px) {
+  .form-row {
+    flex-direction: column;
+    gap: 18px;
+  }
+  
+  .container {
+    padding: 25px 20px;
+  }
+
+  .btn-submit {
+    width: 100%;
+  }
+}

@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="../CSS/cadastro_cliente.css" />
+
+    <title>Cadastrar-se</title>
+
+    <meta name="description" content="Página de cadastro de cliente." />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <main class="container">
+      <!-- LADO ESQUERDO -->
+      <section class="cadastro">
+        <h1>CRIAR CONTA</h1>
+
+        <form id="formCadastro">
+          <!-- NOME -->
+          <div class="input-box">
+            <label for="nome">Nome completo:</label>
+
+            <div class="campo">
+              <input
+                type="text"
+                id="nome"
+                name="nome"
+                placeholder="Digite seu nome completo"
+                autocomplete="name"
+                required
+              />
+
+              <i class="fa-regular fa-user"></i>
+            </div>
+          </div>
+
+                    <!-- IDADE -->
+          <div class="input-box">
+            <label for="data_nascimento">Data de nascimento:</label>
+
+            <div class="campo">
+              <input
+                type="date"
+                id="data_nascimento"
+                name="data_nascimento"
+                required
+              />
+
+              <i class="fa-solid fa-calendar-days"></i>
+            </div>
+          </div>
+
+                    <!-- CPF -->
+          <div class="input-box">
+            <label for="cpf">CPF:</label>
+
+            <div class="campo">
+              <input
+                type="text"
+                id="cpf"
+                name="cpf"
+                placeholder="000.000.000-00"
+                maxlength="14"
+                inputmode="numeric"
+                autocomplete="off"
+                required
+              />
+
+              <i class="fa-solid fa-users"></i>
+            </div>
+          </div>
+
+          <!-- TELEFONE -->
+            <div class="input-box">
+                <label for="telefone">Telefone:</label>
+    
+                <div class="campo">
+                <input
+                    type="tel"
+                    id="telefone"
+                    name="telefone"
+                    placeholder="(00) 00000-0000"
+                    maxlength="15"
+                    inputmode="numeric"
+                    autocomplete="tel"
+                    required
+                />
+    
+                <i class="fa-solid fa-phone"></i>
+                </div>
+            </div>
+
+          <!-- EMAIL -->
+          <div class="input-box">
+            <label for="email">Email:</label>
+
+            <div class="campo">
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Digite seu email"
+                autocomplete="email"
+                required
+              />
+
+              <i class="fa-regular fa-envelope"></i>
+            </div>
+          </div>
+
+          <!-- SENHA -->
+          <div class="input-box">
+            <label for="senha">Senha:</label>
+
+            <div class="campo">
+              <input
+                type="password"
+                id="senha"
+                name="senha"
+                placeholder="Digite sua senha"
+                minlength="8"
+                maxlength="30"
+                autocomplete="new-password"
+                required
+              />
+
+              <i class="fa-solid fa-lock"></i>
+            </div>
+          </div>
+
+          <!-- MENSAGEM DE ERRO/SUCESSO -->
+          <p id="mensagem"></p>
+
+          <!-- BOTÃO -->
+          <button type="submit">Cadastrar</button>
+        </form>
+      </section>
+
+      <!-- LADO DIREITO -->
+      <section class="bem-vindo">
+        <h1>BEM-VINDO!</h1>
+
+        <p>
+          Ficamos felizes por ter<br />
+          você aqui. Esperamos que<br />
+          encontre o seu mais novo<br />
+          amigo!
+        </p>
+
+        <div class="login">
+          <h2>Já tem uma conta?</h2>
+
+          <a href="../HTML/login.html">
+            <button type="button">Clique aqui!</button>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- JavaScript da página -->
+    <script src="../JS/cadastrar-se.js" type="module"></script>
+  </body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Informe seu endereço</title>
+  <link rel="stylesheet" href="../CSS/cadastro_cliente2.css">
+</head>
+
+<body>
+
+  <div class="container">
+    <h2>Informe seu endereço para continuar.</h2>
+
+    <form class="address-form">
+      
+      <!-- Linha 1: CEP e Estado -->
+      <div class="form-row">
+
+        <div class="form-group">
+          <div class="label-with-link">
+            <label for="cep">
+              CEP <span class="required">*</span>
+            </label>
+
+            <a href="#" class="cep-link">
+              Não sabe seu CEP? Descubra aqui
+            </a>
+          </div>
+
+          <input
+            type="text"
+            id="cep"
+            placeholder="00000-000"
+            maxlength="9"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="estado">
+            Estado <span class="required">*</span>
+          </label>
+
+          <select id="estado" required>
+            <option value="" disabled selected>
+              Selecione o estado
+            </option>
+
+            <option value="AC">Acre</option>
+            <option value="AL">Alagoas</option>
+            <option value="AP">Amapá</option>
+            <option value="AM">Amazonas</option>
+            <option value="BA">Bahia</option>
+            <option value="CE">Ceará</option>
+            <option value="DF">Distrito Federal</option>
+            <option value="ES">Espírito Santo</option>
+            <option value="GO">Goiás</option>
+            <option value="MA">Maranhão</option>
+            <option value="MT">Mato Grosso</option>
+            <option value="MS">Mato Grosso do Sul</option>
+            <option value="MG">Minas Gerais</option>
+            <option value="PA">Pará</option>
+            <option value="PB">Paraíba</option>
+            <option value="PR">Paraná</option>
+            <option value="PE">Pernambuco</option>
+            <option value="PI">Piauí</option>
+            <option value="RJ">Rio de Janeiro</option>
+            <option value="RN">Rio Grande do Norte</option>
+            <option value="RS">Rio Grande do Sul</option>
+            <option value="RO">Rondônia</option>
+            <option value="RR">Roraima</option>
+            <option value="SC">Santa Catarina</option>
+            <option value="SP">São Paulo</option>
+            <option value="SE">Sergipe</option>
+            <option value="TO">Tocantins</option>
+          </select>
+        </div>
+
+      </div>
+
+
+      <!-- Linha 2: Logradouro e Cidade -->
+      <div class="form-row">
+
+        <div class="form-group">
+          <label for="logradouro">
+            Logradouro <span class="required">*</span>
+          </label>
+
+          <input
+            type="text"
+            id="logradouro"
+            placeholder="Rua, Avenida, Travessa..."
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="cidade">
+            Cidade <span class="required">*</span>
+          </label>
+
+          <input
+            type="text"
+            id="cidade"
+            placeholder="Nome da cidade"
+            required
+          >
+        </div>
+
+      </div>
+
+
+      <!-- Linha 3: Bairro -->
+      <div class="form-group full-width">
+
+        <label for="bairro">
+          Bairro <span class="required">*</span>
+        </label>
+
+        <input
+          type="text"
+          id="bairro"
+          placeholder="Nome do bairro"
+          required
+        >
+
+      </div>
+
+
+      <!-- Linha 4: Número e Complemento -->
+      <div class="form-row">
+
+        <div class="form-group">
+          <label for="numero">
+            Número <span class="required">*</span>
+          </label>
+
+          <input
+            type="text"
+            id="numero"
+            placeholder="Número"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="complemento">
+            Complemento (opcional)
+          </label>
+
+          <input
+            type="text"
+            id="complemento"
+            placeholder="Apto, Bloco, Casa, etc."
+          >
+        </div>
+
+      </div>
+
+
+      <!-- Botão de Envio -->
+      <div class="btn-container">
+        <button type="submit" class="btn-submit">
+          Cadastrar
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+
+  <!-- JavaScript da API -->
+  <script src="./consultarApis.js"></script>
+
+</body>
+</html>
