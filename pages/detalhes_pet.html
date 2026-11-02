@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Orelha | Detalhes do Pet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="../styles/detalhes_pet.css">
+    <link rel="stylesheet" href="../styles/components/navbar-menu.css">
+</head>
+
+<body>
+
+    <header class="cabecalho">
+        <a href="../index.html">        
+            <img src="../img/logodois.png" alt="Portal Orelha">
+        </a>
+
+        <button class="menu-tres" aria-label="Abrir menu" aria-expanded="false">☰</button>
+
+        <nav class="menu">
+            <a href="../index.html">Início</a>
+            <a href="./voluntariado.html">Serviços Voluntários</a>
+            <a href="../index.html#sobre">ONG</a>
+            <a href="./doacao.html">Doações</a>
+            <a href="./catalogo.html" class="botao-adotar">♡ Adotar</a>
+        </nav>
+    </header>
+
+    <main class="conteudo">
+
+        <a href="./catalogo.html" class="voltar">
+            <i class="fa-solid fa-arrow-left"></i> Voltar ao catálogo
+        </a>
+
+        <section class="pet-info">
+
+            <div class="pet-imagem">
+                <img id="petImagem" src="" alt="Foto do pet">
+                <span class="selo-foto" id="petStatus">
+                    <i class="fa-solid fa-heart"></i> Esperando por um lar
+                </span>
+            </div>
+
+            <div class="pet-detalhes">
+
+                <h1 id="petNome">Carregando…</h1>
+
+                <p class="historia" id="petHistoria"></p>
+
+                <div class="dados" id="petDados"></div>
+
+                <div class="acoes">
+                    <a href="./forms-adocao.html" class="botao adotar">
+                        <i class="fa-solid fa-heart"></i> Quero adotar
+                    </a>
+                    <a href="./doacao.html" class="botao ajudar">
+                        <i class="fa-solid fa-hand-holding-heart"></i> Ajudar
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="adocao">
+
+            <div class="titulo-secao">
+                <p>Alguns cuidados importantes antes de receber seu novo companheiro.</p>
+            </div>
+
+            <div class="cards">
+
+                <article class="card">
+                    <div class="icone-card"><i class="fa-solid fa-heart"></i></div>
+                    <h3>Compromisso</h3>
+                    <p>Adotar é oferecer amor, segurança e cuidado durante toda a vida do animal.</p>
+                </article>
+
+                <article class="card">
+                    <div class="icone-card"><i class="fa-solid fa-paw"></i></div>
+                    <h3>Tempo e carinho</h3>
+                    <p>Todo pet precisa de atenção, alimentação, brincadeiras e acompanhamento veterinário.</p>
+                </article>
+
+                <article class="card">
+                    <div class="icone-card"><i class="fa-solid fa-house"></i></div>
+                    <h3>Um lar seguro</h3>
+                    <p>Prepare um ambiente acolhedor e seguro para que seu novo amigo se sinta em casa.</p>
+                </article>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Orelha © 2026 <span>·</span> Cuidando de quem precisa.</p>
+    </footer>
+
+    <script src="../scripts/components/menu-lateral.js"></script>
+    <script src="../scripts/detalhes_pet.js"></script>
+</body>
+</html>

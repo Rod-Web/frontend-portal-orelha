@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Painel · Portal Orelha</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="./styles/admin-painel.css">
+    <link rel="stylesheet" href="./styles/components/model.css">
+    <link rel="stylesheet" href="./styles/admin-dashboard.css">
+</head>
+<body>
+
+<div class="painel-layout">
+
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sair sair-sidebar" id="sair">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          <span>Sair</span>
+        </div>
+
+        <div class="sidebar-logo">
+          <a href="./dashboard.html" class="logo-link">
+            <img src="../img/logodois.png" alt="Portal Orelha" />
+          </a>
+        </div>
+
+
+        <nav class="sidebar-nav">
+            <p class="nav-grupo">Menu principal</p>
+            <a href="./dashboard.html" class="nav-item ativo">
+                <i class="fa-solid fa-house"></i> Início
+            </a>
+            <a href="./cadastrar-pet.html" class="nav-item">
+                <i class="fa-solid fa-paw"></i> Cadastrar Pet
+            </a>
+            <a href="./pets.html" class="nav-item">
+                <i class="fa-solid fa-list-check"></i> Gerenciar Pets
+            </a>
+            <a href="./solicitacoes-adocao.html" class="nav-item">
+                <i class="fa-solid fa-file-signature"></i> Solicitações de Adoção
+            </a>
+
+            <p class="nav-grupo">Trabalho Voluntário</p>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-user-plus"></i> Cadastrar Serviços Voluntários
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-users-gear"></i> Gerenciar Serviços Voluntários
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-people-carry-box"></i> Inscrições para Serviços Voluntários
+            </a>
+            
+        </nav>
+    </aside>
+
+    <!-- ================= CONTEÚDO ================= -->
+    <div class="painel-main">
+
+        <header class="topbar">
+          <button
+            class="topbar-menu"
+            id="menuToggle"
+            aria-label="Abrir menu"
+            aria-expanded="false"
+          >
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <div class="topbar-usuario" id="topbarUsuario">
+            <i class="fa-solid fa-circle-user"></i>
+            <span></span>
+          </div>
+          <div class="sair desktop" id="sair">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Sair</span>
+          </div>
+        </header>
+
+        <main class="conteudo">
+
+            <div class="titulo-bloco">
+                <h1>Visão geral</h1>
+                <p>Bem-vindo(a) de volta. Aqui está o resumo do Portal Orelha.</p>
+            </div>
+
+            <!-- ================= RESUMO ================= -->
+            <section class="cards-resumo">
+
+                <article class="card-resumo">
+                    <div class="icone vinho">
+                        <i class="fa-solid fa-paw"></i>
+                    </div>
+                    <div>
+                        <span class="rotulo">Pets cadastrados</span>
+                        <strong class="valor" id="totalPets">—</strong>
+                    </div>
+                </article>
+
+                <article class="card-resumo">
+                    <div class="icone bege">
+                        <i class="fa-solid fa-heart"></i>
+                    </div>
+                    <div>
+                        <span class="rotulo">Disponíveis</span>
+                        <strong class="valor" id="totalDisponiveis">—</strong>
+                    </div>
+                </article>
+
+                <article class="card-resumo">
+                    <div class="icone vinho">
+                        <i class="fa-solid fa-house"></i>
+                    </div>
+                    <div>
+                        <span class="rotulo">Adotados</span>
+                        <strong class="valor" id="totalAdotados">—</strong>
+                    </div>
+                </article>
+
+                <article class="card-resumo">
+                    <div class="icone bege">
+                        <i class="fa-solid fa-hand-holding-heart"></i>
+                    </div>
+                    <div>
+                        <span class="rotulo">Doações recebidas</span>
+                        <strong class="valor" id="totalDoacoes">—</strong>
+                    </div>
+                </article>
+
+            </section>
+
+            <!-- ================= AÇÕES RÁPIDAS ================= -->
+            <section class="bloco">
+                <h2 class="bloco-titulo">Ações rápidas</h2>
+
+                <div class="acoes-grid">
+                    <a href="./cadastrar-pet.html" class="acao-card">
+                        <i class="fa-solid fa-plus"></i>
+                        <div>
+                            <strong>Cadastrar pet</strong>
+                            <span>Adicione um novo animal para adoção.</span>
+                        </div>
+                    </a>
+
+                    <a href="./pets.html" class="acao-card">
+                        <i class="fa-solid fa-list-check"></i>
+                        <div>
+                            <strong>Gerenciar pets</strong>
+                            <span>Edite ou remova pets já cadastrados.</span>
+                        </div>
+                    </a>
+
+                    <a href="#" class="acao-card">
+                        <i class="fa-solid fa-user-plus"></i>
+                        <div>
+                            <strong>Cadastrar Serviço Voluntário</strong>
+                            <span>Inclua um novo serviço para voluntários.</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- ================= ÚLTIMOS PETS ================= -->
+            <section class="bloco">
+                <div class="bloco-cabecalho">
+                    <h2 class="bloco-titulo">Últimos pets cadastrados</h2>
+                    <a href="#" class="ver-todos">Ver todos →</a>
+                </div>
+
+                <div class="grade-pets" id="gradePets">
+                    <p class="carregando">Carregando pets…</p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+</div>
+
+    <!-- Modal de aviso reutilizável -->
+    <div
+      class="modal-overlay"
+      id="modalAviso"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modalAvisoTitulo"
+      aria-describedby="modalAvisoTexto"
+      hidden
+    >
+      <div class="modal-caixa">
+        <div class="modal-icone">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <h3 id="modalAvisoTitulo">Aviso</h3>
+        <p id="modalAvisoTexto"></p>
+        <button type="button" class="modal-botao" id="modalAvisoOk">OK</button>
+      </div>
+    </div>
+
+<script type="module" src="./scripts/components/nomeAdmin.js"></script>
+<script type="module" src="./scripts/components/sidebar.js"></script>
+<script type="module" src="./scripts/components/logout.js"></script>
+<script type="module" src="./scripts/admin-dashboard.js"></script>
+
+</body>
+</html>

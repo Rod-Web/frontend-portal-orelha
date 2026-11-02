@@ -1,0 +1,373 @@
+/* ./styles/detalhes_pet.css */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #fffdfa;
+    color: #542e2b;
+    font-family: "DM Sans", sans-serif;
+    overflow-x: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* ============ CONTEÚDO ============ */
+
+.conteudo {
+    width: 92%;
+    max-width: 1500px;
+    margin: 65px auto 0;
+}
+
+.voltar {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    color: #806557;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 25px;
+    transition: color 0.2s;
+}
+
+.voltar:hover {
+    color: #a92d17;
+}
+
+/* ============ PET INFO ============ */
+
+.pet-info {
+    display: grid;
+    grid-template-columns: minmax(250px, 0.8fr) minmax(0, 1.2fr);
+    align-items: center;
+    gap: 42px;
+    background: #fffaf3;
+    padding: 30px;
+    border: 1px solid #eee2d5;
+    border-radius: 26px;
+}
+
+.pet-imagem {
+    position: relative;
+    width: 100%;
+    max-width: 390px;
+    height: 390px;
+    justify-self: center;
+    overflow: hidden;
+    border-radius: 22px;
+    background: #ead8c4;
+}
+
+.pet-imagem img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.selo-foto {
+    position: absolute;
+    left: 18px;
+    bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 11px 16px;
+    background: #fffaf3;
+    color: #702b32;
+    border-radius: 25px;
+    font-size: 12px;
+    font-weight: 700;
+    box-shadow: 0 4px 15px #583a3012;
+}
+
+.pet-detalhes {
+    min-width: 0;
+    padding: 5px 0;
+}
+
+h1 {
+    margin: 0 0 18px;
+    color: #63291e;
+    font-family: "Playfair Display", serif;
+    font-size: clamp(42px, 5vw, 72px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+}
+
+.historia {
+    max-width: 600px;
+    color: #806557;
+    font-size: 14px;
+    line-height: 1.95;
+    margin-bottom: 24px;
+}
+
+.dados {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 5px 0;
+    padding: 17px 0;
+    border-top: 1px solid #eee2d5;
+    border-bottom: 1px solid #eee2d5;
+    color: #806557;
+    font-size: 13px;
+}
+
+.dados span {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.dados span:not(:last-child)::after {
+    content: "•";
+    color: #a92d17;
+    margin: 0 11px;
+}
+
+/* ============ BOTÕES ============ */
+
+.acoes {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.botao {
+    min-height: 47px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 12px 20px;
+    border: 1px solid transparent;
+    border-radius: 25px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+    transition: 0.25s;
+    cursor: pointer;
+}
+
+.adotar {
+    background: #a92d17;
+    color: #fff;
+}
+
+.adotar:hover {
+    background: #7e2415;
+    transform: translateY(-2px);
+}
+
+.ajudar {
+    background: #ead8c4;
+    color: #63291e;
+    border-color: #e2cbb4;
+}
+
+.ajudar:hover {
+    background: #dfc5ac;
+    transform: translateY(-2px);
+}
+
+.mensagem {
+    width: 47px;
+    min-width: 47px;
+    padding: 0;
+    background: #fffdfa;
+    color: #8f2c1c;
+    border-color: #e2d2c1;
+    font-size: 16px;
+}
+
+.mensagem:hover {
+    background: #f3e4d5;
+    transform: translateY(-2px);
+}
+
+/* ============ ADOÇÃO ============ */
+
+.adocao {
+    margin-top: 75px;
+}
+
+.titulo-secao {
+    margin-bottom: 28px;
+}
+
+.titulo-secao p {
+    margin-top: 9px;
+    color: #806557;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.card {
+    padding: 27px;
+    background: #fffaf3;
+    border: 1px solid #eee2d5;
+    border-radius: 16px;
+    transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px #583a3012;
+}
+
+.icone-card {
+    width: 43px;
+    height: 43px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+    background: #f3e4d5;
+    color: #a92d17;
+    border-radius: 12px;
+    font-size: 17px;
+}
+
+.card h3 {
+    margin-bottom: 9px;
+    color: #542e2b;
+    font-family: "Playfair Display", serif;
+    font-size: 19px;
+}
+
+.card p {
+    color: #806557;
+    font-size: 13px;
+    line-height: 1.9;
+}
+
+/* ============ RODAPÉ ============ */
+
+footer {
+    margin-top: 75px;
+    padding: 28px 15px;
+    background: #fff9ee;
+    border-top: 1px solid #eee2d5;
+    color: #806557;
+    text-align: center;
+    font-size: 12px;
+}
+
+footer p {
+    margin: 0;
+}
+
+footer span {
+    color: #a92d17;
+    margin: 0 5px;
+}
+
+/* ============ RESPONSIVO ============ */
+
+@media (max-width: 1024px) {
+    .pet-info {
+        gap: 30px;
+        padding: 24px;
+    }
+
+    .pet-imagem {
+        height: 320px;
+    }
+
+    .cards {
+        gap: 16px;
+    }
+}
+
+@media (max-width: 900px) {
+    .pet-info {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    .pet-imagem {
+        max-width: 100%;
+        height: 340px;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    h1 {
+        font-size: clamp(38px, 8vw, 56px);
+    }
+}
+
+@media (max-width: 760px) {
+    .conteudo {
+        width: 94%;
+        margin-top: 40px;
+    }
+
+    .pet-info {
+        padding: 18px;
+        border-radius: 18px;
+    }
+
+    .pet-imagem {
+        height: 280px;
+        border-radius: 16px;
+    }
+
+    .selo-foto {
+        left: 12px;
+        bottom: 12px;
+        font-size: 11px;
+        padding: 9px 13px;
+    }
+
+    .adocao {
+        margin-top: 55px;
+    }
+
+    footer {
+        margin-top: 55px;
+    }
+}
+
+@media (max-width: 480px) {
+    .acoes {
+        flex-wrap: wrap;
+    }
+
+    .botao {
+        flex: 1 1 100%;
+    }
+
+    .mensagem {
+        flex: 0 0 47px;
+    }
+
+    .pet-imagem {
+        height: 240px;
+    }
+}

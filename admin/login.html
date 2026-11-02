@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Portal Orelha · Painel Administrativo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./styles/admin-login.css" />
+  </head>
+  <body>
+    <main class="admin-wrap">
+      <aside class="admin-marca">
+        <div class="marca-topo">
+          <img src="../img/logodois.png" alt="Portal Orelha" />
+          <span class="tag-admin">Painel Administrativo</span>
+        </div>
+
+        <div class="marca-texto">
+          <h1>Gestão do<br />Portal Orelha</h1>
+          <p>
+            Área restrita para a equipe. Gerencie pets, adoções, doações e o
+            conteúdo do site público.
+          </p>
+        </div>
+
+        <p class="marca-rodape">© 2026 Instituto Orelha</p>
+      </aside>
+
+      <section class="admin-login">
+        <form class="login-card" id="adminLoginForm">
+          <span class="sobretitulo">Acesso restrito</span>
+          <h2>Entrar no painel</h2>
+          <p class="login-sub">
+            Use suas credenciais administrativas para continuar.
+          </p>
+
+          <div class="campo">
+            <label for="cpf">CPF</label>
+            <div class="input-icone">
+              <i class="fa-regular fa-id-card"></i>
+              <input
+                type="text"
+                id="cpf"
+                name="cpf"
+                inputmode="numeric"
+                autocomplete="username"
+                placeholder="000.000.000-00"
+                maxlength="14"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="campo">
+            <label for="senha">Senha</label>
+            <div class="input-icone">
+              <i class="fa-solid fa-lock"></i>
+              <input
+                type="password"
+                id="senha"
+                name="senha"
+                autocomplete="current-password"
+                placeholder="Sua senha"
+                minlength="8"
+                required
+              />
+              <button
+                type="button"
+                class="toggle-senha"
+                id="toggleSenha"
+                aria-label="Mostrar senha"
+              >
+                <i class="fa-regular fa-eye"></i>
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" class="botao-entrar" id="botaoEntrar">
+            <span>Acessar painel</span>
+            <i class="fa-solid fa-arrow-right-to-bracket"></i>
+          </button>
+
+          <p class="login-mensagem" id="loginMensagem" aria-live="polite"></p>
+
+          <p class="login-alt">
+            <i class="fa-solid fa-shield-halved"></i>
+            Acesso monitorado. Uso exclusivo da equipe.
+          </p>
+        </form>
+      </section>
+    </main>
+
+    <script src="./scripts/components/visibilidadeSenha.js"></script>
+    <script type="module" src="./scripts/admin-login.js"></script>
+
+  </body>
+</html>

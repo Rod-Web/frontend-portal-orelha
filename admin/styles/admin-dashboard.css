@@ -1,0 +1,303 @@
+/* ./admin/styles/admin-dashboard.css
+   CSS ESPECÍFICO DO DASHBOARD (painel.html)
+   Depende de admin-painel.css (layout, sidebar, topbar, título).
+   Contém: cards de resumo, ações rápidas, grade de últimos pets.
+*/
+
+/* =========================================================
+   CARDS DE RESUMO (topo)
+   ========================================================= */
+
+.cards-resumo {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin-bottom: 34px;
+}
+
+.card-resumo {
+    background: #fffaf3;
+    border: 1px solid #eadbc9;
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card-resumo:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(87, 43, 32, 0.06);
+}
+
+.icone {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.icone.vinho {
+    background: #fbe6d7;
+    color: #a92d17;
+}
+
+.icone.bege {
+    background: #f3e4d5;
+    color: #7e2415;
+}
+
+.rotulo {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: #a4876f;
+    margin-bottom: 4px;
+}
+
+.valor {
+    display: block;
+    font-size: 24px;
+    font-weight: 700;
+    color: #7e2415;
+    font-family: "Playfair Display", serif;
+    line-height: 1.1;
+}
+
+/* =========================================================
+   BLOCOS (ações rápidas / últimos pets)
+   ========================================================= */
+
+.bloco {
+    margin-bottom: 34px;
+}
+
+.bloco-cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.bloco-titulo {
+    font-family: "Playfair Display", serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #7e2415;
+    margin-bottom: 16px;
+}
+
+.bloco-cabecalho .bloco-titulo {
+    margin-bottom: 0;
+}
+
+.ver-todos {
+    color: #a92d17;
+    font-weight: 700;
+    font-size: 13px;
+    transition: color 0.2s;
+}
+
+.ver-todos:hover {
+    color: #5f1a10;
+    text-decoration: underline;
+}
+
+/* =========================================================
+   AÇÕES RÁPIDAS
+   ========================================================= */
+
+.acoes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.acao-card {
+    background: #fffaf3;
+    border: 1px solid #eadbc9;
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.acao-card:hover {
+    transform: translateY(-2px);
+    border-color: #d8bca0;
+    box-shadow: 0 10px 24px rgba(87, 43, 32, 0.07);
+}
+
+.acao-card>i {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: #fbe6d7;
+    color: #a92d17;
+    font-size: 15px;
+    flex-shrink: 0;
+}
+
+.acao-card strong {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    color: #7e2415;
+    margin-bottom: 3px;
+}
+
+.acao-card span {
+    font-size: 12px;
+    color: #9c7d68;
+    line-height: 1.5;
+}
+
+/* =========================================================
+   ÚLTIMOS PETS (grade de cards)
+   ========================================================= */
+
+.grade-pets {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.pet-card {
+    background: #fffaf3;
+    border: 1px solid #eadbc9;
+    border-radius: 14px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.pet-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(87, 43, 32, 0.08);
+}
+
+.pet-foto {
+    height: 150px;
+    overflow: hidden;
+    background: #ead8c4;
+}
+
+.pet-foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.pet-info {
+    padding: 12px 14px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.pet-info strong {
+    color: #7e2415;
+    font-size: 14.5px;
+    font-family: "Playfair Display", serif;
+    font-weight: 700;
+}
+
+.pet-info>span {
+    font-size: 11.5px;
+    color: #9c7d68;
+}
+
+.pet-status {
+    margin-top: 6px;
+    align-self: flex-start;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+.pet-status.disponivel {
+    background: #e6f4ea;
+    color: #2e7d32;
+}
+
+.pet-status.adotado {
+    background: #fbe6d7;
+    color: #a92d17;
+}
+
+.carregando {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: #9c7d68;
+    font-size: 13px;
+    padding: 30px 0;
+}
+
+/* =========================================================
+   RESPONSIVO
+   ========================================================= */
+
+@media (max-width: 1200px) {
+    .cards-resumo {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grade-pets {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .acoes-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 800px) {
+    .cards-resumo {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .grade-pets {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .acoes-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .cards-resumo {
+        grid-template-columns: 1fr;
+    }
+
+    .grade-pets {
+        grid-template-columns: 1fr;
+    }
+
+    .card-resumo {
+        padding: 16px;
+    }
+
+    .valor {
+        font-size: 22px;
+    }
+}

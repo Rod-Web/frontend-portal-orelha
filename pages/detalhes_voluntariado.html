@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Orelha | Detalhes da Vaga</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="../styles/components/navbar-menu.css">
+    <link rel="stylesheet" href="../styles/detalhes_voluntariado.css">
+</head>
+<body>
+
+    <header class="cabecalho">
+        <a href="../index.html">
+            <img src="../img/logodois.png" alt="Portal Orelha">
+        </a>
+
+        <button class="menu-tres" aria-label="Abrir menu" aria-expanded="false">☰</button>
+
+        <nav class="menu">
+            <a href="../index.html">Início</a>
+            <a href="./voluntariado.html">Serviços Voluntários</a>
+            <a href="../index.html#sobre">ONG</a>
+            <a href="./doacao.html">Doações</a>
+            <a href="./catalogo.html" class="botao-adotar">♡ Adotar</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <section class="conteudo">
+
+            <a href="./voluntariado.html" class="voltar">
+                <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+                Voltar para as vagas
+            </a>
+
+            <article id="vaga" class="vaga" aria-live="polite">
+                <p class="carregando">Carregando vaga…</p>
+            </article>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Orelha © 2026 · Cuidando de quem precisa.</p>
+    </footer>
+
+    <script src="../scripts/components/menu-lateral.js"></script>
+    <script src="../scripts/detalhes_voluntariado.js"></script>
+</body>
+</html>

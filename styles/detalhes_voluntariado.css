@@ -1,0 +1,365 @@
+/* ./styles/detalhes_voluntariado.css */
+
+/* =========================================================
+   RESET / BASE
+   ========================================================= */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --vinho: #8f2c1c;
+    --vinho-medio: #a92d17;
+    --vinho-escuro: #7e2415;
+    --terracota: #a94b2b;
+    --creme: #fff0e4;
+    --creme-suave: #fffaf3;
+    --creme-claro: #fff3e9;
+    --borda: #eee2d5;
+    --texto: #542e2b;
+    --texto-titulo: #63291e;
+    --texto-suave: #806557;
+    --sombra: 0 10px 24px rgba(87, 43, 32, 0.08);
+    --raio-assinatura: 4px 22px 4px 22px;
+}
+
+body {
+    background: #fffdfa;
+    color: var(--texto);
+    font-family: "DM Sans", sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+    max-width: 1440px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* =========================================================
+   CONTEÚDO
+   ========================================================= */
+.conteudo {
+    width: 92%;
+    max-width: 1000px;
+    margin: 65px auto 100px;
+}
+
+.voltar {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--texto-suave);
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 28px;
+    transition: color 0.2s;
+}
+
+.voltar:hover {
+    color: var(--vinho-medio);
+}
+
+.carregando {
+    text-align: center;
+    color: var(--texto-suave);
+    font-size: 14px;
+    padding: 40px 20px;
+}
+
+/* =========================================================
+   CARD PRINCIPAL
+   ========================================================= */
+.vaga {
+    background: var(--creme-suave);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio-assinatura);
+    box-shadow: var(--sombra);
+    overflow: hidden;
+}
+
+/* --- Cabeçalho (faixa com data + título) --- */
+.vaga-topo {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    align-items: stretch;
+    background: var(--vinho);
+    color: var(--creme);
+}
+
+.vaga-data {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 22px 12px;
+    gap: 4px;
+    background: rgba(0, 0, 0, 0.12);
+}
+
+.data-mes {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #f0cbb5;
+}
+
+.data-dia {
+    font: 700 52px / 1 "Playfair Display", serif;
+    color: #fff7f2;
+}
+
+.data-ano {
+    font-size: 12px;
+    color: #f0cbb5;
+    letter-spacing: 1px;
+}
+
+.vaga-identificacao {
+    padding: 28px 34px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 14px;
+    min-width: 0;
+}
+
+.vaga-status {
+    align-self: flex-start;
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 12px;
+    white-space: nowrap;
+}
+
+.vaga-status--aberta {
+    background: #d7f0d9;
+    color: #1d6b2b;
+}
+
+.vaga-status--urgente {
+    background: #fde2c8;
+    color: #a34a00;
+}
+
+.vaga-status--encerrada {
+    background: #e5e5e5;
+    color: #666;
+}
+
+.vaga-titulo {
+    font: 700 clamp(24px, 3.4vw, 38px) / 1.16 "Playfair Display", serif;
+    color: #fff7f2;
+    margin: 0;
+}
+
+/* --- Corpo (descrição + detalhes) --- */
+.vaga-corpo {
+    padding: 36px 34px;
+}
+
+.vaga-descricao {
+    color: var(--texto-suave);
+    font-size: 15px;
+    line-height: 1.9;
+    margin: 0 0 32px;
+}
+
+/* Info em grid (local, início, jornada) */
+.vaga-info {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+    padding: 26px 0;
+    border-top: 1px solid var(--borda);
+    border-bottom: 1px solid var(--borda);
+    margin-bottom: 32px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.info-rotulo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--vinho-medio);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+}
+
+.info-rotulo i {
+    font-size: 12px;
+    color: var(--terracota);
+}
+
+.info-valor {
+    color: var(--texto);
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 500;
+    word-break: break-word;
+}
+
+/* --- Ações --- */
+.vaga-acoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+}
+
+.botao {
+    min-height: 47px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 12px 24px;
+    border: 1px solid transparent;
+    border-radius: 25px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+    transition: 0.25s;
+    cursor: pointer;
+}
+
+.candidatar {
+    background: var(--vinho-medio);
+    color: #fff;
+}
+
+.candidatar:hover {
+    background: var(--vinho-escuro);
+    transform: translateY(-2px);
+}
+
+.secundario {
+    background: transparent;
+    color: var(--vinho);
+    border-color: var(--borda);
+}
+
+.secundario:hover {
+    background: var(--creme);
+}
+
+/* --- Mensagem de erro / vazio --- */
+.mensagem {
+    text-align: center;
+    color: var(--texto-suave);
+    font-size: 15px;
+    padding: 60px 26px;
+    background: var(--creme-suave);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio-assinatura);
+    line-height: 1.8;
+}
+
+.mensagem a {
+    color: var(--vinho-medio);
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+/* =========================================================
+   RODAPÉ
+   ========================================================= */
+footer {
+    padding: 28px 15px;
+    background: #fff9ee;
+    border-top: 1px solid var(--borda);
+    color: var(--texto-suave);
+    text-align: center;
+    font-size: 12px;
+}
+
+footer p {
+    margin: 0;
+}
+
+/* =========================================================
+   RESPONSIVO
+   ========================================================= */
+@media (max-width: 760px) {
+
+    .conteudo {
+        width: 94%;
+        margin-top: 40px;
+        margin-bottom: 70px;
+    }
+
+    .vaga-topo {
+        grid-template-columns: 1fr;
+    }
+
+    .vaga-data {
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 10px;
+        padding: 14px 24px;
+    }
+
+    .data-dia {
+        font-size: 26px;
+    }
+
+    .data-mes,
+    .data-ano {
+        font-size: 12px;
+    }
+
+    .vaga-identificacao {
+        padding: 22px 24px;
+        gap: 12px;
+    }
+
+    .vaga-corpo {
+        padding: 26px 24px;
+    }
+
+    .vaga-info {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .vaga-acoes {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .botao {
+        width: 100%;
+    }
+}

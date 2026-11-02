@@ -1,51 +1,159 @@
-<!-- TELA INICIAL PADRÃO, NÃO DEPENDE DE NENHUM USUÁRIO -->
-
-<!doctype html>
-
+<!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal Orelha</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <link rel="stylesheet" href="./styles/index.css">
+    <link rel="stylesheet" href="./styles/components/navbar-menu.css">
+</head>
+<body>
 
-    <link rel="stylesheet" href="./CSS/examples/tela-inicial.css" />
-  </head>
+    <header class="cabecalho">
+        <a href="./index.html">        
+            <img src="./img/logodois.png" alt="Portal Orelha">
+        </a> 
 
-  <body>
-    <!-- Navegação -->
+        <button class="menu-tres" aria-label="Abrir menu" aria-expanded="false">☰</button>
 
-    <nav class="navbar">
-      <a href="#" class="logo"> Portal Orelha </a>
+        <nav class="menu">
+            <a href="./index.html">Início</a>
+            <a href="./pages/voluntariado.html">Serviços Voluntários</a>
+            <a href="./index.html#sobre">ONG</a>
+            <a href="./pages/doacao.html">Doações</a>
+            <a href="./pages/catalogo.html" class="botao-adotar">♡ Adotar</a>
+        </nav>
+    </header>
 
-      <div class="nav-links">
-        <a href="./catalogo-pets/catalogo.html"> Catálogo de pets </a>
+    <main id="inicio">
 
-        <a href="./HTML/login.html" class="perfil" title="Entrar">
-          <svg viewBox="0 0 24 24">
-            <path
-              d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.33 0-10 1.67-10 5v3h20v-3c0-3.33-6.67-5-10-5z"
-            />
-          </svg>
+        <section class="carrossel" aria-label="Destaques do Instituto Orelha">
 
-          <span>Entrar</span>
-        </a>
-      </div>
-    </nav>
+            <article class="slide ativo">
+                <img src="./img/dezembroVerde.png" alt="Cão resgatado esperando adoção">
+            </article>
 
-    <!-- Conteúdo principal -->
+            <article class="slide">
+                <img src="./img/logoSolo.png" alt="Voluntária cuidando de gatos resgatados">
+            </article>
 
-    <main class="container">
-      <h1>Tela Inicial - Portal Orelha</h1>
+            <article class="slide">
+                <img src="./img/dezembroVerde.png" alt="Família adotando um cachorro">
+            </article>
 
-      <p>Encontre um novo companheiro para fazer parte da sua família.</p>
+            <button class="seta anterior" aria-label="Slide anterior">‹</button>
+            <button class="seta proxima" aria-label="Próximo slide">›</button>
 
-      <a href="./catalogo-pets/catalogo.html" class="btn-catalogo">
-        Ver pets disponíveis para adoção
-      </a>
+            <div class="pontos">
+                <button class="ponto selecionado" aria-label="Ir para o slide 1"></button>
+                <button class="ponto" aria-label="Ir para o slide 2"></button>
+                <button class="ponto" aria-label="Ir para o slide 3"></button>
+            </div>
 
-      <span class="status"> Em desenvolvimento </span>
+        </section>
+
+        <section class="sobre secao" id="sobre">
+
+            <div class="sobre-arte">
+                <img class="logo-ong" src="./img/logoSolo.png" alt="Logo do Instituto Orelha">
+            </div>
+
+            <div class="sobre-texto" id="causa">
+                <p class="sobretitulo">Quem somos</p>
+                <h2>Sobre o Instituto Orelha</h2>
+
+                <p>
+                    Em fevereiro de 2026 nasceu a nossa ONG, ainda sem muita
+                    ideia de onde chegaria, nem de quantos animais teria a
+                    oportunidade de salvar. Acreditamos que o cuidado começa
+                    com o ideal de lutar por aqueles que não podem pedir ajuda,
+                    fazendo a diferença na vida de cada animal.
+                </p>
+
+                <a href="#valores" class="link-sobre">
+                    Conheça o que nos move
+                </a>
+            </div>
+
+        </section>
+
+        <section class="valores" id="valores">
+            <div class="valores-container">
+                <div class="valores-intro">
+                    <h2>O que nos move</h2>
+                    <p>
+                        Cada atitude faz diferença na construção de um futuro
+                        mais seguro e acolhedor para os animais.
+                    </p>
+                </div>
+
+                <div class="valores-grid">
+                    <article class="valor-card vinho">
+                        <i class="fa-solid fa-heart"></i>
+                        <h3>Adoção responsável</h3>
+                        <p>Mais que encontrar um lar, é conectar vidas com amor e compromisso.</p>
+                    </article>
+
+                    <article class="valor-card bege">
+                        <i class="fa-solid fa-paw"></i>
+                        <h3>Resgate e acolhimento</h3>
+                        <p>Cada animal merece cuidado, proteção e a chance de recomeçar.</p>
+                    </article>
+
+                    <article class="valor-card bege">
+                        <i class="fa-solid fa-shield-heart"></i>
+                        <h3>Bem-estar animal</h3>
+                        <p>Respeito, saúde e dignidade devem fazer parte de toda vida.</p>
+                    </article>
+
+                    <article class="valor-card vinho">
+                        <i class="fa-solid fa-hand-holding-heart"></i>
+                        <h3>Apoio e doações</h3>
+                        <p>Toda ajuda conta e pode transformar a vida de muitos animais.</p>
+                    </article>
+
+                    <article class="valor-card vinho">
+                        <i class="fa-solid fa-users"></i>
+                        <h3>Uma comunidade que cuida</h3>
+                        <p>Unimos pessoas que acreditam que pequenas atitudes geram grandes mudanças.</p>
+                    </article>
+
+                    <article class="valor-card bege">
+                        <i class="fa-solid fa-bullhorn"></i>
+                        <h3>Conscientização</h3>
+                        <p>Informar e educar é um passo importante para transformar realidades.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="animais secao" id="animais">
+
+            <div class="animais-cabecalho">
+                <div>
+                    <h2>Conheça quem está<br>à espera de um lar.</h2>
+                </div>
+            </div>
+
+            <div class="grade-pets" id="gradePets">
+                <!-- Preenchido dinamicamente via API em scripts/index.js -->
+            </div>
+
+            <a href="./pages/catalogo.html" class="botao-todos">Ver todos os animais <span>→</span></a>
+
+        </section>
+
     </main>
-  </body>
+
+    <footer>
+        <p>Orelha © 2026 · Cuidando de quem precisa.</p>
+    </footer>
+
+    <script src="./scripts/components/menu-lateral.js"></script>
+    <script src="./scripts/index.js"></script>
+</body>
 </html>

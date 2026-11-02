@@ -1,0 +1,497 @@
+/* ./styles/index.css */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #fffdfa;
+    color: #542e2b;
+    font-family: "DM Sans", sans-serif;
+    overflow-x: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* ============ CARROSSEL ============ */
+
+main {
+    max-width: 1440px;
+    margin: auto;
+}
+
+.carrossel {
+    height: clamp(300px, 38vw, 490px);
+    margin: 45px 5% 0;
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px 18px 4px 18px;
+    background: #f4e8df;
+}
+
+.slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.8s ease;
+}
+
+.slide.ativo {
+    opacity: 1;
+    visibility: visible;
+    z-index: 1;
+}
+
+.slide>img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    position: absolute;
+    inset: 0;
+}
+
+.seta {
+    position: absolute;
+    z-index: 3;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 43px;
+    height: 43px;
+    border: 1px solid #ffffff9c;
+    border-radius: 50%;
+    background: #2d211e65;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.seta:hover {
+    background: #8f2c1c;
+}
+
+.anterior {
+    left: 22px;
+}
+
+.proxima {
+    right: 22px;
+}
+
+.pontos {
+    position: absolute;
+    z-index: 3;
+    bottom: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+}
+
+.ponto {
+    width: 23px;
+    height: 4px;
+    border: 0;
+    padding: 0;
+    background: #ffffffa0;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.ponto.selecionado {
+    width: 42px;
+    background: white;
+}
+
+/* ============ SOBRE ============ */
+
+.secao {
+    position: relative;
+}
+
+.sobre {
+    margin-top: 100px;
+    padding: 75px 11% 90px;
+    display: grid;
+    grid-template-columns: 0.8fr 1.5fr;
+    align-items: center;
+    gap: 8%;
+    background: linear-gradient(115deg,
+            #fffdfa 0%,
+            #fffdfa 62%,
+            #fff3e9 62%,
+            #fff3e9 100%);
+    min-height: 430px;
+}
+
+.sobre::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 24%;
+    height: 10px;
+    background: #a94b2b;
+    clip-path: polygon(0 0, 100% 0, 88% 100%, 0 100%);
+}
+
+.sobre-arte {
+    height: 270px;
+    position: relative;
+    display: grid;
+    place-items: center;
+}
+
+.logo-ong {
+    display: block;
+    width: 300px;
+    max-height: 270px;
+    object-fit: contain;
+    margin: auto;
+}
+
+.sobretitulo {
+    color: #a9442a;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 700;
+    margin: 0 0 12px;
+}
+
+.sobre h2,
+.animais h2,
+.valores-intro h2 {
+    font: 700 clamp(29px, 3.2vw, 42px) / 1.16 "Playfair Display", serif;
+    margin: 0 0 20px;
+    color: #8e2d1c;
+}
+
+.sobre-texto>p:not(.sobretitulo) {
+    font-size: 15px;
+    line-height: 1.9;
+    color: #6d4a3e;
+}
+
+.link-sobre {
+    display: inline-block;
+    margin-top: 18px;
+    color: #9b351f;
+    font-size: 13px;
+    font-weight: 700;
+    border-bottom: 1px solid #c99077;
+    padding-bottom: 8px;
+}
+
+/* ============ VALORES ============ */
+
+.valores {
+    width: 100%;
+    margin: 65px 0 0;
+    padding: 85px 7% 95px;
+    background: #f9eee5;
+    position: relative;
+    clip-path: polygon(0 2%, 100% 0, 100% 98%, 0 100%);
+}
+
+.valores-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.valores-intro {
+    max-width: 650px;
+    margin-bottom: 38px;
+}
+
+.valores-intro h2 {
+    margin: 0 0 14px;
+    color: #8e2d1c;
+    font: 700 clamp(30px, 3.2vw, 42px) / 1.2 "Playfair Display", serif;
+}
+
+.valores-intro p {
+    max-width: 520px;
+    margin: 0;
+    color: #795b4e;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.valores-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.valor-card {
+    min-height: 220px;
+    padding: 28px 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: 5px 22px 5px 22px;
+    gap: 14px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.valor-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 28px rgba(87, 43, 32, 0.13);
+}
+
+.valor-card i {
+    font-size: 25px;
+    margin-bottom: 5px;
+}
+
+.valor-card h3 {
+    margin: 0;
+    font: 700 19px/1.35 "Playfair Display", serif;
+}
+
+.valor-card p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.valor-card.vinho {
+    color: #fff7f2;
+    background: #8f2c1c;
+}
+
+.valor-card.vinho i {
+    color: #f0cbb5;
+}
+
+.valor-card.bege {
+    color: #63291e;
+    background: #fffaf5;
+    border: 1px solid #ecd7c7;
+}
+
+.valor-card.bege i {
+    color: #a34a2a;
+}
+
+/* ============ ANIMAIS ============ */
+
+.animais {
+    margin-top: 85px;
+    padding: 45px 8% 100px;
+    overflow: hidden;
+}
+
+.animais::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 150px;
+    height: 7px;
+    background: #9d4428;
+    transform: rotate(-4deg);
+}
+
+.animais-cabecalho {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 35px;
+    margin-bottom: 38px;
+}
+
+.animais h2 {
+    margin-bottom: 0;
+}
+
+.grade-pets {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.pet-card {
+    background: #fff0e5;
+    box-shadow: 0 10px 24px #572b2015;
+    transition: transform 0.25s;
+    border-radius: 6px;
+    overflow: hidden;
+    display: block;
+}
+
+.pet-card:nth-child(even) {
+    transform: translateY(18px);
+}
+
+.pet-card:hover,
+.pet-card:nth-child(even):hover {
+    transform: translateY(-5px);
+}
+
+.pet-foto {
+    position: relative;
+    overflow: hidden;
+    background: #ead8c4;
+}
+
+.pet-foto img {
+    display: block;
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    transition: transform 0.4s;
+}
+
+.pet-card:hover img {
+    transform: scale(1.05);
+}
+
+.pet-info {
+    padding: 17px;
+}
+
+.pet-info h3 {
+    color: #632b1e;
+    font: 700 19px "Playfair Display", serif;
+    margin: 0 0 5px;
+}
+
+.pet-info span {
+    font-size: 10px;
+    color: #896d61;
+}
+
+.pet-info p {
+    font-size: 11px;
+    color: #9b4b32;
+    margin: 13px 0 0;
+}
+
+.botao-todos {
+    display: flex;
+    align-items: center;
+    width: max-content;
+    margin: 58px auto 0;
+    padding: 13px 19px;
+    border: 1px solid #a53c25;
+    color: #92321f;
+    font-size: 13px;
+    font-weight: 700;
+    transition: 0.2s;
+}
+
+.botao-todos:hover {
+    background: #92321f;
+    color: white;
+}
+
+.botao-todos span {
+    margin-left: 20px;
+}
+
+/* ============ RODAPÉ ============ */
+
+footer {
+    padding: 28px 15px;
+    background: #fff9ee;
+    border-top: 1px solid #eee2d5;
+    color: #806557;
+    text-align: center;
+    font-size: 12px;
+}
+
+footer p {
+    margin: 0;
+}
+
+/* ============ RESPONSIVO ============ */
+
+@media (max-width: 1024px) {
+    .grade-pets {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .pet-card:nth-child(even) {
+        transform: none;
+    }
+
+    .valores-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 760px) {
+    .carrossel {
+        margin: 25px 5% 0;
+        border-radius: 6px;
+    }
+
+    .seta {
+        width: 36px;
+        height: 36px;
+        font-size: 22px;
+    }
+
+    .sobre {
+        grid-template-columns: 1fr;
+        padding: 50px 8%;
+        margin-top: 60px;
+        gap: 30px;
+        background: #fffdfa;
+    }
+
+    .sobre::before {
+        width: 40%;
+    }
+
+    .sobre-arte {
+        height: 200px;
+    }
+
+    .logo-ong {
+        width: 220px;
+        max-height: 200px;
+    }
+
+    .valores {
+        padding: 60px 7% 70px;
+        clip-path: none;
+    }
+
+    .valores-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .animais {
+        padding: 30px 6% 70px;
+        margin-top: 60px;
+    }
+
+    .botao-todos {
+        margin-top: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .grade-pets {
+        grid-template-columns: 1fr;
+    }
+
+    .pet-foto img {
+        height: 240px;
+    }
+}

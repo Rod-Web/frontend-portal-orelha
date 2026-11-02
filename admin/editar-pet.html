@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Orelha | Editar Pet</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="./styles/admin-painel.css" />
+    <link rel="stylesheet" href="./styles/components/model.css" />
+    <link rel="stylesheet" href="./styles/admin-editar-pet.css" />
+  </head>
+  <body>
+    <div class="painel-layout">
+      <!-- ================= SIDEBAR ================= -->
+      <aside class="sidebar" id="sidebar">
+
+        <div class="sair sair-sidebar"id="sair">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          <span>Sair</span>
+        </div>
+
+        <div class="sidebar-logo">
+          <a href="./dashboard.html" class="logo-link">
+            <img src="../img/logodois.png" alt="Portal Orelha" />
+          </a>
+        </div>
+
+        <nav class="sidebar-nav">
+          <p class="nav-grupo">Menu principal</p>
+          <a href="./dashboard.html" class="nav-item">
+            <i class="fa-solid fa-house"></i> Início
+          </a>
+          <a href="./cadastrar-pet.html" class="nav-item">
+            <i class="fa-solid fa-paw"></i> Cadastrar Pet
+          </a>
+          <a href="./pets.html" class="nav-item">
+            <i class="fa-solid fa-list-check"></i> Gerenciar Pets
+          </a>
+          <a href="#" class="nav-item">
+            <i class="fa-solid fa-file-signature"></i> Solicitações de Adoção
+          </a>
+
+          <p class="nav-grupo">Trabalho Voluntário</p>
+          <a href="#" class="nav-item">
+            <i class="fa-solid fa-user-plus"></i> Cadastrar Serviços Voluntários
+          </a>
+          <a href="#" class="nav-item">
+            <i class="fa-solid fa-users-gear"></i> Gerenciar Serviços
+            Voluntários
+          </a>
+          <a href="#" class="nav-item">
+            <i class="fa-solid fa-people-carry-box"></i> Inscrições para
+            Serviços Voluntários
+          </a>
+        </nav>
+      </aside>
+
+      <!-- ================= CONTEÚDO ================= -->
+      <div class="painel-main">
+        <!-- Topbar -->
+        <header class="topbar">
+          <button
+            class="topbar-menu"
+            id="menuToggle"
+            aria-label="Abrir menu"
+            aria-expanded="false"
+          >
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <div class="topbar-usuario" id="topbarUsuario">
+            <i class="fa-solid fa-circle-user"></i>
+            <span></span>
+          </div>
+          <div class="sair desktop" id="sair">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Sair</span>
+          </div>
+        </header>
+
+    <main>
+        <section class="conteudo">
+            <a href="./pets.html" class="voltar">
+                <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+                Voltar ao catálogo
+            </a>
+
+            <div id="loading" class="loading">
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                <p>Carregando dados do pet…</p>
+            </div>
+
+            <div id="formContainer" class="form-container" hidden>
+                <header class="pet-header">
+                    <div class="pet-header__info">
+                        <span class="pet-header__id">#<span id="petId"></span></span>
+                        <h1 id="petNome"></h1>
+                        <p class="pet-header__cadastro">
+                            Cadastrado em <span id="dataCadastro"></span>
+                        </p>
+                    </div>
+                </header>
+
+                <form id="formEditarPet" class="form-editar" novalidate>
+                    <!-- FOTO -->
+                    <fieldset class="grupo">
+                        <legend>Foto</legend>
+
+                        <div class="foto-editor">
+                            <div class="foto-editor__preview">
+                                <img id="previewImagem" src="" alt="Preview do pet">
+                            </div>
+                            <div class="foto-editor__controles">
+                                <p class="foto-editor__dica">
+                                    Selecione uma nova imagem para substituir a atual.
+                                    Formatos aceitos: JPG, PNG, WEBP.
+                                </p>
+                                <label for="inputImagem" class="botao botao--secundario">
+                                    <i class="fa-solid fa-upload"></i>
+                                    Escolher nova imagem
+                                </label>
+                                <input type="file" id="inputImagem" name="image" accept="image/*" hidden>
+                                <span id="nomeArquivo" class="foto-editor__arquivo"></span>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- IDENTIFICAÇÃO -->
+                    <fieldset class="grupo">
+                        <legend>Identificação</legend>
+
+                        <div class="campo">
+                            <label for="nome">Nome</label>
+                            <input type="text" id="nome" name="nome" required maxlength="80">
+                        </div>
+
+                        <div class="campo-duplo">
+                            <div class="campo">
+                                <label for="especie">Espécie</label>
+                                <select id="especie" name="especie" required>
+                                    <option value="CACHORRO">Cachorro</option>
+                                    <option value="GATO">Gato</option>
+                                </select>
+                            </div>
+
+                            <div class="campo">
+                                <label for="raca">Raça</label>
+                                <input type="text" id="raca" name="raca" maxlength="60" placeholder="SRD se não souber">
+                            </div>
+                        </div>
+
+                        <div class="campo-duplo">
+                            <div class="campo">
+                                <label for="sexo">Sexo</label>
+                                <select id="sexo" name="sexo" required>
+                                    <option value="MACHO">Macho</option>
+                                    <option value="FEMEA">Fêmea</option>
+                                </select>
+                            </div>
+
+                            <div class="campo">
+                                <label for="peso">Peso (kg)</label>
+                                <input type="number" id="peso" name="peso" step="0.01" min="0.1" max="120" required>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- IDADE -->
+                    <fieldset class="grupo">
+                        <legend>Idade aproximada</legend>
+
+                        <div class="campo-duplo">
+                            <div class="campo">
+                                <label for="idadeQuantidade">Quantidade</label>
+                                <input type="number" id="idadeQuantidade" name="idadeQuantidade" min="0" step="1" required>
+                            </div>
+                            <div class="campo">
+                                <label for="idadeUnidade">Unidade</label>
+                                <select id="idadeUnidade" name="idadeUnidade" required>
+                                    <option value="dias">Dias</option>
+                                    <option value="semanas">Semanas</option>
+                                    <option value="meses">Meses</option>
+                                    <option value="anos">Anos</option>
+                                </select>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- ADOÇÃO -->
+                    <fieldset class="grupo">
+                        <legend>Adoção</legend>
+
+                        <div class="campo">
+                            <label for="status">Status</label>
+                            <select id="status" name="status" required>
+                                <option value="DISPONIVEL">Disponível</option>
+                                <option value="ADOTADO">Adotado</option>
+                                <option value="EM_PROCESSO">Em processo</option>
+                            </select>
+                        </div>
+
+                        <div class="campo">
+                            <label for="descricao">Descrição</label>
+                            <textarea id="descricao" name="descricao" rows="6" maxlength="2000"></textarea>
+                            <span class="campo__contador"><span id="contadorDescricao">0</span> / 2000</span>
+                        </div>
+                    </fieldset>
+
+                    <div class="acoes">
+                        <a href="./catalogo.html" class="botao botao--secundario">Cancelar</a>
+                        <button type="submit" class="botao botao--primario">
+                            <i class="fa-solid fa-floppy-disk"></i>
+                            Salvar alterações
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Orelha © 2026 · Cuidando de quem precisa.</p>
+    </footer>
+
+        <!-- Modal de aviso reutilizável -->
+    <div
+      class="modal-overlay"
+      id="modalAviso"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modalAvisoTitulo"
+      aria-describedby="modalAvisoTexto"
+      hidden
+    >
+      <div class="modal-caixa">
+        <div class="modal-icone">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <h3 id="modalAvisoTitulo">Aviso</h3>
+        <p id="modalAvisoTexto"></p>
+        <button type="button" class="modal-botao" id="modalAvisoOk">OK</button>
+      </div>
+    </div>
+
+    
+    <script type="module" src="./scripts/components/sidebar.js"></script>
+    <script type="module" src="./scripts/components/nomeAdmin.js"></script>
+    <script type="module" src="./scripts/components/logout.js"></script>
+    <script type="module" src="./scripts/admin-editar-pet.js"></script>
+</body>
+</html>

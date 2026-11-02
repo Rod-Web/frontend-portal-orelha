@@ -1,0 +1,279 @@
+/* ./admin/styles/admin-cadastrar-pet.css */
+
+/* =========================================================
+   CARD DO FORMULÁRIO
+   ========================================================= */
+
+.form-card {
+    background: #fffaf3;
+    border: 1px solid #eadbc9;
+    border-radius: 20px;
+    padding: 30px;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 30px 36px;
+}
+
+/* ---------- Upload ---------- */
+
+.upload-col {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.upload-box {
+    position: relative;
+    min-height: 270px;
+    border: 2px dashed #d9c5ae;
+    border-radius: 16px;
+    background: #fdf6ec;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 24px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    overflow: hidden;
+}
+
+.upload-box:hover {
+    border-color: #a92d17;
+    background: #fff3e6;
+}
+
+.upload-box img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.upload-conteudo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: #7e2415;
+    position: relative;
+    z-index: 1;
+}
+
+.upload-conteudo i {
+    font-size: 28px;
+}
+
+.upload-conteudo strong {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.upload-conteudo span {
+    font-size: 11.5px;
+    color: #a4876f;
+    font-weight: 500;
+}
+
+/* ---------- Campos ---------- */
+
+.campos-col {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.linha {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.linha:nth-of-type(2) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.campo>label {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #7e2415;
+    letter-spacing: 0.3px;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+    width: 100%;
+    border: 1px solid #e5d4be;
+    border-radius: 10px;
+    background: #fffdfa;
+    padding: 11px 13px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 13.5px;
+    color: #542e2b;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.campo input::placeholder,
+.campo textarea::placeholder {
+    color: #b9a89b;
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+    outline: none;
+    border-color: #a92d17;
+    box-shadow: 0 0 0 3px rgba(169, 45, 23, 0.10);
+}
+
+.campo textarea {
+    resize: vertical;
+    min-height: 110px;
+    line-height: 1.6;
+}
+
+/* Erros */
+
+.campo .erro {
+    min-height: 14px;
+    color: #a92d17;
+    font-size: 11.5px;
+    font-weight: 600;
+}
+
+.campo.invalido input,
+.campo.invalido select,
+.campo.invalido textarea {
+    border-color: #a92d17;
+    box-shadow: 0 0 0 3px rgba(169, 45, 23, 0.10);
+}
+
+.upload-box.invalido {
+    border-color: #a92d17;
+    background: #fdeee9;
+}
+
+/* ---------- Rodapé do form ---------- */
+
+.form-rodape {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    padding-top: 10px;
+    border-top: 1px solid #f0e2d2;
+    margin-top: 6px;
+}
+
+.botao-primario,
+.botao-secundario {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 12px 22px;
+    border-radius: 22px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 13.5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, transform 0.15s;
+    border: 1px solid transparent;
+}
+
+.botao-primario {
+    background: #7e2415;
+    color: #fff;
+}
+
+.botao-primario:hover:not(:disabled) {
+    background: #5f1a10;
+    transform: translateY(-1px);
+}
+
+.botao-primario:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.botao-secundario {
+    background: transparent;
+    color: #7e2415;
+    border-color: #e5d4be;
+}
+
+.botao-secundario:hover {
+    background: #fbe6d7;
+}
+
+/* Mensagem global */
+
+.mensagem-form {
+    grid-column: 1 / -1;
+    text-align: right;
+    font-size: 13px;
+    font-weight: 600;
+    min-height: 20px;
+    color: #7e2415;
+}
+
+.mensagem-form.sucesso {
+    color: #2e7d32;
+}
+
+.mensagem-form.falha {
+    color: #a92d17;
+}
+
+/* =========================================================
+   RESPONSIVO
+   ========================================================= */
+
+@media (max-width: 1000px) {
+    .form-card {
+        grid-template-columns: 1fr;
+        padding: 24px;
+        gap: 24px;
+    }
+
+    .upload-box {
+        min-height: 220px;
+    }
+
+    .linha:nth-of-type(2) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+
+    .linha,
+    .linha:nth-of-type(2) {
+        grid-template-columns: 1fr;
+    }
+
+    .form-rodape {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+
+    .botao-primario,
+    .botao-secundario {
+        width: 100%;
+    }
+
+    .mensagem-form {
+        text-align: center;
+    }
+}

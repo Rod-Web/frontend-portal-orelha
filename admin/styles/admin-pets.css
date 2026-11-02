@@ -1,0 +1,439 @@
+/* ./admin/styles/admin-gerenciar.css
+   CSS específico da página "Gerenciar pets".
+   Layout (sidebar/topbar/título) vem de admin-painel.css. */
+
+/* =========================================================
+   BARRA DE CONTROLE (busca + filtros)
+   ========================================================= */
+
+.barra-controle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.busca {
+    flex: 1;
+    min-width: 240px;
+    max-width: 420px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #fffaf3;
+    border: 1px solid #eadbc9;
+    border-radius: 12px;
+    padding: 0 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.busca:focus-within {
+    border-color: #a92d17;
+    box-shadow: 0 0 0 3px rgba(169, 45, 23, 0.10);
+}
+
+.busca i {
+    color: #a4876f;
+    font-size: 13px;
+}
+
+.busca input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    outline: none;
+    padding: 12px 0;
+    font-family: "DM Sans", sans-serif;
+    font-size: 13.5px;
+    color: #542e2b;
+    min-width: 0;
+}
+
+.busca input::placeholder {
+    color: #b9a89b;
+}
+
+.filtros-status {
+    display: flex;
+    gap: 6px;
+    background: #fffaf3;
+    border: 1px solid #eadbc9;
+    border-radius: 12px;
+    padding: 4px;
+}
+
+.filtro {
+    border: none;
+    background: transparent;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #9c7d68;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.filtro:hover {
+    color: #7e2415;
+}
+
+.filtro.ativo {
+    background: #fbe6d7;
+    color: #7e2415;
+}
+
+/* =========================================================
+   LISTA DE PETS (linhas)
+   ========================================================= */
+
+.lista-gerenciar {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.item-pet {
+    background: #fffaf3;
+    border: 1px solid #eadbc9;
+    border-radius: 14px;
+    padding: 14px 18px;
+    display: grid;
+    grid-template-columns: 68px 1fr auto;
+    align-items: center;
+    gap: 16px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.item-pet:hover {
+    border-color: #d8bca0;
+    box-shadow: 0 6px 18px rgba(87, 43, 32, 0.05);
+}
+
+.item-pet .foto {
+    width: 68px;
+    height: 68px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #ead8c4;
+    flex-shrink: 0;
+}
+
+.item-pet .foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.item-dados {
+    min-width: 0;
+}
+
+.item-dados h3 {
+    font-family: "Playfair Display", serif;
+    font-size: 17px;
+    color: #7e2415;
+    font-weight: 700;
+    margin-bottom: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.item-dados .meta {
+    font-size: 12.5px;
+    color: #9c7d68;
+    margin-bottom: 6px;
+}
+
+.item-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.tag {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 20px;
+    background: #f3e4d5;
+    color: #7e2415;
+}
+
+.tag.disponivel {
+    background: #e6f4ea;
+    color: #2e7d32;
+}
+
+.tag.adotado {
+    background: #fbe6d7;
+    color: #a92d17;
+}
+
+/* Ações */
+
+.item-acoes {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.acao-btn {
+    width: 38px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: 1px solid #eadbc9;
+    background: #fffdfa;
+    color: #7e2415;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.acao-btn:hover {
+    background: #fbe6d7;
+    border-color: #d8bca0;
+}
+
+.acao-btn.excluir {
+    color: #a92d17;
+}
+
+.acao-btn.excluir:hover {
+    background: #fdeee9;
+    border-color: #e9c4b9;
+}
+
+/* Estado vazio / carregando */
+
+.carregando,
+.vazio {
+    text-align: center;
+    color: #9c7d68;
+    font-size: 13px;
+    padding: 40px 0;
+}
+
+.contador {
+    text-align: right;
+    color: #a4876f;
+    font-size: 12px;
+    margin-top: 16px;
+    font-weight: 600;
+}
+
+/* =========================================================
+   MODAL DE EXCLUSÃO
+   ========================================================= */
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(45, 20, 15, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    padding: 20px;
+    animation: fadeIn 0.15s ease;
+}
+
+.modal-overlay[hidden] {
+    display: none;
+}
+
+.modal {
+    background: #fffaf3;
+    border-radius: 18px;
+    padding: 28px;
+    width: 100%;
+    max-width: 380px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(45, 20, 15, 0.25);
+    animation: subirModal 0.2s ease;
+}
+
+.modal-icone {
+    width: 54px;
+    height: 54px;
+    margin: 0 auto 16px;
+    background: #fdeee9;
+    color: #a92d17;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+}
+
+.modal h3 {
+    font-family: "Playfair Display", serif;
+    font-size: 22px;
+    color: #7e2415;
+    margin-bottom: 8px;
+}
+
+.modal p {
+    color: #9c7d68;
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 22px;
+}
+
+.modal-acoes {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.botao-secundario,
+.botao-perigo {
+    flex: 1;
+    min-height: 42px;
+    padding: 10px 18px;
+    border-radius: 22px;
+    border: 1px solid transparent;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.botao-secundario {
+    background: transparent;
+    color: #7e2415;
+    border-color: #e5d4be;
+}
+
+.botao-secundario:hover {
+    background: #fbe6d7;
+}
+
+.botao-perigo {
+    background: #a92d17;
+    color: #fff;
+}
+
+.botao-perigo:hover {
+    background: #7e2415;
+}
+
+/* =========================================================
+   TOAST DE FEEDBACK
+   ========================================================= */
+
+.toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: #7e2415;
+    color: #fff;
+    padding: 14px 22px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    box-shadow: 0 10px 28px rgba(45, 20, 15, 0.25);
+    z-index: 300;
+    animation: subirToast 0.25s ease;
+}
+
+.toast[hidden] {
+    display: none;
+}
+
+.toast.sucesso {
+    background: #2e7d32;
+}
+
+.toast.falha {
+    background: #a92d17;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes subirModal {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes subirToast {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* =========================================================
+   RESPONSIVO
+   ========================================================= */
+
+@media (max-width: 700px) {
+    .item-pet {
+        grid-template-columns: 56px 1fr;
+        gap: 12px;
+        padding: 14px;
+    }
+
+    .item-pet .foto {
+        width: 56px;
+        height: 56px;
+    }
+
+    .item-acoes {
+        grid-column: 1 / -1;
+        justify-content: flex-end;
+        padding-top: 4px;
+        border-top: 1px solid #f1e2d0;
+        margin-top: 8px;
+    }
+
+    .barra-controle {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .busca {
+        max-width: 100%;
+    }
+
+    .filtros-status {
+        justify-content: center;
+    }
+
+    .toast {
+        left: 16px;
+        right: 16px;
+        bottom: 16px;
+    }
+}

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Gerenciar Pets · Painel Orelha</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="./styles/components/model.css">
+    <link rel="stylesheet" href="./styles/admin-painel.css">
+    <link rel="stylesheet" href="./styles/admin-pets.css">
+</head>
+<body>
+
+<div class="painel-layout">
+
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sair sair-sidebar"id="sair">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          <span>Sair</span>
+        </div>
+
+        <div class="sidebar-logo">
+          <a href="./dashboard.html" class="logo-link">
+            <img src="../img/logodois.png" alt="Portal Orelha" />
+          </a>
+        </div>
+
+        <nav class="sidebar-nav">
+            <p class="nav-grupo">Menu principal</p>
+            <a href="./dashboard.html" class="nav-item">
+                <i class="fa-solid fa-house"></i> Início
+            </a>
+            <a href="./cadastrar-pet.html" class="nav-item">
+                <i class="fa-solid fa-paw"></i> Cadastrar Pet
+            </a>
+            <a href="./pets.html" class="nav-item ativo">
+                <i class="fa-solid fa-list-check"></i> Gerenciar Pets
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-file-signature"></i> Solicitações de Adoção
+            </a>
+
+            <p class="nav-grupo">Trabalho Voluntário</p>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-user-plus"></i> Cadastrar Serviços Voluntários
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-users-gear"></i> Gerenciar Serviços Voluntários
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-people-carry-box"></i> Inscrições para Serviços Voluntários
+            </a>
+
+            
+        </nav>
+    </aside>
+
+    <!-- ================= CONTEÚDO ================= -->
+    <div class="painel-main">
+
+        <header class="topbar">
+          <button
+            class="topbar-menu"
+            id="menuToggle"
+            aria-label="Abrir menu"
+            aria-expanded="false"
+          >
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <div class="topbar-usuario" id="topbarUsuario">
+            <i class="fa-solid fa-circle-user"></i>
+            <span></span>
+          </div>
+          <div class="sair desktop" id="sair">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Sair</span>
+          </div>
+        </header>
+
+        <main class="conteudo">
+
+            <div class="titulo-bloco">
+                <h1>Gerenciar pets</h1>
+                <p>Edite, atualize ou remova os pets cadastrados no instituto.</p>
+            </div>
+
+            <!-- ================= BARRA DE CONTROLE ================= -->
+            <div class="barra-controle">
+
+                <div class="busca">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="search" id="busca" placeholder="Buscar por nome, raça ou espécie…">
+                </div>
+
+                <div class="filtros-status" id="filtrosStatus">
+                    <button class="filtro ativo" data-status="todos">Todos</button>
+                    <button class="filtro" data-status="DISPONIVEL">Disponíveis</button>
+                    <button class="filtro" data-status="ADOTADO">Adotados</button>
+                </div>
+
+            </div>
+
+            <!-- ================= LISTA DE PETS (pré-renderizada) ================= -->
+            <section class="lista-gerenciar" id="listaGerenciar">
+
+            </section>
+
+            <p class="contador" id="contador"></p>
+
+        </main>
+    </div>
+</div>
+
+    <!-- Modal de aviso reutilizável -->
+    <div
+      class="modal-overlay"
+      id="modalAviso"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modalAvisoTitulo"
+      aria-describedby="modalAvisoTexto"
+      hidden
+    >
+      <div class="modal-caixa">
+        <div class="modal-icone">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <h3 id="modalAvisoTitulo">Aviso</h3>
+        <p id="modalAvisoTexto"></p>
+        <button type="button" class="modal-botao" id="modalAvisoOk">OK</button>
+      </div>
+    </div>
+
+<!-- Modal de confirmação de exclusão -->
+<div class="modal-overlay" id="modalExcluir" hidden>
+    <div class="modal">
+        <div class="modal-icone">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <h3>Excluir pet?</h3>
+        <p id="modalTexto">Essa ação não pode ser desfeita.</p>
+        <div class="modal-acoes">
+            <button type="button" class="botao-secundario" id="cancelarExclusao">Cancelar</button>
+            <button type="button" class="botao-perigo" id="confirmarExclusao">Sim, excluir</button>
+        </div>
+    </div>
+</div>
+
+<!-- Toast de feedback -->
+<div class="toast" id="toast" hidden></div>
+
+<script type="module" src="./scripts/components/nomeAdmin.js"></script>
+<script type="module" src="./scripts/components/sidebar.js"></script>
+<script type="module" src="./scripts/components/logout.js"></script>
+<script type="module" src="./scripts/admin-pets.js"></script>
+
+</body>
+</html>

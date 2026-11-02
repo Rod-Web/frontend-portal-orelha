@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Orelha | Serviços Voluntários</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="../styles/voluntariado.css">
+    <link rel="stylesheet" href="../styles/components/navbar-menu.css">
+    
+</head>
+<body>
+
+    <header class="cabecalho">
+        <a href="../index.html">
+            <img src="../img/logodois.png" alt="Portal Orelha">
+        </a>
+
+        <button class="menu-tres" aria-label="Abrir menu" aria-expanded="false">☰</button>
+
+        <nav class="menu">
+            <a href="../index.html">Início</a>
+            <a href="./voluntariado.html" class="ativo">Serviços Voluntários</a>
+            <a href="../index.html#sobre">ONG</a>
+            <a href="./doacao.html">Doações</a>
+            <a href="./catalogo.html" class="botao-adotar">♡ Adotar</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <section class="hero">
+            <p class="sobretitulo">Faça parte</p>
+            <h1>Seja um voluntário</h1>
+            <p class="hero-descricao">
+                Doe seu tempo e carinho. Encontre uma oportunidade que
+                combine com a sua rotina e faça a diferença na vida de um
+                animal.
+            </p>
+        </section>
+
+        <section class="vagas" aria-labelledby="titulo-vagas">
+
+            <div class="vagas-cabecalho">
+                <h2 id="titulo-vagas">Vagas abertas</h2>
+                <span id="contadorVagas" class="vagas-contador">—</span>
+            </div>
+
+            <div id="corpoVoluntariado" class="vagas-lista">
+                <p class="vagas-mensagem">Carregando vagas…</p>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Orelha © 2026 · Cuidando de quem precisa.</p>
+    </footer>
+
+    <script src="../scripts/components/menu-lateral.js"></script>
+    <script src="../scripts/voluntariado.js"></script>
+</body>
+</html>

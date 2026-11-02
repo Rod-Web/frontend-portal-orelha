@@ -1,0 +1,296 @@
+/* ./admin/styles/admin-painel.css
+   CSS COMPARTILHADO DO PAINEL ADMINISTRATIVO
+   Usado por: painel.html, cadastrar-pet.html, gerenciar.html (futuro), etc.
+   Contém: reset, layout 2 colunas, sidebar, topbar, título, botão voltar.
+*/
+
+/* =========================================================
+   RESET E BASE
+   ========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #f4efe7;
+    color: #542e2b;
+    font-family: "DM Sans", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+button {
+    font-family: inherit;
+}
+
+/* =========================================================
+   LAYOUT: SIDEBAR + CONTEÚDO
+   ========================================================= */
+
+.painel-layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    min-height: 100vh;
+}
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+.sidebar {
+    background: #f7eee1;
+    border-right: 1px solid #eadbc9;
+    display: flex;
+    flex-direction: column;
+    padding: 5px 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.sidebar-logo {
+    padding-left: 26px;
+    padding-bottom: 26px;
+    border-bottom: 1px solid #ecdccb;
+}
+
+.sidebar-logo img {
+    width: 170px;
+    height: auto;
+}
+
+.sidebar-nav {
+    padding: 22px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.nav-grupo {
+    padding: 16px 12px 6px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #a4876f;
+}
+
+.nav-grupo:first-child {
+    padding-top: 4px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 14px;
+    border-radius: 10px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #6b4a3c;
+    transition: background 0.2s, color 0.2s;
+}
+
+.nav-item i {
+    width: 18px;
+    text-align: center;
+    color: #a92d17;
+    font-size: 13px;
+}
+
+.nav-item:hover {
+    background: #f1e2d0;
+}
+
+.nav-item.ativo {
+    background: #fbe6d7;
+    color: #7e2415;
+}
+
+.nav-item.ativo i {
+    color: #7e2415;
+}
+
+/* =========================================================
+   ÁREA PRINCIPAL (direita)
+   ========================================================= */
+
+.painel-main {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+/* ---------- Topbar ---------- */
+
+.topbar {
+    height: 66px;
+    background: #fffaf3;
+    border-bottom: 1px solid #eadbc9;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 28px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.topbar-menu {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #7e2415;
+    cursor: pointer;
+    padding: 4px 6px;
+}   
+
+.sair, .topbar-usuario{
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #6b4a3c;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.topbar-usuario {
+    display: inline-flex;
+    position: relative;
+    border: none;
+    align-items: center;
+    gap: 9px;
+    border-radius: 20px;
+    background: #fdf2e5;
+}
+
+.topbar-usuario:hover {
+    background: #f8e6d0;
+}
+
+.sair:hover {
+    opacity: 0.8;
+}
+.topbar-usuario i:first-child {
+    color: #a92d17;
+    font-size: 16px;
+}
+
+.topbar-usuario i:last-child {
+    font-size: 10px;
+    color: #a4876f;
+}
+
+/* ---------- Conteúdo ---------- */
+
+.conteudo {
+    padding: 32px 40px 60px;
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+}
+
+
+/* ---------- Botão voltar ---------- */
+
+.voltar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #f5e8d8;
+    color: #7e2415;
+    margin-bottom: 18px;
+    transition: background 0.2s;
+}
+
+.voltar:hover {
+    background: #ebd3ba;
+}
+
+.sair-sidebar {
+    display: none;
+}
+/* ---------- Cabeçalho de página ---------- */
+
+.titulo-bloco {
+    margin-bottom: 26px;
+}
+
+.titulo-bloco h1 {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(26px, 3vw, 34px);
+    font-weight: 700;
+    color: #7e2415;
+    margin-bottom: 6px;
+}
+
+.titulo-bloco p {
+    color: #9c7d68;
+    font-size: 13.5px;
+}
+
+
+/* =========================================================
+   RESPONSIVO — sidebar vira gaveta em mobile
+   ========================================================= */
+
+@media (max-width: 900px) {
+    .painel-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 260px;
+        transform: translateX(-100%);
+        transition: transform 0.25s;
+        z-index: 100;
+        box-shadow: 8px 0 24px rgba(87, 43, 32, 0.10);
+    }
+
+    .sidebar.aberta {
+        transform: translateX(0);
+    }
+
+    .topbar-menu {
+        display: block;
+    }
+
+    .conteudo {
+        padding: 24px 20px 50px;
+    }
+
+    .desktop {
+        display: none;
+    }
+
+    .sair-sidebar {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        position: relative;
+        margin-left: auto;
+
+    }
+}

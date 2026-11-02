@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Orelha | Catálogo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../styles/catalogo.css">
+    <link rel="stylesheet" href="../styles/components/navbar-menu.css">
+
+</head>
+<body>
+
+    <header class="cabecalho">
+        <a href="../index.html">        
+            <img src="../img/logodois.png" alt="Portal Orelha">
+        </a>
+
+        <button class="menu-tres" aria-label="Abrir menu" aria-expanded="false">☰</button>
+
+        <nav class="menu">
+            <a href="../index.html">Início</a>
+            <a href="./voluntariado.html">Serviços Voluntários</a>
+            <a href="../index.html#sobre">ONG</a>
+            <a href="./doacao.html">Doações</a>
+            <a href="./catalogo.html" class="botao-adotar">♡ Adotar</a>
+        </nav>
+    </header>
+
+    <main class="conteudo">
+        <section class="catalogo">
+
+            <div class="titulo">
+                <div>
+                    <h2>Conheça nossos pets</h2>
+                    <p>Conheça quem está esperando por você.</p>
+                </div>
+            </div>
+
+            <div class="barra-filtro">
+                <button class="botao-filtro" id="botaoFiltro" type="button" aria-expanded="false">
+                    <span id="textoFiltro">FILTROS</span>
+                    <span>☰</span>
+                </button>
+            </div>
+
+            <div class="conteudo-pets" id="conteudoPets">
+
+                <div class="lista-pets" id="listaPets">
+                    <!-- Cards de pets carregados via API em ../scripts/catalogo.js -->
+                </div>
+
+                <aside class="filtros" id="filtros">
+                    <div class="topo-filtros">
+                        <h2>Filtros</h2>
+                        <button id="limparFiltro" type="button">Limpar</button>
+                    </div>
+
+                    <div class="grupo">
+                        <h3>Animais</h3>
+                        <label><input type="radio" name="animal" value="todos" checked> Todos</label>
+                        <label><input type="radio" name="animal" value="Cachorro"> Cachorro</label>
+                        <label><input type="radio" name="animal" value="Gato"> Gato</label>
+                    </div>
+
+                    <div class="grupo">
+                        <h3>Sexo</h3>
+                        <label><input type="radio" name="sexo" value="todos" checked> Todos</label>
+                        <label><input type="radio" name="sexo" value="Fêmea"> Fêmea</label>
+                        <label><input type="radio" name="sexo" value="Macho"> Macho</label>
+                    </div>
+
+                    <div class="grupo">
+                        <h3>Porte</h3>
+                        <label><input type="radio" name="porte" value="todos" checked> Todos</label>
+                        <label><input type="radio" name="porte" value="Pequeno"> Pequeno</label>
+                        <label><input type="radio" name="porte" value="Médio"> Médio</label>
+                        <label><input type="radio" name="porte" value="Grande"> Grande</label>
+                    </div>
+
+                    <div class="grupo">
+                        <h3>Idade</h3>
+
+                        <label><input type="radio" name="idade" value="todos" checked> Todos</label>
+                        <label><input type="radio" name="idade" value="1">     Até 1 ano</label>
+                        <label><input type="radio" name="idade" value="2">     1 a 5 anos</label>
+                        <label><input type="radio" name="idade" value="3">     5 a 10 anos</label>
+                        <label><input type="radio" name="idade" value="mais">  Mais de 10 anos</label>
+
+                    </div>
+                </aside>
+            </div>
+
+            <p id="mensagem" class="mensagem" role="status" aria-live="polite"></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Orelha © 2026 · Cuidando de quem precisa.</p>
+    </footer>
+
+    <script src="../scripts/components/menu-lateral.js"></script>
+    <script src="../scripts/catalogo.js"></script>
+</body>
+</html>

@@ -1,0 +1,391 @@
+/* ./styles/catalogo.css */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #fffdfa;
+    color: #542e2b;
+    font-family: "DM Sans", sans-serif;
+    overflow-x: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* ============ CONTEÚDO ============ */
+
+.conteudo {
+    width: 92%;
+    max-width: 1500px;
+    margin: 45px auto;
+}
+
+.titulo {
+    margin: 0 0 25px;
+}
+
+.titulo h2 {
+    margin: 100px 0 0;
+    font-family: "Playfair Display", serif;
+    font-size: clamp(32px, 4vw, 40px);
+    font-weight: 700;
+    color: #63291e;
+}
+
+.titulo p {
+    margin: 8px 0 0;
+    color: #806557;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+/* ============ BARRA FILTRO ============ */
+
+.barra-filtro {
+    display: flex;
+    justify-content: flex-end;
+    margin: 25px 0;
+}
+
+.botao-filtro {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 13px 18px;
+    border: 1px solid #e2d2c1;
+    border-radius: 20px;
+    background: #fffaf3;
+    color: #702b32;
+    font-weight: bold;
+    font-family: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.botao-filtro:hover {
+    background: #ead8c4;
+}
+
+/* ============ LAYOUT DE PETS + FILTRO ============ */
+
+.conteudo-pets {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 25px;
+    align-items: start;
+}
+
+.lista-pets {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 22px;
+    min-width: 0;
+}
+
+/* Quando filtro aberto: 3 colunas + sidebar */
+.conteudo-pets:has(.filtros.aberto) {
+    grid-template-columns: minmax(0, 1fr) 250px;
+}
+
+.conteudo-pets:has(.filtros.aberto) .lista-pets {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+/* ============ CARD DE PET ============ */
+
+.pet {
+    background: #fffaf3;
+    border: 1px solid #eee2d5;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: 0.25s;
+}
+
+.pet:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px #583a3012;
+}
+
+.foto {
+    height: 210px;
+    position: relative;
+    overflow: hidden;
+    background: #ead8c4;
+}
+
+.foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.3s;
+}
+
+.pet:hover .foto img {
+    transform: scale(1.04);
+}
+
+.tipo {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    background: #fff9ee;
+    color: #af1d03;
+    padding: 7px 13px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.coracao {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    background: #fff9ee;
+    color: #af3403;
+    font-size: 22px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+}
+
+.coracao:hover {
+    transform: scale(1.08);
+}
+
+.coracao.favorito {
+    background: #702b32;
+    color: white;
+}
+
+.info {
+    padding: 20px;
+}
+
+.nome {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nome h3 {
+    font-size: 19px;
+    color: #542e2b;
+    font-family: "Playfair Display", serif;
+    margin: 0;
+}
+
+.nome span {
+    color: #a15a60;
+    font-size: 18px;
+}
+
+.info>p {
+    margin-top: 8px;
+    color: #927c6d;
+    font-size: 13px;
+}
+
+.rodape {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    padding-top: 12px;
+    border-top: 1px solid #eee2d5;
+    gap: 8px;
+}
+
+.rodape>span {
+    color: #806557;
+    font-size: 12px;
+}
+
+.detalhes {
+    color: #8b343b;
+    font-weight: bold;
+    font-size: 12px;
+    transition: color 0.2s;
+    white-space: nowrap;
+}
+
+.detalhes:hover {
+    color: #542e2b;
+}
+
+/* ============ SIDEBAR DE FILTROS ============ */
+
+.filtros {
+    display: none;
+    background: #fffaf3;
+    border: 1px solid #eee2d5;
+    border-radius: 15px;
+    padding: 22px;
+    position: sticky;
+    top: 20px;
+}
+
+.filtros.aberto {
+    display: block;
+}
+
+.topo-filtros {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 22px;
+}
+
+.topo-filtros h2 {
+    font-size: 19px;
+    color: #542e2b;
+    font-family: "Playfair Display", serif;
+    margin: 0;
+}
+
+.topo-filtros button {
+    border: none;
+    background: none;
+    color: #7a2814;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: inherit;
+}
+
+.topo-filtros button:hover {
+    text-decoration: underline;
+}
+
+.grupo {
+    padding: 18px 0;
+    border-top: 1px solid #eee2d5;
+}
+
+.grupo h3 {
+    color: #542e2b;
+    font-size: 15px;
+    margin-bottom: 13px;
+    font-family: inherit;
+}
+
+.grupo label {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #806557;
+    font-size: 13px;
+    margin: 12px 0;
+    cursor: pointer;
+}
+
+.grupo input {
+    accent-color: #863601;
+    cursor: pointer;
+}
+
+/* ============ MENSAGEM ============ */
+
+.mensagem {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #806557;
+    margin: 30px 0;
+    font-size: 14px;
+}
+
+/* ============ RODAPÉ ============ */
+
+footer {
+    background: #fff9ee;
+    padding: 28px;
+    text-align: center;
+    color: #806557;
+    font-size: 13px;
+    margin-top: 60px;
+    border-top: 1px solid #eee2d5;
+}
+
+footer p {
+    margin: 0;
+}
+
+/* ============ RESPONSIVO ============ */
+
+@media (max-width: 1200px) {
+    .lista-pets {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .conteudo-pets:has(.filtros.aberto) .lista-pets {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .foto {
+        height: 180px;
+    }
+}
+
+@media (max-width: 900px) {
+    .conteudo-pets:has(.filtros.aberto) {
+        grid-template-columns: 1fr;
+    }
+
+    .filtros.aberto {
+        grid-row: 1;
+        position: static;
+    }
+
+    .conteudo-pets:has(.filtros.aberto) .lista-pets,
+    .lista-pets {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .titulo h2 {
+        margin-top: 60px;
+    }
+}
+
+@media (max-width: 760px) {
+    .conteudo {
+        width: 94%;
+        margin: 30px auto;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .lista-pets,
+    .conteudo-pets:has(.filtros.aberto) .lista-pets {
+        grid-template-columns: 1fr;
+    }
+
+    .foto {
+        height: 240px;
+    }
+
+    .info {
+        padding: 16px;
+    }
+}

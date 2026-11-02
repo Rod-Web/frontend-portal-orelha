@@ -1,0 +1,342 @@
+/* styles/editar-pets.css */
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --vinho: #8f2c1c;
+    --vinho-medio: #a92d17;
+    --vinho-escuro: #7e2415;
+    --terracota: #a94b2b;
+    --creme: #fff0e4;
+    --creme-suave: #fffaf3;
+    --borda: #ecd7c7;
+    --borda-forte: #e2d2c1;
+    --texto: #542e2b;
+    --texto-titulo: #63291e;
+    --texto-suave: #806557;
+    --sombra: 0 10px 24px rgba(87, 43, 32, 0.08);
+}
+
+body {
+    background: #fffdfa;
+    color: var(--texto);
+    font-family: "DM Sans", sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+    max-width: 1440px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+.conteudo {
+    width: 92%;
+    max-width: 1000px;
+    margin: 65px auto 100px;
+}
+
+.voltar {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--texto-suave);
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 28px;
+    transition: color 0.2s;
+}
+
+.voltar:hover {
+    color: var(--vinho-medio);
+}
+
+.loading {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--texto-suave);
+}
+
+.loading i {
+    font-size: 32px;
+    color: var(--vinho);
+    margin-bottom: 16px;
+    display: block;
+}
+
+.form-container {
+    background: var(--creme-suave);
+    border: 1px solid var(--borda);
+    border-radius: 4px 22px 4px 22px;
+    box-shadow: var(--sombra);
+    overflow: hidden;
+}
+
+.pet-header {
+    background: var(--vinho);
+    color: #fff7f2;
+    padding: 28px 34px;
+}
+
+.pet-header__id {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #f0cbb5;
+    margin-bottom: 6px;
+}
+
+.pet-header h1 {
+    font: 700 clamp(24px, 3vw, 36px) / 1.16 "Playfair Display", serif;
+    margin: 0 0 8px;
+}
+
+.pet-header__cadastro {
+    font-size: 12px;
+    color: #f0cbb5;
+    opacity: 0.9;
+}
+
+.form-editar {
+    padding: 34px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+/* Grupos (fieldsets) */
+.grupo {
+    border: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.grupo legend {
+    font: 700 18px / 1.3 "Playfair Display", serif;
+    color: var(--texto-titulo);
+    padding: 0;
+    margin-bottom: 6px;
+    border-bottom: 1px solid var(--borda);
+    padding-bottom: 10px;
+    width: 100%;
+}
+
+/* Foto editor */
+.foto-editor {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 22px;
+    align-items: center;
+}
+
+.foto-editor__preview {
+    width: 180px;
+    height: 180px;
+    border-radius: 4px 18px 4px 18px;
+    overflow: hidden;
+    background: #ead8c4;
+    border: 1px solid var(--borda);
+}
+
+.foto-editor__preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.foto-editor__controles {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.foto-editor__dica {
+    font-size: 13px;
+    color: var(--texto-suave);
+    line-height: 1.6;
+}
+
+.foto-editor__arquivo {
+    font-size: 12px;
+    color: var(--texto-suave);
+    font-style: italic;
+}
+
+/* Campos */
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: relative;
+}
+
+.campo label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--vinho);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1px solid var(--borda-forte);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--texto);
+    font-family: inherit;
+    font-size: 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+    outline: none;
+    border-color: var(--vinho-medio);
+    box-shadow: 0 0 0 3px rgba(169, 45, 23, 0.1);
+}
+
+.campo textarea {
+    resize: vertical;
+    min-height: 120px;
+    line-height: 1.6;
+}
+
+.campo__contador {
+    font-size: 11px;
+    color: var(--texto-suave);
+    text-align: right;
+}
+
+.campo-duplo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+/* Botões */
+.botao {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 12px 24px;
+    border: 1px solid transparent;
+    border-radius: 25px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s, border-color 0.2s;
+    white-space: nowrap;
+}
+
+.botao--primario {
+    background: var(--vinho-medio);
+    color: #fff;
+}
+
+.botao--primario:hover {
+    background: var(--vinho-escuro);
+    transform: translateY(-1px);
+}
+
+.botao--secundario {
+    background: transparent;
+    color: var(--vinho);
+    border-color: var(--borda-forte);
+}
+
+.botao--secundario:hover {
+    background: var(--creme);
+}
+
+.acoes {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding-top: 8px;
+    border-top: 1px solid var(--borda);
+    margin-top: 8px;
+    padding-top: 26px;
+}
+
+/* Rodapé */
+footer {
+    padding: 28px 15px;
+    background: #fff9ee;
+    border-top: 1px solid #eee2d5;
+    color: var(--texto-suave);
+    text-align: center;
+    font-size: 12px;
+}
+
+footer p {
+    margin: 0;
+}
+
+/* Responsivo */
+@media (max-width: 760px) {
+    .conteudo {
+        width: 94%;
+        margin-top: 40px;
+        margin-bottom: 70px;
+    }
+
+    .pet-header {
+        padding: 22px 24px;
+    }
+
+    .form-editar {
+        padding: 24px;
+        gap: 26px;
+    }
+
+    .foto-editor {
+        grid-template-columns: 1fr;
+    }
+
+    .foto-editor__preview {
+        width: 100%;
+        height: 200px;
+    }
+
+    .campo-duplo {
+        grid-template-columns: 1fr;
+    }
+
+    .acoes {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+
+    .botao {
+        width: 100%;
+    }
+}
