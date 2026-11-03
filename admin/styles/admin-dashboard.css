@@ -239,6 +239,11 @@
     color: #2e7d32;
 }
 
+.pet-status.em_processo {
+    background: #98a801;
+    color: #c8f10d;
+}
+
 .pet-status.adotado {
     background: #fbe6d7;
     color: #a92d17;

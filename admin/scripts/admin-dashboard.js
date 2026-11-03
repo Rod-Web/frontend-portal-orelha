@@ -58,6 +58,7 @@ function formatarSexo(s) {
 function statusInfo(status) {
   const v = (status || "").toUpperCase();
   if (v === "ADOTADO") return { texto: "Adotado", classe: "adotado" };
+  if (v === "EM_PROCESSO") return {texto: "Em processo", classe: "em_processo"}
   return { texto: "Disponível", classe: "disponivel" };
 }
 

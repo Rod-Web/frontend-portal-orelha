@@ -1,9 +1,10 @@
 // scripts/detalhes_pet.js
 
-const API_URL = "http://localhost:3000/pet";
+import url from '../ambiente.js'
+const API_URL = `${url}/pet/buscar`;
 
 const params = new URLSearchParams(window.location.search);
-const id = Number(params.get("id")) || 1;
+const id = Number(params.get("id"));
 
 /* Elementos */
 const elNome = document.getElementById("petNome");
@@ -33,14 +34,13 @@ const DIAS_POR_MES = 30.44;
 const DIAS_POR_SEMANA = 7;
 
 /* =========================================================
-   PORTE — faixas por espécie (em kg)
+   PORTE — faixas por espécie (kg)
    ========================================================= */
 const FAIXAS_PORTE = {
-  CACHORRO: { pequeno: 10, medio: 25 }, // > 25 kg = grande
-  GATO: { pequeno: 4, medio: 6 }, // > 6  kg = grande
+  CACHORRO: { pequeno: 10, medio: 25 },
+  GATO: { pequeno: 4, medio: 6 },
 };
 
-/* Fallback para espécies desconhecidas — usa faixas de cachorro */
 const FAIXA_PADRAO = { pequeno: 10, medio: 25 };
 
 function faixaDaEspecie(especie) {
@@ -61,7 +61,6 @@ function faixaDaEspecie(especie) {
   return FAIXA_PADRAO;
 }
 
-/* Retorna "Pequeno" | "Médio" | "Grande" */
 function classePorte(pesoKg, especie) {
   const faixa = faixaDaEspecie(especie);
   if (pesoKg <= faixa.pequeno) return "Pequeno";
@@ -76,14 +75,9 @@ function labelPorte(pesoKg, especie) {
 /* =========================================================
    IDADE — a partir de dias
    ========================================================= */
-function idadeEmDias(pet) {
-  const dias = Number(pet.idade_aproximada_em_dias);
-  return Number.isFinite(dias) && dias >= 0 ? dias : null;
-}
-
 function idadeTexto(pet) {
-  const dias = idadeEmDias(pet);
-  if (dias === null) return "—";
+  const dias = Number(pet.idade_aproximada_em_dias);
+  if (!Number.isFinite(dias) || dias < 0) return "—";
 
   if (dias < DIAS_POR_SEMANA) {
     return dias === 1 ? "1 dia" : `${dias} dias`;
@@ -108,10 +102,9 @@ function capitalizar(texto) {
 }
 
 function formatarSexo(sexo) {
-  if (!sexo) return "—";
   if (sexo === "FEMEA" || sexo === "FÊMEA") return "Fêmea";
   if (sexo === "MACHO") return "Macho";
-  return capitalizar(sexo);
+  return capitalizar(sexo); // já retorna "—" pra falsy
 }
 
 function formatarPeso(peso) {
@@ -120,11 +113,14 @@ function formatarPeso(peso) {
   return `${n.toFixed(2).replace(".", ",")} kg`;
 }
 
+const STATUS_LABELS = {
+  DISPONIVEL: "Disponível para adoção",
+  ADOTADO: "Já foi adotado 🏠",
+};
+
 function formatarStatus(status) {
   if (!status) return "Esperando por um lar";
-  if (status === "DISPONIVEL") return "Disponível para adoção";
-  if (status === "ADOTADO") return "Já foi adotado 🏠";
-  return capitalizar(status);
+  return STATUS_LABELS[status] || capitalizar(status);
 }
 
 /* =========================================================
@@ -133,7 +129,6 @@ function formatarStatus(status) {
 function preencherPagina(pet) {
   const pesoKg = parseFloat(pet.peso) || 0;
 
-  /* Imagem + fallback */
   if (elImagem) {
     elImagem.src = pet.imagem || PLACEHOLDER;
     elImagem.alt = `Foto de ${pet.nome || "pet"}`;
@@ -143,25 +138,18 @@ function preencherPagina(pet) {
     };
   }
 
-  /* Selo de status na foto */
   if (elStatus) {
-    const statusTexto = formatarStatus(pet.status);
-    elStatus.innerHTML =
-      pet.status === "ADOTADO"
-        ? `<i class="fa-solid fa-house"></i> ${statusTexto}`
-        : `<i class="fa-solid fa-heart"></i> ${statusTexto}`;
+    const icone = pet.status === "ADOTADO" ? "house" : "heart";
+    elStatus.innerHTML = `<i class="fa-solid fa-${icone}"></i> ${formatarStatus(pet.status)}`;
   }
 
-  /* Nome */
   if (elNome) elNome.textContent = pet.nome || "Sem nome";
 
-  /* Descrição */
   if (elHistoria) {
     elHistoria.textContent =
       pet.descricao || "Este pet ainda não possui descrição cadastrada.";
   }
 
-  /* Linha resumo: idade · sexo · raça · porte · peso · espécie */
   if (elDados) {
     elDados.innerHTML = `
             <span>${idadeTexto(pet)}</span>
@@ -173,7 +161,6 @@ function preencherPagina(pet) {
         `;
   }
 
-  /* Título da aba */
   document.title = `Portal Orelha | ${pet.nome || "Pet"}`;
 }
 
@@ -182,12 +169,12 @@ function preencherPagina(pet) {
    ========================================================= */
 async function carregarPet() {
   try {
-    const resposta = await fetch(`${API_URL}/numero_identificacao/${id}`);
+    const resposta = await fetch(
+      `${API_URL}?campo=numero_identificacao&valor=${id}`,
+    );
     if (!resposta.ok) throw new Error(`HTTP ${resposta.status}`);
 
     const dados = await resposta.json();
-
-    /* Normaliza: array OU objeto */
     const pet = Array.isArray(dados) ? dados[0] : dados;
 
     if (!pet) {
@@ -205,7 +192,8 @@ async function carregarPet() {
     if (elNome) elNome.textContent = "Erro ao carregar";
     if (elHistoria) {
       elHistoria.textContent =
-        "Não foi possível carregar as informações deste pet. Verifique se a API está rodando em http://localhost:3000.";
+        `Não foi possível carregar as informações deste pet. Verifique se a API está rodando em ${url}.`;
+        ;
     }
   }
 }

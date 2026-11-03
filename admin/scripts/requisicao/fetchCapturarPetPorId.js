@@ -1,5 +1,5 @@
-const URL = "http://localhost:3000";
-
+import url from '../../../ambiente.js'
+const URL = url;
 export async function fetchCapturarPetPorId(id) {
   try {
     const response = await fetch(`${URL}/pet/${id}`);

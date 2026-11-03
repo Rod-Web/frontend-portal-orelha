@@ -172,6 +172,11 @@
     color: #2e7d32;
 }
 
+.tag.em_processo {
+    background: #98a801;
+    color: #c8f10d;
+}
+
 .tag.adotado {
     background: #fbe6d7;
     color: #a92d17;

@@ -52,9 +52,11 @@ if (slides.length) reiniciarCarrossel();
 /* =========================================================
    PETS EM DESTAQUE (API)
    ========================================================= */
-const API_URL  = "http://localhost:3000/pet";
-const gradePets = document.getElementById("gradePets");
 
+import url from '../ambiente.js'
+const API_URL  = `${url}/pet`;
+const gradePets = document.getElementById("gradePets");
+console.log(API_URL)
 /* =========================================================
    PLACEHOLDER (SVG embutido — nunca dá 404)
    ========================================================= */
@@ -188,6 +190,7 @@ async function carregarDestaques() {
     const pets = await resposta.json();
 
     // Mostra apenas os 4 primeiros disponíveis
+    console.log(pets)
     const destaques = pets
       .filter((p) => p && p.numero_identificacao != null)
       .filter((p) => p.status === "DISPONIVEL" || !p.status)

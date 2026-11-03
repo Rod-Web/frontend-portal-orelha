@@ -1,12 +1,15 @@
 // scripts/catalogo.js
 
-const API_URL = "http://localhost:3000/pet";
+import url from "../../ambiente.js";
+
+const API_URL = `${url}/pet`;
 
 const listaPets = document.getElementById("listaPets");
 const botaoFiltro = document.getElementById("botaoFiltro");
 const painelFiltros = document.getElementById("filtros");
 const limparFiltro = document.getElementById("limparFiltro");
 const mensagem = document.getElementById("mensagem");
+
 
 
 let pets = [];
@@ -295,6 +298,7 @@ listaPets?.addEventListener("click", (evento) => {
 /* =========================================================
    CARREGAR PETS DA API
    ========================================================= */
+
 async function carregarPets() {
   if (!listaPets) return;
 
@@ -308,6 +312,7 @@ async function carregarPets() {
 
     pets = brutos
       .filter((p) => p && p.numero_identificacao != null)
+      .filter((p) => p.status === "DISPONIVEL")
       .map(normalizarPet);
 
     if (mensagem) mensagem.textContent = "";
@@ -316,7 +321,7 @@ async function carregarPets() {
     console.error("Erro ao carregar pets:", erro);
     if (mensagem) {
       mensagem.textContent =
-        "Não foi possível carregar os pets. Verifique se a API está rodando em http://localhost:3000.";
+        `Não foi possível carregar os pets. Verifique se a API está rodando em ${url}.`;
     }
   }
 }

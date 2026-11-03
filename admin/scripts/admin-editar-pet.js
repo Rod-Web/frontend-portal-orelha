@@ -1,9 +1,11 @@
-// scripts/admin-editar-pet.js
+// scripts/admin-editar-pets.js
 
 import { mostrarAviso } from "./components/modal.js";
 import { fetchEditarPet } from "./requisicao/fetchEditarPet.js";
 
-const API_URL = "http://localhost:3000";
+import url from '../../ambiente.js';
+
+const API_URL = url;
 
 const DIAS_POR_SEMANA = 7;
 const DIAS_POR_MES = 30.44;
@@ -20,30 +22,32 @@ const PLACEHOLDER =
 `);
 
 /* ===== ELEMENTOS ===== */
-const loadingEl = document.getElementById("loading");
-const formContainer = document.getElementById("formContainer");
-const form = document.getElementById("formEditarPet");
-const petIdEl = document.getElementById("petId");
-const petNomeEl = document.getElementById("petNome");
-const dataCadastroEl = document.getElementById("dataCadastro");
-const preview = document.getElementById("previewImagem");
-const inputFile = document.getElementById("inputImagem");
-const nomeArquivoEl = document.getElementById("nomeArquivo");
+const form = document.getElementById("formPet");
+const petIdBadge = document.getElementById("petIdBadge");
+const petInfo = document.getElementById("petInfo");
+const previewImg = document.getElementById("previewImg");
+const inputImg = document.getElementById("img");
+const btnManter = document.getElementById("btnManterImagem");
+const botaoSalvar = document.getElementById("botaoSalvar");
+const mensagemForm = document.getElementById("mensagemForm");
 
 const campoNome = document.getElementById("nome");
+const campoIdade = document.getElementById("idade");
+const campoGrandeza = document.getElementById("grandeza_idade");
 const campoEspecie = document.getElementById("especie");
-const campoRaca = document.getElementById("raca");
-const campoSexo = document.getElementById("sexo");
 const campoPeso = document.getElementById("peso");
-const campoQuantidade = document.getElementById("idadeQuantidade");
-const campoUnidade = document.getElementById("idadeUnidade");
+const campoSexo = document.getElementById("sexo");
+const campoRaca = document.getElementById("raca");
 const campoStatus = document.getElementById("status");
 const campoDescricao = document.getElementById("descricao");
-const contadorDescricao = document.getElementById("contadorDescricao");
 
-/* ===== URL ===== */
+/* ===== ESTADO ===== */
 const params = new URLSearchParams(window.location.search);
 const id = Number(params.get("id"));
+
+let imagemOriginal = ""; // URL pura vinda da API
+let imagemAlterada = false; // true se o usuário escolheu arquivo novo
+let salvando = false;
 
 /* ===== UTILIDADES ===== */
 function decomporIdade(dias) {
@@ -68,6 +72,14 @@ function formatarData(iso) {
   });
 }
 
+function mostrarMensagem(texto, tipo = "info") {
+  if (!mensagemForm) return;
+  mensagemForm.textContent = texto;
+  if (texto) mensagemForm.dataset.tipo = tipo;
+  else delete mensagemForm.dataset.tipo;
+}
+
+/* Selects aceitam valores da API mesmo fora do HTML */
 function selecionarOuAdicionar(select, valor, rotulo) {
   if (!valor) return;
   const opt = Array.from(select.options).find((o) => o.value === valor);
@@ -82,11 +94,11 @@ function selecionarOuAdicionar(select, valor, rotulo) {
   select.value = valor;
 }
 
-/* ===== CARREGAR ===== */
+/* ===== CARREGAR PET ===== */
 async function buscarPet(petId) {
   const urls = [
     `${API_URL}/pet/${petId}`,
-    `${API_URL}/pet/numero_identificacao/${petId}`,
+    `${API_URL}/pet/buscar?campo=numero_identificacao&valor=${petId}`,
   ];
 
   for (const url of urls) {
@@ -102,13 +114,12 @@ async function buscarPet(petId) {
       continue;
     }
   }
-
   return null;
 }
 
 async function carregarPet() {
   if (!id || Number.isNaN(id)) {
-    mostrarAviso("ID do pet não informado na URL.", "./catalogo.html", "Erro");
+    mostrarAviso("ID do pet não informado na URL.", "./pets.html", "Erro");
     return;
   }
 
@@ -116,127 +127,143 @@ async function carregarPet() {
     const pet = await buscarPet(id);
 
     if (!pet) {
-      mostrarAviso("Pet não encontrado.", "./catalogo.html", "Erro");
+      mostrarAviso("Pet não encontrado.", "./pets.html", "Erro");
       return;
     }
 
     preencherFormulario(pet);
   } catch (erro) {
     console.error("Erro ao carregar pet:", erro);
-    loadingEl.innerHTML = `
-      <p>Não foi possível carregar os dados do pet.</p>
-      <p style="margin-top:12px">
-        <a href="./catalogo.html" style="color:#a92d17;font-weight:700">Voltar ao catálogo</a>
-      </p>
-    `;
+    mostrarAviso(
+      "Não foi possível carregar os dados do pet.",
+      "./pets.html",
+      "Erro",
+    );
   }
 }
 
 function preencherFormulario(pet) {
-  petIdEl.textContent = pet.numero_identificacao;
-  petNomeEl.textContent = pet.nome || "—";
-  dataCadastroEl.textContent = formatarData(pet.data_cadastro);
+  petIdBadge.textContent = `#${pet.numero_identificacao}`;
+  petInfo.textContent = `Cadastrado em ${formatarData(pet.data_cadastro)}`;
 
-  preview.src = pet.imagem || PLACEHOLDER;
-  preview.alt = `Foto de ${pet.nome || "pet"}`;
-  preview.onerror = () => {
-    preview.onerror = null;
-    preview.src = PLACEHOLDER;
+  imagemOriginal = pet.imagem || "";
+  imagemAlterada = false;
+
+  previewImg.src = imagemOriginal || PLACEHOLDER;
+  previewImg.alt = `Foto de ${pet.nome || "pet"}`;
+  previewImg.onerror = () => {
+    previewImg.onerror = null;
+    previewImg.src = PLACEHOLDER;
   };
 
   campoNome.value = pet.nome || "";
   campoRaca.value = pet.raca || "";
   campoPeso.value = pet.peso ? parseFloat(pet.peso) : "";
   campoDescricao.value = pet.descricao || "";
-  contadorDescricao.textContent = campoDescricao.value.length;
 
-  selecionarOuAdicionar(campoEspecie, pet.especie, "Outro");
-  selecionarOuAdicionar(campoSexo, pet.sexo, "Outro");
+  selecionarOuAdicionar(
+    campoEspecie,
+    (pet.especie || "").toLowerCase(),
+    "Outro",
+  );
+  selecionarOuAdicionar(campoSexo, (pet.sexo || "").toLowerCase(), "Outro");
   selecionarOuAdicionar(campoStatus, pet.status, "Outro");
 
   const idade = decomporIdade(pet.idade_aproximada_em_dias);
-  campoQuantidade.value = idade.quantidade;
-  campoUnidade.value = idade.unidade;
+  campoIdade.value = idade.quantidade;
+  campoGrandeza.value = idade.unidade;
 
-  loadingEl.hidden = true;
-  formContainer.hidden = false;
+  form.setAttribute("aria-busy", "false");
 }
 
-/* ===== PREVIEW DE IMAGEM ===== */
-inputFile.addEventListener("change", () => {
-  const arquivo = inputFile.files[0];
+/* ===== IMAGEM ===== */
+function resetarImagem() {
+  if (previewImg.dataset.blobUrl) {
+    URL.revokeObjectURL(previewImg.dataset.blobUrl);
+    delete previewImg.dataset.blobUrl;
+  }
+  previewImg.src = imagemOriginal || PLACEHOLDER;
+  inputImg.value = "";
+  imagemAlterada = false;
+  btnManter.hidden = true;
+}
+
+inputImg.addEventListener("change", () => {
+  const arquivo = inputImg.files[0];
 
   if (!arquivo) {
-    nomeArquivoEl.textContent = "";
+    resetarImagem();
     return;
   }
 
   if (!arquivo.type.startsWith("image/")) {
-    mostrarAviso("Por favor, selecione um arquivo de imagem.", null, "Erro");
-    inputFile.value = "";
-    nomeArquivoEl.textContent = "";
+    mostrarMensagem("Selecione um arquivo de imagem.", "erro");
+    resetarImagem();
     return;
   }
 
   if (arquivo.size > 5 * 1024 * 1024) {
-    mostrarAviso("A imagem é muito grande (máx. 5 MB).", null, "Erro");
-    inputFile.value = "";
-    nomeArquivoEl.textContent = "";
+    mostrarMensagem("A imagem é muito grande (máx. 5 MB).", "erro");
+    resetarImagem();
     return;
   }
 
-  if (preview.dataset.blobUrl) {
-    URL.revokeObjectURL(preview.dataset.blobUrl);
+  if (previewImg.dataset.blobUrl) {
+    URL.revokeObjectURL(previewImg.dataset.blobUrl);
   }
 
   const url = URL.createObjectURL(arquivo);
-  preview.src = url;
-  preview.onerror = null;
-  preview.dataset.blobUrl = url;
-  nomeArquivoEl.textContent = arquivo.name;
+  previewImg.src = url;
+  previewImg.onerror = null;
+  previewImg.dataset.blobUrl = url;
+  imagemAlterada = true;
+  btnManter.hidden = false;
+  mostrarMensagem("");
 });
 
-/* ===== CONTADOR DE DESCRIÇÃO ===== */
-campoDescricao.addEventListener("input", () => {
-  contadorDescricao.textContent = campoDescricao.value.length;
-});
+btnManter.addEventListener("click", resetarImagem);
 
 /* ===== SUBMIT ===== */
-let salvando = false;
-
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   if (salvando) return;
 
   /* Validações */
   if (!campoNome.value.trim()) {
-    mostrarAviso("O nome é obrigatório.", null, "Erro");
+    mostrarMensagem("O nome é obrigatório.", "erro");
     campoNome.focus();
     return;
   }
 
   const peso = parseFloat(campoPeso.value);
   if (!Number.isFinite(peso) || peso <= 0) {
-    mostrarAviso("O peso deve ser um número maior que zero.", null, "Erro");
+    mostrarMensagem("O peso deve ser maior que zero.", "erro");
     campoPeso.focus();
     return;
   }
 
-  const quantidade = parseInt(campoQuantidade.value, 10);
+  const quantidade = parseInt(campoIdade.value, 10);
   if (!Number.isFinite(quantidade) || quantidade < 0) {
-    mostrarAviso("A quantidade de idade deve ser ≥ 0.", null, "Erro");
-    campoQuantidade.focus();
+    mostrarMensagem("A idade deve ser ≥ 0.", "erro");
+    campoIdade.focus();
+    return;
+  }
+
+  /* Regra da imagem: precisa ter pelo menos uma das duas */
+  const arquivo = inputImg.files[0];
+
+  if (!arquivo && !imagemOriginal) {
+    mostrarMensagem("O pet precisa ter uma imagem.", "erro");
     return;
   }
 
   /* Bloqueio de duplo envio */
   salvando = true;
-  const btnSalvar = form.querySelector('button[type="submit"]');
-  if (btnSalvar) {
-    btnSalvar.disabled = true;
-    btnSalvar.innerHTML =
-      '<i class="fa-solid fa-spinner fa-spin"></i> Salvando…';
-  }
+  botaoSalvar.disabled = true;
+  const htmlOriginalBotao = botaoSalvar.innerHTML;
+  botaoSalvar.innerHTML =
+    '<i class="fa-solid fa-spinner fa-spin"></i> Salvando…';
+  mostrarMensagem("");
 
   try {
     const formData = new FormData();
@@ -248,40 +275,42 @@ form.addEventListener("submit", async (e) => {
     formData.append("peso", String(peso));
     formData.append("status", campoStatus.value);
     formData.append("descricao", campoDescricao.value.trim());
+    formData.append("unidade_idade", String(quantidade));
+    formData.append("grandeza_idade", campoGrandeza.value);
 
-    /* ⚠️ Se o backend esperar o contrário (unidade = "meses", grandeza = 3),
-       basta inverter as duas linhas abaixo. */
-    formData.append("unidade_idade", String(quantidade)); // 3
-    formData.append("grandeza_idade", campoUnidade.value); // "meses"
-
-    const arquivo = inputFile.files[0];
-    if (arquivo) {
-      formData.append("image", arquivo);
+    /* Regra da imagem:
+       - Alterou → "imagem" (arquivo)
+       - Não alterou → "imagemUrl" (string)
+       Nunca ambos. Nunca vazio. */
+    if (imagemAlterada && arquivo) {
+      formData.append("imagem", arquivo);
+    } else {
+      formData.append("imagemUrl", imagemOriginal);
     }
 
-    /* Chama o fetch isolado */
     const response = await fetchEditarPet(id, formData);
 
     if (response.erro) {
+      mostrarMensagem(response.erro, "erro");
       mostrarAviso(response.erro, null, "Erro");
       return;
     }
 
-    mostrarAviso("Pet atualizado com sucesso!", "./catalogo.html", "Sucesso");
+    const nomeAtualizado = response.nomePet || "Pet";
+    mostrarAviso(
+      `${nomeAtualizado} foi atualizado com sucesso!`,
+      "./pets.html",
+      "Sucesso",
+    );
   } catch (erro) {
     console.error("Erro ao salvar:", erro);
-    mostrarAviso(
-      "Não foi possível salvar as alterações. Tente novamente.",
-      null,
-      "Erro",
-    );
+    const msg = "Não foi possível salvar as alterações.";
+    mostrarMensagem(msg, "erro");
+    mostrarAviso(msg, null, "Erro");
   } finally {
     salvando = false;
-    if (btnSalvar) {
-      btnSalvar.disabled = false;
-      btnSalvar.innerHTML =
-        '<i class="fa-solid fa-floppy-disk"></i> Salvar alterações';
-    }
+    botaoSalvar.disabled = false;
+    botaoSalvar.innerHTML = htmlOriginalBotao;
   }
 });
 

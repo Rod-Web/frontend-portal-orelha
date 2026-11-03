@@ -2,8 +2,8 @@
 
 import { fetchRefresh } from "./fetchRefresh.js";
 
-const URL = "http://localhost:3000";
-
+import url from '../../../ambiente.js'
+const URL = url;
 export async function fetchEditarPet(id, formData) {
   try {
     const response = await fetch(`${URL}/rotasprivadas/pet/${id}`, {
@@ -12,7 +12,6 @@ export async function fetchEditarPet(id, formData) {
       credentials: "include",
     });
 
-    // Se não for 401, retorna o resultado direto (sem duplicar)
     if (response.status !== 401) {
       if (!response.ok) {
         const corpo = await response.json().catch(() => ({}));
@@ -21,17 +20,14 @@ export async function fetchEditarPet(id, formData) {
         );
       }
 
-      // Alguns backends respondem 204 No Content no PUT
       if (response.status === 204) return { ok: true };
 
       return await response.json();
     }
 
-    // 401 → tenta renovar o token
     const refreshRealizado = await fetchRefresh();
     if (refreshRealizado.erro) return refreshRealizado;
 
-    // Repete a chamada UMA única vez após renovar
     const retryResponse = await fetch(`${URL}/rotasprivadas/pet/${id}`, {
       method: "PUT",
       body: formData,

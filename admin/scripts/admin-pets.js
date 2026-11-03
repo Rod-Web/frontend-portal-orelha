@@ -53,6 +53,7 @@ function formatarSexo(s) {
 function statusInfo(status) {
   const v = (status || "").toUpperCase();
   if (v === "ADOTADO") return { texto: "Adotado", classe: "adotado" };
+  if (v === "EM_PROCESSO") return {texto: "Em processo", classe: "em_processo"}
   return { texto: "Disponível", classe: "disponivel" };
 }
 
@@ -200,6 +201,7 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
+import url from '../../ambiente.js';
 btnConfirmar?.addEventListener("click", async () => {
   if (!petParaExcluir) return;
 
@@ -211,8 +213,9 @@ btnConfirmar?.addEventListener("click", async () => {
     '<i class="fa-solid fa-spinner fa-spin"></i> Excluindo…';
 
   try {
+
     const resposta = await fetch(
-      `http://localhost:3000/rotasprivadas/pet/${id}`,
+      `${url}/rotasprivadas/pet/${id}`,
       { method: "DELETE", credentials: "include" },
     );
 

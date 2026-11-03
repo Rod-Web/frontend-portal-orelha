@@ -1,5 +1,5 @@
-const URL = "http://localhost:3000";
-
+import url from '../../../ambiente.js'
+const URL = url;
 export async function fetchLogin(dados) {
     try {
         const response = await fetch(`${URL}/login`, {

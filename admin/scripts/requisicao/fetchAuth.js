@@ -1,7 +1,7 @@
 import { fetchRefresh } from "./fetchRefresh.js";
 
-const URL = "http://localhost:3000";
-
+import url from '../../../ambiente.js'
+const URL = url;
 export async function fetchAuth() {
   try {
     let response = await fetch(`${URL}/rotasprivadas/me`, {
