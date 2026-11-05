@@ -1,0 +1,372 @@
+/* ./styles/admin-servicos-voluntarios.css */
+
+/* =========================================================
+   CONTEÚDO
+   ========================================================= */
+.conteudo {
+    padding: 32px 40px;
+    max-width: 1100px;
+}
+
+.titulo-bloco {
+    margin-bottom: 28px;
+}
+
+.titulo-bloco h1 {
+    margin: 0 0 8px;
+    font: 700 clamp(26px, 3.2vw, 36px) / 1.2 "Playfair Display", serif;
+    color: #63291e;
+}
+
+.titulo-bloco p {
+    margin: 0;
+    font-size: 14px;
+    color: #806557;
+}
+
+/* =========================================================
+   BARRA DE CONTROLE (busca + filtros)
+   ========================================================= */
+.barra-controle {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 24px;
+}
+
+.busca {
+    position: relative;
+    flex: 1 1 280px;
+    max-width: 420px;
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    background: #fffaf3;
+    border: 1px solid #ecd7c7;
+    border-radius: 30px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.busca:focus-within {
+    border-color: #a92d17;
+    box-shadow: 0 0 0 3px rgba(169, 45, 23, 0.1);
+}
+
+.busca i {
+    color: #a94b2b;
+    font-size: 13px;
+    margin-right: 10px;
+}
+
+.busca input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 12px 0;
+    font-family: inherit;
+    font-size: 14px;
+    color: #542e2b;
+}
+
+.busca input::placeholder {
+    color: #b7a698;
+}
+
+/* Filtros pill */
+.filtros-status {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.filtro {
+    padding: 8px 16px;
+    border: 1px solid #e2d2c1;
+    border-radius: 20px;
+    background: transparent;
+    color: #806557;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.filtro:hover {
+    background: #fff3e9;
+    color: #8f2c1c;
+}
+
+.filtro.ativo {
+    background: #8f2c1c;
+    color: #fff0e4;
+    border-color: #8f2c1c;
+}
+
+/* =========================================================
+   LISTA DE SERVIÇOS
+   ========================================================= */
+.lista-gerenciar {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.servico-card {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 18px;
+    align-items: center;
+    padding: 22px 26px;
+    background: #fffaf3;
+    border: 1px solid #ecd7c7;
+    border-radius: 4px 18px 4px 18px;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+.servico-card:hover {
+    border-color: #e2d2c1;
+    box-shadow: 0 8px 22px rgba(87, 43, 32, 0.08);
+    transform: translateY(-1px);
+}
+
+.servico-info {
+    min-width: 0;
+}
+
+.servico-topo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.servico-titulo {
+    margin: 0;
+    font: 700 clamp(16px, 1.6vw, 19px) / 1.3 "Playfair Display", serif;
+    color: #63291e;
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 12px;
+    white-space: nowrap;
+}
+
+.status-badge::before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+.status-badge--aberta {
+    background: #d7f0d9;
+    color: #1d6b2b;
+}
+
+.status-badge--encerrada {
+    background: #e5e5e5;
+    color: #666;
+}
+
+.servico-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 20px;
+    color: #806557;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.servico-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.servico-meta i {
+    color: #a94b2b;
+    font-size: 11px;
+    width: 13px;
+    text-align: center;
+}
+
+/* Ações */
+.servico-acoes {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.btn-acao {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #e2d2c1;
+    border-radius: 50%;
+    background: transparent;
+    color: #8f2c1c;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.15s;
+}
+
+.btn-acao:hover {
+    background: #fff3e9;
+    transform: translateY(-1px);
+}
+
+.btn-acao--editar:hover {
+    color: #a92d17;
+    border-color: #a92d17;
+}
+
+.btn-acao--excluir:hover {
+    background: #fde2c8;
+    color: #8f2c1c;
+    border-color: #f3c698;
+}
+
+.btn-acao:focus-visible {
+    outline: 2px solid #a92d17;
+    outline-offset: 2px;
+}
+
+/* Estados */
+.estado-carregando,
+.sem-resultado {
+    text-align: center;
+    color: #806557;
+    font-size: 14px;
+    padding: 60px 20px;
+    background: #fffaf3;
+    border: 1px dashed #e2d2c1;
+    border-radius: 4px 18px 4px 18px;
+}
+
+.estado-carregando i {
+    color: #8f2c1c;
+    font-size: 22px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+/* Contador */
+.contador {
+    margin: 20px 0 0;
+    color: #806557;
+    font-size: 13px;
+    text-align: right;
+}
+
+/* =========================================================
+   MODAL DE CONFIRMAÇÃO (extensão do modal.css)
+   ========================================================= */
+.modal-acoes {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 18px;
+    flex-wrap: wrap;
+}
+
+.modal-botao--secundario {
+    background: #fff3e9;
+    color: #8f2c1c;
+    border: 1px solid #ecd7c7;
+}
+
+.modal-botao--secundario:hover {
+    background: #ffe6d2;
+}
+
+.modal-botao--perigo {
+    background: #8f2c1c;
+    color: #fff;
+}
+
+.modal-botao--perigo:hover {
+    background: #7e2415;
+}
+
+.modal-botao:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+.toast {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    padding: 12px 22px;
+    background: #2d211e;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s, transform 0.3s;
+    z-index: 9999;
+    max-width: 90vw;
+    text-align: center;
+}
+
+.toast:not([hidden]) {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.toast--sucesso {
+    background: #1d6b2b;
+}
+
+.toast--erro {
+    background: #8f2c1c;
+}
+
+/* =========================================================
+   RESPONSIVO
+   ========================================================= */
+@media (max-width: 700px) {
+    .conteudo {
+        padding: 24px 20px;
+    }
+
+    .servico-card {
+        grid-template-columns: 1fr;
+        padding: 18px 20px;
+    }
+
+    .servico-acoes {
+        justify-content: flex-end;
+        border-top: 1px solid #ecd7c7;
+        padding-top: 14px;
+        margin-top: 4px;
+    }
+
+    .titulo-bloco h1 {
+        font-size: 22px;
+    }
+}

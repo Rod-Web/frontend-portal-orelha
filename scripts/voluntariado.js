@@ -1,119 +1,41 @@
-// voluntariado.js — independente, dados estáticos
+// scripts/voluntariado.js
 
-/* =========================================================
-   DADOS (substituir por fetch quando houver API)
-   ========================================================= */
-const VAGAS = [
-  {
-    id: 1,
-    titulo: "Voluntário de passeio com cães",
-    descricao:
-      "Leve nossos cães para passear no parque. Atividade ao ar livre, ótima para quem gosta de caminhar e passar tempo com os animais. Você vai acompanhar de 1 a 2 cães por turno, sempre com apoio de um cuidador do abrigo.",
-    local: "Abrigo Caramelo — Zona Sul",
-    data_inicio: "2025-02-10",
-    jornada_trabalho: "Sábados, 9h às 12h",
-    status: "ABERTA",
-  },
-  {
-    id: 2,
-    titulo: "Cuidador de gatos (manhã)",
-    descricao:
-      "Alimentação, limpeza dos espaços e socialização dos gatos resgatados. Trabalho tranquilo, ideal para quem tem paciência e carinho com felinos. Necessário amor por gatos e disponibilidade mínima de 3 horas por turno.",
-    local: "Abrigo Caramelo — Centro",
-    data_inicio: "2025-02-03",
-    jornada_trabalho: "Seg a sex, 8h às 11h",
-    status: "ENCERRADA",
-  },
-  {
-    id: 3,
-    titulo: "Fotógrafo de pets para adoção",
-    descricao:
-      "Registre fotos que ajudam os pets a encontrar um lar. Você pode usar seu próprio equipamento (câmera ou celular) e trabalhar em horários flexíveis. As fotos serão usadas no site, redes sociais e feiras de adoção.",
-    local: "Remoto + visitas ao abrigo",
-    data_inicio: "2025-03-01",
-    jornada_trabalho: "2h por semana (flexível)",
-    status: "ABERTA",
-  },
-  {
-    id: 4,
-    titulo: "Transporte de animais para consultas",
-    descricao:
-      "Levar pets a consultas veterinárias parceiras. Necessário ter carro e disponibilidade em dias de semana. As despesas de combustível são reembolsadas pelo abrigo.",
-    local:
-      "Do abrigo Caramelo no Centro até a Clínica Animais do Bem, Jardim Belém",
-    data_inicio: "2025-02-17",
-    jornada_trabalho: "Sob demanda",
-    status: "ABERTA",
-  },
-  {
-    id: 5,
-    titulo: "Apoio em feiras de adoção",
-    descricao:
-      "Receber o público, orientar sobre adoção responsável e ajudar na organização do espaço. Trabalho em equipe, com muito contato com pessoas e animais. Ideal para quem é comunicativo e organizado.",
-    local: "Praça Central",
-    data_inicio: "2025-04-05",
-    jornada_trabalho: "1º sábado do mês, 10h às 16h",
-    status: "ABERTA",
-  },
-  {
-    id: 6,
-    titulo: "Auxiliar administrativo",
-    descricao:
-      "Cadastro de doadores e organização de doações. Trabalho interno, sem contato direto com animais. Necessário conhecimento básico de planilhas.",
-    local: "Abrigo Caramelo — Centro",
-    data_inicio: "2025-01-20",
-    jornada_trabalho: "Ter e qui, 14h às 17h",
-    status: "ENCERRADA",
-  },
-];
+import url from "../../ambiente.js";
 
-/* =========================================================
-   ELEMENTOS
-   ========================================================= */
+const API_URL = `${url}/trabalhos-voluntario`;
+
 const corpo = document.getElementById("corpoVoluntariado");
 const contadorVagas = document.getElementById("contadorVagas");
+const campoBusca = document.getElementById("campoBusca");
+const limparBusca = document.getElementById("limparBusca");
+
+/* =========================================================
+   ESTADO
+   ========================================================= */
+let vagas = [];
+let termoBusca = "";
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+const STATUS_INFO = {
+  ABERTA: { texto: "Aberta", classe: "vaga-status--aberta" }
+};
 
 /* =========================================================
    UTILIDADES
    ========================================================= */
-const STATUS_INFO = {
-  ABERTA: { texto: "Aberta", classe: "vaga-status--aberta" },
-  URGENTE: { texto: "Urgente", classe: "vaga-status--urgente" },
-  ENCERRADA: { texto: "Encerrada", classe: "vaga-status--encerrada" },
-};
 
-const MESES_CURTOS = [
-  "jan",
-  "fev",
-  "mar",
-  "abr",
-  "mai",
-  "jun",
-  "jul",
-  "ago",
-  "set",
-  "out",
-  "nov",
-  "dez",
-];
-
-function decomporData(iso) {
-  if (!iso) return { dia: "—", mes: "—", ano: "" };
-
-  const data = new Date(`${iso}T00:00:00`);
-  if (Number.isNaN(data.getTime())) return { dia: "—", mes: "—", ano: "" };
-
-  return {
-    dia: String(data.getDate()).padStart(2, "0"),
-    mes: MESES_CURTOS[data.getMonth()] || "—",
-    ano: String(data.getFullYear()),
-  };
-}
 
 function dataCompleta(iso) {
-  if (!iso) return "data não informada";
-  const data = new Date(`${iso}T00:00:00`);
+  if (!iso || typeof iso !== "string") return "data não informada";
+
+  const [ano, mes, dia] = iso.slice(0, 10).split("-");
+  if (!ano || !mes || !dia) return "data não informada";
+
+  const data = new Date(`${ano}-${mes}-${dia}T12:00:00`);
   if (Number.isNaN(data.getTime())) return "data não informada";
+
   return data.toLocaleDateString("pt-BR", {
     day: "2-digit",
     month: "long",
@@ -121,8 +43,31 @@ function dataCompleta(iso) {
   });
 }
 
+function escapeHtml(texto) {
+  return String(texto ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+function resumoDescricao(descricao, limite = 130) {
+  if (!descricao) return "";
+  const texto = String(descricao).trim();
+  if (texto.length <= limite) return texto;
+  return texto.slice(0, limite).trimEnd() + "…";
+}
+
+function normalizarTexto(texto) {
+  return String(texto || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+}
+
 /* =========================================================
-   NAVEGAÇÃO PARA DETALHES
+   NAVEGAÇÃO
    ========================================================= */
 function irParaDetalhes(id) {
   if (!id) return;
@@ -130,11 +75,28 @@ function irParaDetalhes(id) {
 }
 
 /* =========================================================
+   FILTRAGEM (só busca por texto, já que status é fixo)
+   ========================================================= */
+function filtrarVagas() {
+  const buscaNorm = normalizarTexto(termoBusca);
+
+  if (!buscaNorm) return vagas;
+
+  return vagas.filter((vaga) => {
+    const alvo = normalizarTexto(
+      `${vaga.titulo || ""} ${vaga.local || ""} ${vaga.descricao || ""}`,
+    );
+    return alvo.includes(buscaNorm);
+  });
+}
+
+/* =========================================================
    CARD
    ========================================================= */
-function criarCard(vaga) {
-  const status = STATUS_INFO[vaga.status] || STATUS_INFO.ENCERRADA;
-  const { dia, mes, ano } = decomporData(vaga.data_inicio);
+function criarCard(vaga, indice) {
+  const status = STATUS_INFO[vaga.status] || STATUS_INFO.ABERTA;
+  const data = dataCompleta(vaga.data_inicio);
+  const numero = String(indice + 1).padStart(2, "0");
 
   const card = document.createElement("article");
   card.className = "vaga-card";
@@ -143,44 +105,43 @@ function criarCard(vaga) {
   card.setAttribute(
     "aria-label",
     `${vaga.titulo}. Status ${status.texto}. Local: ${vaga.local}. ` +
-      `Início: ${dataCompleta(vaga.data_inicio)}. Jornada: ${vaga.jornada_trabalho}. ` +
-      `Clique para ver detalhes.`,
+      `Início: ${data}. Jornada: ${vaga.jornada}. Clique para ver detalhes.`,
   );
 
   card.innerHTML = `
-        <div class="vaga-faixa" aria-hidden="true">
-            <span class="faixa-mes">${mes}</span>
-            <span class="faixa-dia">${dia}</span>
-            <span class="faixa-ano">${ano}</span>
+        <div class="vaga-topo">
+            <span class="vaga-numero" aria-hidden="true">${numero}</span>
+            <span class="vaga-status ${status.classe}">${status.texto}</span>
         </div>
 
-        <div class="vaga-conteudo">
-            <div class="vaga-topo">
-                <h3 class="vaga-titulo">${vaga.titulo}</h3>
-                <span class="vaga-status ${status.classe}">${status.texto}</span>
-            </div>
+        <h3 class="vaga-titulo">${escapeHtml(vaga.titulo)}</h3>
 
-            <div class="vaga-meta">
-                <span>
-                    <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
-                    ${vaga.local}
-                </span>
-                <span>
-                    <i class="fa-regular fa-clock" aria-hidden="true"></i>
-                    ${vaga.jornada_trabalho}
-                </span>
-            </div>
+        <p class="vaga-resumo">${escapeHtml(resumoDescricao(vaga.descricao))}</p>
+
+        <div class="vaga-meta">
+            <span>
+                <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                ${escapeHtml(vaga.local)}
+            </span>
+            <span>
+                <i class="fa-regular fa-clock" aria-hidden="true"></i>
+                ${escapeHtml(vaga.jornada)}
+            </span>
         </div>
 
-        <div class="vaga-seta" aria-hidden="true">
-            <i class="fa-solid fa-arrow-right"></i>
+        <div class="vaga-data">
+            <span>
+                <i class="fa-regular fa-calendar" aria-hidden="true"></i>
+                Início em ${escapeHtml(data)}
+            </span>
+            <span class="vaga-seta" aria-hidden="true">
+                <i class="fa-solid fa-arrow-right"></i>
+            </span>
         </div>
     `;
 
-  /* Clique */
   card.addEventListener("click", () => irParaDetalhes(vaga.id));
 
-  /* Teclado (role="button") */
   card.addEventListener("keydown", (evento) => {
     if (evento.key === "Enter" || evento.key === " ") {
       evento.preventDefault();
@@ -194,32 +155,95 @@ function criarCard(vaga) {
 /* =========================================================
    RENDER
    ========================================================= */
-function renderizar(vagas) {
+function renderizar(lista) {
   if (!corpo) return;
 
   corpo.innerHTML = "";
 
-  if (!vagas.length) {
-    corpo.innerHTML = `<p class="vagas-mensagem">Nenhuma vaga disponível no momento.</p>`;
-    if (contadorVagas) contadorVagas.textContent = "0 vagas";
+  if (!lista.length) {
+    corpo.innerHTML = `
+      <p class="vagas-mensagem">
+        <i class="fa-solid fa-seedling" aria-hidden="true"></i>
+        ${
+          termoBusca
+            ? "Nenhuma vaga encontrada para essa busca."
+            : "Nenhuma vaga disponível no momento."
+        }
+      </p>
+    `;
+    if (contadorVagas) {
+      contadorVagas.textContent = termoBusca ? "0 resultados" : "0 vagas";
+    }
     return;
   }
 
   const fragmento = document.createDocumentFragment();
-  vagas.forEach((v) => fragmento.appendChild(criarCard(v)));
+  lista.forEach((vaga, i) => fragmento.appendChild(criarCard(vaga, i)));
   corpo.appendChild(fragmento);
 
   if (contadorVagas) {
-    contadorVagas.textContent = `${vagas.length} ${vagas.length === 1 ? "vaga" : "vagas"}`;
+    contadorVagas.textContent = `${lista.length} ${lista.length === 1 ? "vaga" : "vagas"}`;
   }
 }
 
-/* =========================================================
-   INICIALIZAÇÃO
-   ========================================================= */
-function init() {
-  const abertas = VAGAS.filter((v) => v.status !== "ENCERRADA");
-  renderizar(abertas);
+function aplicarBusca() {
+  renderizar(filtrarVagas());
 }
 
-init();
+/* =========================================================
+   BUSCA
+   ========================================================= */
+campoBusca?.addEventListener("input", () => {
+  termoBusca = campoBusca.value.trim();
+  if (limparBusca) limparBusca.hidden = termoBusca.length === 0;
+  aplicarBusca();
+});
+
+limparBusca?.addEventListener("click", () => {
+  if (campoBusca) {
+    campoBusca.value = "";
+    campoBusca.focus();
+  }
+  termoBusca = "";
+  if (limparBusca) limparBusca.hidden = true;
+  aplicarBusca();
+});
+
+/* =========================================================
+   CARREGAR VAGAS
+   ========================================================= */
+async function carregarVagas() {
+  if (!corpo) return;
+
+  try {
+    corpo.innerHTML = `<p class="vagas-mensagem">Carregando vagas…</p>`;
+
+    const resposta = await fetch(API_URL);
+    if (!resposta.ok) throw new Error(`HTTP ${resposta.status}`);
+
+    const brutos = await resposta.json();
+
+    vagas = (Array.isArray(brutos) ? brutos : [])
+      .filter((v) => v && v.id != null)
+      .filter((v) => v.status === "ABERTA") // ← só abertas
+      .sort((a, b) =>
+        String(a.data_inicio || "").localeCompare(String(b.data_inicio || "")),
+      );
+
+    aplicarBusca();
+  } catch (erro) {
+    console.error("Erro ao carregar vagas:", erro);
+    if (corpo) {
+      corpo.innerHTML = `
+        <p class="vagas-mensagem">
+          <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+          Não foi possível carregar as vagas. Verifique se a API está
+          rodando em ${escapeHtml(url)}.
+        </p>
+      `;
+    }
+    if (contadorVagas) contadorVagas.textContent = "—";
+  }
+}
+
+carregarVagas();

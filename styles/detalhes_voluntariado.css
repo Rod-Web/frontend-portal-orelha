@@ -1,7 +1,7 @@
 /* ./styles/detalhes_voluntariado.css */
 
 /* =========================================================
-   RESET / BASE
+   BASE
    ========================================================= */
 *,
 *::before,
@@ -19,12 +19,13 @@
     --creme: #fff0e4;
     --creme-suave: #fffaf3;
     --creme-claro: #fff3e9;
-    --borda: #eee2d5;
-    --texto: #542e2b;
-    --texto-titulo: #63291e;
-    --texto-suave: #806557;
+    --borda: #ecd7c7;
+    --borda-forte: #e2d2c1;
+    --texto: #63291e;
+    --texto-suave: #6d4a3e;
+    --texto-fraco: #806557;
     --sombra: 0 10px 24px rgba(87, 43, 32, 0.08);
-    --raio-assinatura: 4px 22px 4px 22px;
+    --sombra-hover: 0 16px 36px rgba(87, 43, 32, 0.16);
 }
 
 body {
@@ -59,7 +60,7 @@ img {
    ========================================================= */
 .conteudo {
     width: 92%;
-    max-width: 1000px;
+    max-width: 980px;
     margin: 65px auto 100px;
 }
 
@@ -67,56 +68,51 @@ img {
     display: inline-flex;
     align-items: center;
     gap: 9px;
-    color: var(--texto-suave);
+    color: var(--texto-fraco);
     font-size: 13px;
     font-weight: 600;
     margin-bottom: 28px;
-    transition: color 0.2s;
+    transition: color 0.2s, transform 0.2s;
 }
 
 .voltar:hover {
     color: var(--vinho-medio);
+    transform: translateX(-2px);
 }
 
-.carregando {
-    text-align: center;
-    color: var(--texto-suave);
-    font-size: 14px;
-    padding: 40px 20px;
-}
-
-/* =========================================================
-   CARD PRINCIPAL
-   ========================================================= */
-.vaga {
+.vaga-wrapper {
     background: var(--creme-suave);
     border: 1px solid var(--borda);
-    border-radius: var(--raio-assinatura);
+    border-radius: 4px 22px 4px 22px;
     box-shadow: var(--sombra);
     overflow: hidden;
 }
 
-/* --- Cabeçalho (faixa com data + título) --- */
+/* =========================================================
+   FAIXA SUPERIOR (data + título + status)
+   ========================================================= */
 .vaga-topo {
     display: grid;
-    grid-template-columns: 140px 1fr;
+    grid-template-columns: 160px 1fr;
     align-items: stretch;
     background: var(--vinho);
-    color: var(--creme);
+    color: #fff7f2;
+    position: relative;
 }
 
-.vaga-data {
+.vaga-data-bloco {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 22px 12px;
+    padding: 26px 16px;
     gap: 4px;
     background: rgba(0, 0, 0, 0.12);
+    border-right: 3px solid var(--terracota);
 }
 
 .data-mes {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -124,28 +120,31 @@ img {
 }
 
 .data-dia {
-    font: 700 52px / 1 "Playfair Display", serif;
+    font: 700 54px / 1 "Playfair Display", serif;
     color: #fff7f2;
+    letter-spacing: -1px;
 }
 
 .data-ano {
-    font-size: 12px;
+    font-size: 11px;
     color: #f0cbb5;
     letter-spacing: 1px;
 }
 
 .vaga-identificacao {
-    padding: 28px 34px;
+    padding: 30px 34px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 14px;
+    gap: 12px;
     min-width: 0;
 }
 
 .vaga-status {
     align-self: flex-start;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 1.2px;
@@ -153,6 +152,14 @@ img {
     padding: 5px 12px;
     border-radius: 12px;
     white-space: nowrap;
+}
+
+.vaga-status::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
 }
 
 .vaga-status--aberta {
@@ -171,29 +178,41 @@ img {
 }
 
 .vaga-titulo {
-    font: 700 clamp(24px, 3.4vw, 38px) / 1.16 "Playfair Display", serif;
+    font: 700 clamp(24px, 3.4vw, 38px) / 1.18 "Playfair Display", serif;
     color: #fff7f2;
     margin: 0;
+    letter-spacing: -0.5px;
 }
 
-/* --- Corpo (descrição + detalhes) --- */
+/* =========================================================
+   CORPO (descrição + info + ações)
+   ========================================================= */
 .vaga-corpo {
-    padding: 36px 34px;
+    padding: 36px 34px 34px;
+}
+
+.vaga-secao-titulo {
+    font: 700 12px / 1 "DM Sans", sans-serif;
+    color: var(--terracota);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin: 0 0 14px;
 }
 
 .vaga-descricao {
     color: var(--texto-suave);
     font-size: 15px;
-    line-height: 1.9;
-    margin: 0 0 32px;
+    line-height: 1.85;
+    margin: 0 0 34px;
+    white-space: pre-line;
 }
 
-/* Info em grid (local, início, jornada) */
+/* Grid de informações */
 .vaga-info {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 22px;
-    padding: 26px 0;
+    gap: 18px;
+    padding: 24px 0;
     border-top: 1px solid var(--borda);
     border-bottom: 1px solid var(--borda);
     margin-bottom: 32px;
@@ -202,7 +221,7 @@ img {
 .info-item {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
     min-width: 0;
 }
 
@@ -210,7 +229,7 @@ img {
     display: flex;
     align-items: center;
     gap: 8px;
-    color: var(--vinho-medio);
+    color: var(--terracota);
     font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
@@ -219,18 +238,19 @@ img {
 
 .info-rotulo i {
     font-size: 12px;
-    color: var(--terracota);
+    width: 14px;
+    text-align: center;
 }
 
 .info-valor {
     color: var(--texto);
     font-size: 14px;
-    line-height: 1.5;
+    line-height: 1.55;
     font-weight: 500;
     word-break: break-word;
 }
 
-/* --- Ações --- */
+/* Ações */
 .vaga-acoes {
     display: flex;
     flex-wrap: wrap;
@@ -244,53 +264,80 @@ img {
     align-items: center;
     justify-content: center;
     gap: 9px;
-    padding: 12px 24px;
+    padding: 12px 26px;
     border: 1px solid transparent;
     border-radius: 25px;
-    font-family: "DM Sans", sans-serif;
-    font-size: 13px;
+    font-family: inherit;
+    font-size: 14px;
     font-weight: 700;
     white-space: nowrap;
     transition: 0.25s;
     cursor: pointer;
+    text-decoration: none;
 }
 
-.candidatar {
+.botao--primario {
     background: var(--vinho-medio);
     color: #fff;
 }
 
-.candidatar:hover {
+.botao--primario:hover {
     background: var(--vinho-escuro);
     transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(169, 45, 23, 0.25);
 }
 
-.secundario {
+.botao--secundario {
     background: transparent;
     color: var(--vinho);
-    border-color: var(--borda);
+    border-color: var(--borda-forte);
 }
 
-.secundario:hover {
-    background: var(--creme);
+.botao--secundario:hover {
+    background: var(--creme-claro);
 }
 
-/* --- Mensagem de erro / vazio --- */
-.mensagem {
+.botao--desabilitado {
+    background: #e5e5e5;
+    color: #888;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* =========================================================
+   ESTADOS (loading, erro, vazio)
+   ========================================================= */
+.estado {
+    padding: 70px 30px;
     text-align: center;
-    color: var(--texto-suave);
     font-size: 15px;
-    padding: 60px 26px;
-    background: var(--creme-suave);
-    border: 1px solid var(--borda);
-    border-radius: var(--raio-assinatura);
     line-height: 1.8;
+    color: var(--texto-fraco);
 }
 
-.mensagem a {
+.estado--loading i {
+    font-size: 26px;
+    color: var(--vinho);
+    margin-bottom: 12px;
+    display: block;
+}
+
+.estado--erro {
+    color: var(--vinho);
+}
+
+.estado--erro i {
+    font-size: 30px;
+    color: var(--terracota);
+    margin-bottom: 14px;
+    display: block;
+}
+
+.estado a {
     color: var(--vinho-medio);
     font-weight: 700;
     text-decoration: underline;
+    text-underline-offset: 3px;
 }
 
 /* =========================================================
@@ -299,8 +346,8 @@ img {
 footer {
     padding: 28px 15px;
     background: #fff9ee;
-    border-top: 1px solid var(--borda);
-    color: var(--texto-suave);
+    border-top: 1px solid #eee2d5;
+    color: var(--texto-fraco);
     text-align: center;
     font-size: 12px;
 }
@@ -313,7 +360,6 @@ footer p {
    RESPONSIVO
    ========================================================= */
 @media (max-width: 760px) {
-
     .conteudo {
         width: 94%;
         margin-top: 40px;
@@ -324,11 +370,13 @@ footer p {
         grid-template-columns: 1fr;
     }
 
-    .vaga-data {
+    .vaga-data-bloco {
         flex-direction: row;
         justify-content: flex-start;
         gap: 10px;
         padding: 14px 24px;
+        border-right: none;
+        border-bottom: 3px solid var(--terracota);
     }
 
     .data-dia {
@@ -342,16 +390,15 @@ footer p {
 
     .vaga-identificacao {
         padding: 22px 24px;
-        gap: 12px;
     }
 
     .vaga-corpo {
-        padding: 26px 24px;
+        padding: 26px 22px;
     }
 
     .vaga-info {
         grid-template-columns: 1fr;
-        gap: 18px;
+        gap: 20px;
     }
 
     .vaga-acoes {

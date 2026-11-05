@@ -9,9 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-    <link rel="stylesheet" href="../styles/voluntariado.css">
     <link rel="stylesheet" href="../styles/components/navbar-menu.css">
-    
+    <link rel="stylesheet" href="../styles/voluntariado.css">
 </head>
 <body>
 
@@ -35,22 +34,43 @@
 
         <section class="hero">
             <p class="sobretitulo">Faça parte</p>
-            <h1>Seja um voluntário</h1>
+            <h1>Encontre uma vaga que<br>caiba na sua rotina.</h1>
             <p class="hero-descricao">
-                Doe seu tempo e carinho. Encontre uma oportunidade que
-                combine com a sua rotina e faça a diferença na vida de um
-                animal.
+                Doe seu tempo e carinho. Escolha uma oportunidade e faça a
+                diferença na vida de um animal.
             </p>
+
+            <div class="busca">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input
+                    type="search"
+                    id="campoBusca"
+                    placeholder="Buscar por título, local ou palavra-chave…"
+                    aria-label="Buscar vagas"
+                    autocomplete="off"
+                >
+                <button
+                    type="button"
+                    id="limparBusca"
+                    class="busca__limpar"
+                    aria-label="Limpar busca"
+                    hidden
+                >
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
         </section>
 
         <section class="vagas" aria-labelledby="titulo-vagas">
 
             <div class="vagas-cabecalho">
-                <h2 id="titulo-vagas">Vagas abertas</h2>
-                <span id="contadorVagas" class="vagas-contador">—</span>
+                <div class="vagas-titulo-grupo">
+                    <h2 id="titulo-vagas">Vagas abertas</h2>
+                    <span id="contadorVagas" class="vagas-contador">—</span>
+                </div>
             </div>
 
-            <div id="corpoVoluntariado" class="vagas-lista">
+            <div id="corpoVoluntariado" class="vagas-grid" aria-live="polite">
                 <p class="vagas-mensagem">Carregando vagas…</p>
             </div>
 

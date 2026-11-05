@@ -23,7 +23,7 @@
 
         <nav class="menu">
             <a href="../index.html">Início</a>
-            <a href="./voluntariado.html">Serviços Voluntários</a>
+            <a href="./voluntariado.html" class="ativo">Serviços Voluntários</a>
             <a href="../index.html#sobre">ONG</a>
             <a href="./doacao.html">Doações</a>
             <a href="./catalogo.html" class="botao-adotar">♡ Adotar</a>
@@ -39,8 +39,11 @@
                 Voltar para as vagas
             </a>
 
-            <article id="vaga" class="vaga" aria-live="polite">
-                <p class="carregando">Carregando vaga…</p>
+            <article id="vagaContainer" class="vaga-wrapper" aria-live="polite">
+                <p class="estado estado--loading">
+                    <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+                    Carregando vaga…
+                </p>
             </article>
 
         </section>
