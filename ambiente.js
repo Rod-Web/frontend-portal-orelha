@@ -1,6 +1,6 @@
 let url = "";
 
-const ambiente = "dev";
+const ambiente = "producao";
 
 
 if (ambiente === "dev"){
