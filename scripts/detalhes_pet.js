@@ -192,10 +192,19 @@ async function carregarPet() {
     if (elNome) elNome.textContent = "Erro ao carregar";
     if (elHistoria) {
       elHistoria.textContent =
-        `Não foi possível carregar as informações deste pet. Verifique se a API está rodando em ${url}.`;
+        `Não foi possível carregar as informações deste pet.`;
         ;
     }
   }
 }
 
 carregarPet();
+
+// ─────────────────────────────────────────────────────────────
+// 🐾 Passa o ID do pet atual para o formulário de adoção
+// Ex: detalhes_pet.html?id=7 → forms-adocao.html?pet=7
+// ─────────────────────────────────────────────────────────────
+const botaoAdotar = document.getElementById("botaoAdotar");
+if (botaoAdotar && Number.isFinite(id) && id > 0) {
+    botaoAdotar.href = `./forms-adocao.html?pet=${id}`;
+}

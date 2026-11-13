@@ -12,8 +12,6 @@ body {
     overflow-x: hidden;
 }
 
-
-
 .voltar-catalogo {
     position: absolute;
     top: 45px;
@@ -32,9 +30,6 @@ body {
     color: #51252d;
     transform: translateX(-4px);
 }
-
-
-
 
 .pata {
     position: fixed;
@@ -229,6 +224,10 @@ textarea#campo,
     color: #b09b91;
 }
 
+/* =========================
+   CEP — LINK PARA OS CORREIOS
+========================= */
+
 .cep-acoes {
     display: flex;
     align-items: stretch;
@@ -236,11 +235,10 @@ textarea#campo,
     margin-top: 15px;
 }
 
-.cep-acoes button {
-    flex-shrink: 0;
-}
-
 .botao-consulta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     padding: 13px 16px;
     border: 1px solid #ddc7ba;
     border-radius: 9px;
@@ -249,30 +247,19 @@ textarea#campo,
     font: inherit;
     font-size: 13px;
     font-weight: bold;
+    text-decoration: none;
     cursor: pointer;
     transition: 0.2s;
 }
 
 .botao-consulta:hover {
     background: #e2cbbd;
+    color: #51252d;
 }
 
-#resultado-cep {
-    margin-top: 12px;
-    color: #765451;
-    font-size: 13px;
-    line-height: 1.6;
-}
-
-#resultado-cep select {
-    width: 100%;
-    margin-top: 10px;
-    padding: 12px;
-    border: 1px solid #ddc9bd;
-    border-radius: 8px;
-    background: #fffaf5;
-    color: #47282b;
-    font: inherit;
+.botao-consulta i {
+    font-size: 12px;
+    opacity: 0.85;
 }
 
 .opcoes {
@@ -392,9 +379,6 @@ button:disabled {
     font-size: 15px;
     line-height: 1.8;
 }
-
-
-
 
 @media (max-width: 600px) {
     .formulario {

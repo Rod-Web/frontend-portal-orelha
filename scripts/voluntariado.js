@@ -237,8 +237,7 @@ async function carregarVagas() {
       corpo.innerHTML = `
         <p class="vagas-mensagem">
           <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
-          Não foi possível carregar as vagas. Verifique se a API está
-          rodando em ${escapeHtml(url)}.
+          Não foi possível carregar as vagas.
         </p>
       `;
     }

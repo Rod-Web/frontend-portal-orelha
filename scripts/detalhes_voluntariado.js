@@ -198,7 +198,7 @@ async function carregarVaga() {
   } catch (erro) {
     console.error("Erro ao carregar vaga:", erro);
     renderizarErro(
-      `Não foi possível carregar esta vaga. Verifique se a API está rodando em ${url}.`,
+      `Não foi possível carregar esta vaga.`,
     );
   }
 }

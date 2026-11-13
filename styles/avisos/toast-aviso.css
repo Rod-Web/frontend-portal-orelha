@@ -1,0 +1,96 @@
+/* ./styles/avisos/toast-aviso.css */
+
+/* =========================
+   TOAST DE AVISO (personalizado)
+========================= */
+
+.toast-aviso {
+    position: fixed;
+    top: max(24px, 4vh);
+    left: 50%;
+    transform: translate(-50%, -20px);
+    z-index: 9999;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 14px 22px;
+    max-width: min(90vw, 520px);
+
+    background: #fffaf3;
+    border: 1px solid #ecd7c7;
+    border-left: 4px solid #a92d17;
+    border-radius: 12px;
+    box-shadow: 0 14px 40px rgba(87, 43, 32, 0.18);
+
+    color: #63291e;
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+
+    opacity: 0;
+    pointer-events: none;
+    cursor: pointer;
+    transition: opacity 0.25s ease, transform 0.35s ease;
+}
+
+.toast-aviso--visivel {
+    opacity: 1;
+    transform: translate(-50%, 0);
+    pointer-events: auto;
+}
+
+.toast-aviso__icone {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #a92d17;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.toast-aviso__texto {
+    word-break: break-word;
+}
+
+/* Variante: sucesso */
+.toast-aviso--sucesso {
+    border-left-color: #1d6b2b;
+}
+
+.toast-aviso--sucesso .toast-aviso__icone {
+    background: #1d6b2b;
+}
+
+/* Variante: erro (mais forte) */
+.toast-aviso--erro {
+    border-left-color: #7e2415;
+}
+
+.toast-aviso--erro .toast-aviso__icone {
+    background: #7e2415;
+}
+
+/* Mobile: afasta da borda e do botão "Voltar" */
+@media (max-width: 600px) {
+    .toast-aviso {
+        top: 80px;
+        padding: 12px 18px;
+        font-size: 13px;
+    }
+}
+
+/* Respeita preferência de menos movimento */
+@media (prefers-reduced-motion: reduce) {
+    .toast-aviso {
+        transition: opacity 0.15s linear;
+        transform: translate(-50%, 0);
+    }
+}

@@ -321,7 +321,7 @@ async function carregarPets() {
     console.error("Erro ao carregar pets:", erro);
     if (mensagem) {
       mensagem.textContent =
-        `Não foi possível carregar os pets. Verifique se a API está rodando em ${url}.`;
+        `Não foi possível carregar os pets.`;
     }
   }
 }
