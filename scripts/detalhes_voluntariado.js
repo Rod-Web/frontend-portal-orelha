@@ -84,7 +84,7 @@ function renderizarVaga(vaga) {
     ? `<span class="botao botao--desabilitado">
          Vaga encerrada
        </span>`
-    : `<a class="botao botao--primario" href="./form-voluntariado.html?id=${vaga.id}">
+    : `<a class="botao botao--primario" href="./form-trabalho-voluntario.html?id=${vaga.id}">
          <i class="fa-solid fa-hand-holding-heart" aria-hidden="true"></i>
          Quero me candidatar
        </a>`;

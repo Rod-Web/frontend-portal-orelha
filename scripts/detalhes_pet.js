@@ -206,5 +206,5 @@ carregarPet();
 // ─────────────────────────────────────────────────────────────
 const botaoAdotar = document.getElementById("botaoAdotar");
 if (botaoAdotar && Number.isFinite(id) && id > 0) {
-    botaoAdotar.href = `./forms-adocao.html?pet=${id}`;
+    botaoAdotar.href = `./form-adocao.html?pet=${id}`;
 }

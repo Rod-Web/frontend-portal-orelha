@@ -1,0 +1,277 @@
+/* ./styles/admin-editar-servico-voluntario.css */
+/* Standalone — depende só de admin-painel.css e model.css (estruturais) */
+
+/* =========================================================
+   CONTEÚDO PRINCIPAL
+   ========================================================= */
+.conteudo {
+    padding: 32px 40px;
+    max-width: 1200px;
+}
+
+.voltar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin-bottom: 20px;
+    border-radius: 50%;
+    background: #fffaf3;
+    border: 1px solid #ecd7c7;
+    color: #8f2c1c;
+    transition: background 0.2s, transform 0.15s;
+}
+
+.voltar:hover {
+    background: #fff3e9;
+    transform: translateX(-2px);
+}
+
+.titulo-bloco {
+    margin-bottom: 28px;
+}
+
+.titulo-bloco h1 {
+    margin: 0 0 8px;
+    font: 700 clamp(26px, 3.2vw, 36px) / 1.2 "Playfair Display", serif;
+    color: #63291e;
+}
+
+.titulo-bloco p {
+    margin: 0;
+    font-size: 14px;
+    color: #806557;
+}
+
+.id-badge {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+    padding: 4px 12px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #f0cbb5;
+    background: #8f2c1c;
+    border-radius: 20px;
+}
+
+.id-badge:empty {
+    display: none;
+}
+
+/* =========================================================
+   FORM CARD (coluna única, igual cadastrar)
+   ========================================================= */
+.form-card {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 22px;
+    padding: 28px;
+    background: #fffaf3;
+    border: 1px solid #ecd7c7;
+    border-radius: 16px;
+    transition: opacity 0.2s;
+}
+
+.form-card[aria-busy="true"] {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.campos-col {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    min-width: 0;
+}
+
+.form-rodape {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    padding-top: 22px;
+    border-top: 1px solid #ecd7c7;
+}
+
+.mensagem-form {
+    margin: 0;
+    min-height: 0;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.mensagem-form:not(:empty) {
+    padding: 10px 14px;
+    border-radius: 8px;
+}
+
+.mensagem-form[data-tipo="erro"] {
+    color: #8f2c1c;
+    background: #fde2c8;
+    border: 1px solid #f3c698;
+}
+
+.mensagem-form[data-tipo="info"] {
+    color: #542e2b;
+    background: #fff3e9;
+    border: 1px solid #ecd7c7;
+}
+
+/* =========================================================
+   CAMPOS
+   ========================================================= */
+.linha {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.campo label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #8f2c1c;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1px solid #e2d2c1;
+    border-radius: 8px;
+    background: #fff;
+    color: #542e2b;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.5;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+    outline: none;
+    border-color: #a92d17;
+    box-shadow: 0 0 0 3px rgba(169, 45, 23, 0.12);
+}
+
+.campo input::placeholder,
+.campo textarea::placeholder {
+    color: #b7a698;
+}
+
+.campo textarea {
+    resize: vertical;
+    min-height: 140px;
+}
+
+.campo__contador {
+    align-self: flex-end;
+    font-size: 11px;
+    color: #9c7d68;
+    font-weight: 600;
+}
+
+/* =========================================================
+   BOTÕES
+   ========================================================= */
+.botao-primario,
+.botao-secundario {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 12px 24px;
+    border: 1px solid transparent;
+    border-radius: 25px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s, border-color 0.2s;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.botao-primario {
+    background: #a92d17;
+    color: #fff;
+}
+
+.botao-primario:hover:not(:disabled) {
+    background: #7e2415;
+    transform: translateY(-1px);
+}
+
+.botao-primario:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.botao-secundario {
+    background: transparent;
+    color: #8f2c1c;
+    border-color: #e2d2c1;
+}
+
+.botao-secundario:hover {
+    background: #fff3e9;
+}
+
+.botao-primario:focus-visible,
+.botao-secundario:focus-visible {
+    outline: 2px solid #a92d17;
+    outline-offset: 2px;
+}
+
+/* =========================================================
+   RESPONSIVO
+   ========================================================= */
+@media (max-width: 900px) {
+    .conteudo {
+        padding: 24px 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .form-card {
+        padding: 20px;
+    }
+
+    .linha {
+        grid-template-columns: 1fr;
+    }
+
+    .form-rodape {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+
+    .botao-primario,
+    .botao-secundario {
+        width: 100%;
+    }
+
+    .titulo-bloco h1 {
+        font-size: 22px;
+    }
+
+    .id-badge {
+        font-size: 11px;
+        padding: 3px 10px;
+    }
+}

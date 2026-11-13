@@ -1,0 +1,98 @@
+/* ./admin/styles/components/graficos-dashboard.css
+   Estilos dos cards de gráfico do dashboard.
+   Depende de admin-painel.css (layout, sidebar, topbar).
+*/
+
+/* =========================================================
+   GRID DE GRÁFICOS (2x2 em desktop)
+   ========================================================= */
+
+.graficos {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+/* =========================================================
+   CARD DE GRÁFICO
+   ========================================================= */
+
+.card-grafico {
+    background: #fffaf3;
+    border: 1px solid #eadbc9;
+    border-radius: 16px;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card-grafico:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(87, 43, 32, 0.06);
+}
+
+/* =========================================================
+   CABEÇALHO DO CARD
+   ========================================================= */
+
+.titulo-grafico {
+    margin-bottom: 16px;
+}
+
+.titulo-grafico h3 {
+    font-family: "Playfair Display", serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: #7e2415;
+    margin: 0 0 3px;
+}
+
+.titulo-grafico span {
+    font-size: 11.5px;
+    color: #9c7d68;
+}
+
+/* =========================================================
+   ÁREA DO CANVAS (Chart.js precisa de altura explícita
+   porque usamos maintainAspectRatio: false)
+   ========================================================= */
+
+.area-grafico {
+    position: relative;
+    height: 240px;
+    flex: 1;
+    min-height: 0;
+}
+
+.area-grafico canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* =========================================================
+   RESPONSIVO
+   ========================================================= */
+
+@media (max-width: 900px) {
+    .graficos {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .card-grafico {
+        padding: 16px;
+    }
+
+    .area-grafico {
+        height: 220px;
+    }
+
+    .titulo-grafico h3 {
+        font-size: 16px;
+    }
+}

@@ -13,8 +13,8 @@ body {
 }
 
 .voltar-catalogo {
-    position: absolute;
-    top: 45px;
+    margin-top: 20px;
+    margin-left: 20px;
     display: inline-flex;
     align-items: center;
     gap: 8px;

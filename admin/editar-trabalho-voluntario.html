@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Editar Serviço Voluntário · Painel Orelha</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./styles/admin-painel.css" />
+    <link rel="stylesheet" href="./styles/components/model.css" />
+    <link
+      rel="stylesheet"
+      href="./styles/admin-editar-servico-voluntario.css"
+    />
+  </head>
+  <body>
+    <div class="painel-layout">
+      <!-- ================= SIDEBAR ================= -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sair sair-sidebar" id="sair">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          <span>Sair</span>
+        </div>
+
+        <div class="sidebar-logo">
+          <a href="./dashboard.html" class="logo-link">
+            <img src="../img/logodois.png" alt="Portal Orelha" />
+          </a>
+        </div>
+
+        <nav class="sidebar-nav">
+          <p class="nav-grupo">Menu principal</p>
+          <a href="./dashboard.html" class="nav-item">
+            <i class="fa-solid fa-house"></i> Início
+          </a>
+          <a href="./cadastrar-pet.html" class="nav-item">
+            <i class="fa-solid fa-paw"></i> Cadastrar Pet
+          </a>
+          <a href="./pets.html" class="nav-item">
+            <i class="fa-solid fa-list-check"></i> Gerenciar Pets
+          </a>
+          <a href="./solicitacoes-adocao.html" class="nav-item">
+            <i class="fa-solid fa-file-signature"></i> Solicitações de Adoção
+          </a>
+
+          <p class="nav-grupo">Trabalho Voluntário</p>
+          <a href="./cadastrar-servico-voluntario.html" class="nav-item">
+            <i class="fa-solid fa-user-plus"></i> Cadastrar Serviços
+            Voluntários
+          </a>
+          <a href="./servicos-voluntarios.html" class="nav-item ativo">
+            <i class="fa-solid fa-users-gear"></i> Gerenciar Serviços
+            Voluntários
+          </a>
+          <a href="#" class="nav-item">
+            <i class="fa-solid fa-people-carry-box"></i> Inscrições para
+            Serviços Voluntários
+          </a>
+        </nav>
+      </aside>
+
+      <!-- ================= CONTEÚDO ================= -->
+      <div class="painel-main">
+        <header class="topbar">
+          <button
+            class="topbar-menu"
+            id="menuToggle"
+            aria-label="Abrir menu"
+            aria-expanded="false"
+          >
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <div class="topbar-usuario" id="topbarUsuario">
+            <i class="fa-solid fa-circle-user"></i>
+            <span></span>
+          </div>
+          <div class="sair desktop" id="sair">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Sair</span>
+          </div>
+        </header>
+
+        <main class="conteudo">
+          <a
+            href="./servicos-voluntarios.html"
+            class="voltar"
+            aria-label="Voltar"
+          >
+            <i class="fa-solid fa-arrow-left"></i>
+          </a>
+
+          <div class="titulo-bloco">
+            <h1>
+              Editar serviço voluntário
+              <span class="id-badge" id="servicoIdBadge"></span>
+            </h1>
+            <p id="servicoInfo">Carregando informações…</p>
+          </div>
+
+          <form id="formServico" class="form-card" aria-busy="true">
+            <div class="campos-col">
+              <div class="campo">
+                <label for="titulo">Título da vaga</label>
+                <input
+                  type="text"
+                  id="titulo"
+                  name="titulo"
+                  placeholder="Ex.: Cuidador de gatos (manhã)"
+                  maxlength="100"
+                  required
+                />
+              </div>
+
+              <div class="campo">
+                <label for="local">Local</label>
+                <input
+                  type="text"
+                  id="local"
+                  name="local"
+                  placeholder="Ex.: Abrigo Caramelo — Centro"
+                  maxlength="150"
+                  required
+                />
+              </div>
+
+              <div class="linha">
+                <div class="campo">
+                  <label for="data_inicio">Data de início</label>
+                  <input
+                    type="date"
+                    id="data_inicio"
+                    name="data_inicio"
+                    required
+                  />
+                </div>
+
+                <div class="campo">
+                  <label for="jornada">Jornada de trabalho</label>
+                  <input
+                    type="text"
+                    id="jornada"
+                    name="jornada"
+                    placeholder="Ex.: Seg a sex, 8h às 11h"
+                    maxlength="150"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="linha">
+                <div class="campo">
+                  <label for="status">Status da vaga</label>
+                  <select id="status" name="status" required>
+                    <option value="ABERTA">Aberta</option>
+                    <option value="ENCERRADA">Encerrada</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="campo">
+                <label for="descricao">Descrição</label>
+                <textarea
+                  id="descricao"
+                  name="descricao"
+                  rows="6"
+                  placeholder="Descreva as atividades, requisitos e o que o voluntário vai fazer…"
+                  maxlength="2000"
+                  required
+                ></textarea>
+                <span class="campo__contador">
+                  <span id="contadorDescricao">0</span> / 2000
+                </span>
+              </div>
+            </div>
+
+            <div class="form-rodape">
+              <button type="submit" class="botao-primario" id="botaoSalvar">
+                <i class="fa-solid fa-floppy-disk"></i> Salvar alterações
+              </button>
+              <a href="./servicos-voluntarios.html" class="botao-secundario">
+                Cancelar
+              </a>
+            </div>
+
+            <p
+              class="mensagem-form"
+              id="mensagemForm"
+              role="status"
+              aria-live="polite"
+            ></p>
+          </form>
+        </main>
+      </div>
+    </div>
+
+    <!-- Modal de aviso reutilizável -->
+    <div
+      class="modal-overlay"
+      id="modalAviso"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modalAvisoTitulo"
+      aria-describedby="modalAvisoTexto"
+      hidden
+    >
+      <div class="modal-caixa">
+        <div class="modal-icone">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <h3 id="modalAvisoTitulo">Aviso</h3>
+        <p id="modalAvisoTexto"></p>
+        <button type="button" class="modal-botao" id="modalAvisoOk">OK</button>
+      </div>
+    </div>
+
+    <script type="module" src="./scripts/components/nomeAdmin.js"></script>
+    <script type="module" src="./scripts/components/sidebar.js"></script>
+    <script type="module" src="./scripts/components/logout.js"></script>
+    <script
+      type="module"
+      src="./scripts/admin-editar-servico-voluntario.js"
+    ></script>
+  </body>
+</html>

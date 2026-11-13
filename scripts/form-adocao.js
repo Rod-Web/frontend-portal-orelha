@@ -608,8 +608,6 @@ function montarPayload() {
 // LOG + FINALIZAÇÃO
 // ==========================================================
 
-
-
 async function finalizar() {
   
 

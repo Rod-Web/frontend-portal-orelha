@@ -11,6 +11,10 @@
     <link rel="stylesheet" href="./styles/admin-painel.css">
     <link rel="stylesheet" href="./styles/components/model.css">
     <link rel="stylesheet" href="./styles/admin-dashboard.css">
+    <link rel="stylesheet" href="./styles/components/graficos-dashboard.css">
+
+    <!-- Chart.js precisa carregar ANTES dos scripts type="module" -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -29,7 +33,6 @@
             <img src="../img/logodois.png" alt="Portal Orelha" />
           </a>
         </div>
-
 
         <nav class="sidebar-nav">
             <p class="nav-grupo">Menu principal</p>
@@ -56,7 +59,6 @@
             <a href="#" class="nav-item">
                 <i class="fa-solid fa-people-carry-box"></i> Inscrições para Serviços Voluntários
             </a>
-            
         </nav>
     </aside>
 
@@ -165,6 +167,57 @@
                 </div>
             </section>
 
+            <!-- ================= GRÁFICOS ================= -->
+            <section class="bloco">
+                <div class="bloco-cabecalho">
+                    <h2 class="bloco-titulo">Estatísticas</h2>
+                </div>
+
+                <div class="graficos">
+
+                    <div class="card-grafico">
+                        <div class="titulo-grafico">
+                            <h3>Situação dos animais</h3>
+                            <span>Quantidade por situação</span>
+                        </div>
+                        <div class="area-grafico">
+                            <canvas id="graficoPets"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="card-grafico">
+                        <div class="titulo-grafico">
+                            <h3>Adoções por mês</h3>
+                            <span>Animais adotados ao longo do ano</span>
+                        </div>
+                        <div class="area-grafico">
+                            <canvas id="graficoAdocoes"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="card-grafico">
+                        <div class="titulo-grafico">
+                            <h3>Cachorros × Gatos disponíveis</h3>
+                            <span>Comparação de animais para adoção</span>
+                        </div>
+                        <div class="area-grafico">
+                            <canvas id="graficoEspecies"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="card-grafico">
+                        <div class="titulo-grafico">
+                            <h3>Atividades da ONG</h3>
+                            <span>Quantidade de registros por atividade</span>
+                        </div>
+                        <div class="area-grafico">
+                            <canvas id="graficoAtividades"></canvas>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
             <!-- ================= ÚLTIMOS PETS ================= -->
             <section class="bloco">
                 <div class="bloco-cabecalho">
@@ -204,6 +257,7 @@
 <script type="module" src="./scripts/components/nomeAdmin.js"></script>
 <script type="module" src="./scripts/components/sidebar.js"></script>
 <script type="module" src="./scripts/components/logout.js"></script>
+<script type="module" src="./scripts/components/graficos-dashboard.js"></script>
 <script type="module" src="./scripts/admin-dashboard.js"></script>
 
 </body>
