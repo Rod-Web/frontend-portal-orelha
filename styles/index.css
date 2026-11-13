@@ -403,21 +403,6 @@ main {
     margin-left: 20px;
 }
 
-/* ============ RODAPÉ ============ */
-
-footer {
-    padding: 28px 15px;
-    background: #fff9ee;
-    border-top: 1px solid #eee2d5;
-    color: #806557;
-    text-align: center;
-    font-size: 12px;
-}
-
-footer p {
-    margin: 0;
-}
-
 /* ============ RESPONSIVO ============ */
 
 @media (max-width: 1024px) {

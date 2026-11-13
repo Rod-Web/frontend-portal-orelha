@@ -1,5 +1,10 @@
 /* ./styles/components/navbar-menu.css */
 
+html,
+body {
+    overflow-x: clip;
+}
+
 /* ============ CABEÇALHO ============ */
 
 .cabecalho {
@@ -8,6 +13,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 24px;
     background: #fff0e4;
     position: relative;
     z-index: 5;
@@ -23,6 +29,13 @@
     height: 34px;
     background: #fff0e4;
     clip-path: polygon(0 100%, 100% 30%, 100% 0, 20% 0, 0 0);
+    pointer-events: none;
+}
+
+.cabecalho>a {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
 }
 
 .cabecalho img {
@@ -39,27 +52,33 @@
 .menu {
     display: flex;
     align-items: center;
-    gap: 30px;
+    gap: clamp(14px, 1.8vw, 30px);
     font-size: 13px;
     font-weight: 700;
+    flex-shrink: 1;
+    min-width: 0;
 }
 
 .menu a:not(.botao-adotar) {
     position: relative;
+    white-space: nowrap;
+    padding: 6px 0;
 }
 
 .menu a:not(.botao-adotar)::after {
     content: "";
     position: absolute;
-    bottom: -7px;
+    bottom: -1px;
     left: 0;
     width: 0;
     height: 2px;
     background: #8f2c1c;
-    transition: width 0.2s;
+    transition: width 0.2s ease;
 }
 
-.menu a:not(.botao-adotar):hover::after {
+.menu a:not(.botao-adotar):hover::after,
+.menu a:not(.botao-adotar):focus-visible::after,
+.menu a.ativo:not(.botao-adotar)::after {
     width: 100%;
 }
 
@@ -68,11 +87,14 @@
     background: #a92d17;
     border-radius: 20px;
     padding: 10px 17px;
-    transition: background 0.2s;
+    white-space: nowrap;
+    transition: background 0.2s, transform 0.2s;
 }
 
-.botao-adotar:hover {
+.botao-adotar:hover,
+.botao-adotar:focus-visible {
     background: #7e2415;
+    transform: translateY(-1px);
 }
 
 .menu-tres {
@@ -80,18 +102,69 @@
     border: none;
     background: none;
     color: #8f2c1c;
-    font-size: 25px;
+    font-size: 0;
+    /* esconde o ☰ original */
     cursor: pointer;
     line-height: 1;
+    padding: 8px;
+    border-radius: 8px;
+    transition: background 0.2s;
 }
 
-/* ============ RESPONSIVO DO MENU ============ */
+.menu-tres::before {
+    content: "☰";
+    font-size: 25px;
+    display: block;
+    transition: transform 0.25s ease;
+}
 
-@media (max-width: 760px) {
+.menu-tres[aria-expanded="true"]::before {
+    content: "✕";
+    font-size: 22px;
+}
 
+.menu-tres:hover {
+    background: #f5e1cc;
+}
+
+.menu-tres:focus-visible {
+    outline: 2px solid #8f2c1c;
+    outline-offset: 2px;
+}
+
+/* ============ FOCO ACESSÍVEL ============ */
+
+.cabecalho a:focus-visible {
+    outline: 2px solid #8f2c1c;
+    outline-offset: 4px;
+    border-radius: 4px;
+}
+
+/* ============ BREAKPOINT INTERMEDIÁRIO (tablets) ============ */
+
+@media (max-width: 1050px) {
+    .cabecalho {
+        padding: 0 4%;
+        gap: 16px;
+    }
+
+    .cabecalho img {
+        width: 220px;
+        height: 130px;
+    }
+
+    .menu {
+        font-size: 12.5px;
+    }
+}
+
+/* ============ MOBILE ============ */
+
+@media (max-width: 900px) {
     .cabecalho {
         height: 72px;
         padding: 0 20px;
+        gap: 12px;
     }
 
     .cabecalho::after {
@@ -108,26 +181,76 @@
     }
 
     .menu-tres {
-        display: block;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .menu {
-        display: none;
         position: absolute;
-        top: 72px;
-        left: 0;
-        right: 0;
-        padding: 23px;
-        background: #fff0e4;
+        top: calc(100% + 12px);
+        left: 16px;
+        right: 16px;
+        padding: 20px;
+        background: #fffaf3;
+        border: 1px solid #ecd7c7;
+        border-radius: 14px;
         flex-direction: column;
-        align-items: flex-start;
-        gap: 20px;
+        align-items: stretch;
+        gap: 4px;
         font-size: 14px;
         z-index: 10;
-        box-shadow: 0 10px 20px rgba(87, 43, 32, 0.08);
+        box-shadow: 0 14px 30px rgba(87, 43, 32, 0.12);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-8px);
+        transition: opacity 0.2s ease,
+            transform 0.25s ease,
+            visibility 0s linear 0.25s;
+        max-height: calc(100vh - 100px);
+        overflow-y: auto;
     }
 
     .menu.aberto {
-        display: flex;
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        transition: opacity 0.2s ease,
+            transform 0.25s ease,
+            visibility 0s;
+    }
+
+    .menu a:not(.botao-adotar) {
+        padding: 12px 10px;
+        border-radius: 8px;
+        transition: background 0.15s;
+    }
+
+    .menu a:not(.botao-adotar)::after {
+        display: none;
+    }
+
+    .menu a:not(.botao-adotar):hover,
+    .menu a.ativo:not(.botao-adotar) {
+        background: #f5e1cc;
+        color: #8f2c1c;
+    }
+
+    .botao-adotar {
+        text-align: center;
+        padding: 12px 17px;
+        margin-top: 6px;
+    }
+}
+
+/* ============ ACESSIBILIDADE (motion) ============ */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .menu,
+    .menu-tres::before,
+    .menu a::after,
+    .botao-adotar {
+        transition: none !important;
     }
 }

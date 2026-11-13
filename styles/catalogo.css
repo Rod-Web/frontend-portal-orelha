@@ -315,22 +315,6 @@ img {
     font-size: 14px;
 }
 
-/* ============ RODAPÉ ============ */
-
-footer {
-    background: #fff9ee;
-    padding: 28px;
-    text-align: center;
-    color: #806557;
-    font-size: 13px;
-    margin-top: 60px;
-    border-top: 1px solid #eee2d5;
-}
-
-footer p {
-    margin: 0;
-}
-
 /* ============ RESPONSIVO ============ */
 
 @media (max-width: 1200px) {

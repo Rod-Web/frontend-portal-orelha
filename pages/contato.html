@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+        content="Entre em contato com o Portal Orelha. Compartilhe suas ideias, tire dúvidas e faça parte de uma causa que transforma vidas animais.">
+    <meta name="author" content="Portal Orelha">
+    <meta name="theme-color" content="#762b1c">
+    <meta name="robots" content="index, follow">
+
+    <title>Contato | Portal Orelha</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="../styles/contato.css">
+    <link rel="stylesheet" href="../styles/components/navbar-menu.css">
+    <link rel="stylesheet" href="../styles/components/footer.css">
+</head>
+
+<body>
+
+    <header class="cabecalho">
+        <a href="../index.html">
+            <img src="../img/logodois.png" alt="Portal Orelha">
+        </a>
+
+        <button class="menu-tres" aria-label="Abrir menu" aria-expanded="false">☰</button>
+
+        <nav class="menu">
+            <a href="../index.html">Início</a>
+            <a href="./voluntariado.html">Serviços Voluntários</a>
+            <a href="../index.html#sobre">ONG</a>
+            <a href="./doacao.html">Doações</a>
+            <a href="./contato.html" class="ativo">Contato</a>
+            <a href="./news.html">Notícias</a>
+            <a href="./catalogo.html" class="botao-adotar">♡ Adotar</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <section class="contato" id="contato">
+
+            <div class="contato-container">
+
+                <!-- TEXTO DE APRESENTAÇÃO -->
+                <div class="contato-info">
+
+                    <span class="contato-subtitulo">FALE CONOSCO</span>
+
+                    <h2>
+                        Tem algo para <br>
+                        <span>compartilhar?</span>
+                    </h2>
+
+                    <p>
+                        Tem dúvidas, sugestões ou quer fazer parte dessa
+                        causa? Entre em contato conosco. Toda conversa
+                        pode ser o começo de uma grande transformação.
+                    </p>
+
+                    <div class="contato-destaque">
+                        <i class="fa-solid fa-heart"></i>
+                        <span>Juntos, podemos transformar vidas.</span>
+                    </div>
+
+                </div>
+
+                <!-- FORMULÁRIO -->
+                <div class="contato-formulario">
+
+                    <form action="https://formsubmit.co/portalorelha@gmail.com" method="POST">
+
+                        <input type="hidden" name="_subject" value="Novo contato pelo Portal Orelha">
+                        <input type="hidden" name="_template" value="table">
+                        <input type="hidden" name="_captcha" value="true">
+
+                        <div class="form-grupo">
+                            <label for="nome">SEU NOME</label>
+                            <input type="text" id="nome" name="nome"
+                                placeholder="Como podemos chamar você?"
+                                autocomplete="name" required>
+                        </div>
+
+                        <div class="form-grupo">
+                            <label for="email">E-MAIL</label>
+                            <input type="email" id="email" name="email"
+                                placeholder="Seu endereço de e-mail"
+                                autocomplete="email" required>
+                        </div>
+
+                        <div class="form-grupo">
+                            <label for="assunto">ASSUNTO</label>
+                            <input type="text" id="assunto" name="assunto"
+                                placeholder="Sobre o que deseja conversar?" required>
+                        </div>
+
+                        <div class="form-grupo">
+                            <label for="mensagem">SUA MENSAGEM</label>
+                            <textarea id="mensagem" name="mensagem"
+                                placeholder="Conte um pouco sobre o que deseja..."
+                                rows="4" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-enviar">
+                            Enviar mensagem
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+
+                        <input type="hidden" name="_next" value="https://frontend-portal-orelha/pages/avisos/sucesso-entrar-contato.html">
+
+                        <p class="form-aviso">
+                            Ao enviar, você concorda com a utilização
+                            dos dados informados para recebermos e
+                            respondermos ao seu contato.
+                        </p>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- =========================
+             FOOTER
+        ========================== -->
+    <footer class="footer">
+
+        <div class="footer-container">
+
+            <div class="footer-marca">
+                <a href="../index.html" class="footer-logo">
+                    <i class="fa-solid fa-paw"></i>
+                    <span>Portal <strong>Orelha</strong></span>
+                </a>
+
+                <p>
+                    Cada vida importa. <br>
+                    Um mundo mais seguro e acolhedor
+                    começa com pequenas atitudes.
+                </p>
+            </div>
+
+            <div class="footer-links">
+                <h3>NAVEGAÇÃO</h3>
+                <a href="../index.html">Início</a>
+                <a href="../index.html#sobre">Sobre nós</a>
+                <a href="../index.html#projetos">Projetos</a>
+                <a href="./contato.html">Contato</a>
+            </div>
+
+            <div class="footer-contato">
+                <h3>FALE CONOSCO</h3>
+
+                <a href="mailto:portalorelha@gmail.com">
+                    <i class="fa-regular fa-envelope"></i>
+                    portalorelha@gmail.com
+                </a>
+
+                <a href="./contato.html">
+                    <i class="fa-solid fa-comment-dots"></i>
+                    Envie uma mensagem
+                </a>
+            </div>
+
+            <div class="footer-redes">
+                <h3>ACOMPANHE</h3>
+
+                <div class="redes-icons">
+                    <a href="#" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="#" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Portal Orelha. Todos os direitos reservados.</p>
+            <p>Feito com <i class="fa-solid fa-heart"></i> pelos animais.</p>
+        </div>
+
+    </footer>
+
+    <script src="../scripts/components/menu-lateral.js"></script>
+</body>
+</html>

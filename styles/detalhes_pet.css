@@ -28,7 +28,7 @@ img {
 .conteudo {
     width: 92%;
     max-width: 1500px;
-    margin: 65px auto 0;
+    margin: 65px auto 75px;
 }
 
 .voltar {
@@ -264,27 +264,6 @@ h1 {
     line-height: 1.9;
 }
 
-/* ============ RODAPÉ ============ */
-
-footer {
-    margin-top: 75px;
-    padding: 28px 15px;
-    background: #fff9ee;
-    border-top: 1px solid #eee2d5;
-    color: #806557;
-    text-align: center;
-    font-size: 12px;
-}
-
-footer p {
-    margin: 0;
-}
-
-footer span {
-    color: #a92d17;
-    margin: 0 5px;
-}
-
 /* ============ RESPONSIVO ============ */
 
 @media (max-width: 1024px) {
@@ -326,6 +305,7 @@ footer span {
     .conteudo {
         width: 94%;
         margin-top: 40px;
+        margin-bottom: 55px;
     }
 
     .pet-info {
@@ -346,10 +326,6 @@ footer span {
     }
 
     .adocao {
-        margin-top: 55px;
-    }
-
-    footer {
         margin-top: 55px;
     }
 }

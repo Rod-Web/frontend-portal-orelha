@@ -395,22 +395,6 @@ img {
 }
 
 /* =========================================================
-   RODAPÉ
-   ========================================================= */
-footer {
-    padding: 28px 15px;
-    background: #fff9ee;
-    border-top: 1px solid #eee2d5;
-    color: var(--texto-fraco);
-    text-align: center;
-    font-size: 12px;
-}
-
-footer p {
-    margin: 0;
-}
-
-/* =========================================================
    RESPONSIVO
    ========================================================= */
 @media (max-width: 860px) {
