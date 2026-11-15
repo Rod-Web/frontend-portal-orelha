@@ -432,6 +432,9 @@ function obterResposta(p) {
 const validacoes = {
   nome(valor) {
     if (valor.length < 3) return "O nome deve ter pelo menos 3 caracteres.";
+    if (valor.length > 100) return "O nome deve ter até 100 caracteres.";
+    const regexNome = /^[A-Za-zÀ-ÖØ-öø-ÿ ]+$/;
+    if (!regexNome.test(valor)) return "O nome só pode ter caracteres de A-Z.";
     if (!valor.includes(" "))
       return "Por favor, informe seu nome completo (nome e sobrenome).";
     return null;
@@ -447,6 +450,8 @@ const validacoes = {
   email(valor) {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valor))
       return "Digite um e-mail válido.";
+    if (valor.length < 10 || valor.length > 200)
+      return "Email deve ter entre 10 e 200 caracteres.";
     return null;
   },
 
@@ -467,12 +472,54 @@ const validacoes = {
   quantidadePessoas(valor) {
     const n = Number(valor);
     if (!Number.isFinite(n) || n < 0) return "Digite um número válido.";
-    if (n > 50) return "Número de pessoas inválido.";
+    if (n < 1 || n > 50)
+      return "A quantidade de pessoas na residência deve ser entre 1 e 50.";
+    return null;
+  },
+
+  // Q7 — Profissão
+  profissao(valor) {
+    if (valor.length < 3 || valor.length > 100) {
+      return "A profissão deve ter entre 3 e 100 caracteres.";
+    }
+    return null;
+  },
+
+  // Q8 — Medidas de segurança residencial
+  medidas(valor) {
+    if (valor.length < 3 || valor.length > 1000) {
+      return "As medidas de segurança residencial devem ter entre 3 e 1000 caracteres.";
+    }
+    return null;
+  },
+
+  // Q14 — Cuidador direto
+  cuidador(valor) {
+    if (valor.length < 3 || valor.length > 100) {
+      return "O nome do cuidador direto deve ter entre 3 e 100 caracteres.";
+    }
+    return null;
+  },
+
+  // Q17 — Convívio com crianças
+  criancaConvivio(valor) {
+    if (valor.length < 3 || valor.length > 500) {
+      return "O campo de convívio com crianças deve ter entre 3 e 500 caracteres.";
+    }
+    return null;
+  },
+
+  // Q20 — Rotina familiar
+  rotinaFamiliar(valor) {
+    if (valor.length < 10 || valor.length > 1000) {
+      return "A rotina familiar deve ter entre 10 e 1000 caracteres.";
+    }
     return null;
   },
 };
 
 function validarResposta(p, valor) {
+  // Q1 — Nome
   if (p.id === 1 && typeof valor === "string") {
     const err = validacoes.nome(valor);
     if (err) {
@@ -480,6 +527,8 @@ function validarResposta(p, valor) {
       return false;
     }
   }
+
+  // Q2 — Idade
   if (p.id === 2) {
     const err = validacoes.idade(valor);
     if (err) {
@@ -487,6 +536,8 @@ function validarResposta(p, valor) {
       return false;
     }
   }
+
+  // Q3 — Email
   if (p.tipo === "email" && typeof valor === "string") {
     const err = validacoes.email(valor);
     if (err) {
@@ -494,13 +545,8 @@ function validarResposta(p, valor) {
       return false;
     }
   }
-  if (p.tipo === "tel" && typeof valor === "string") {
-    const err = validacoes.tel(valor);
-    if (err) {
-      avisar(err, "erro");
-      return false;
-    }
-  }
+
+  // Q5 — CEP
   if (p.id === 5) {
     const err = validacoes.cep(valor);
     if (err) {
@@ -508,6 +554,44 @@ function validarResposta(p, valor) {
       return false;
     }
   }
+
+  // Q6 — Telefone
+  if (p.tipo === "tel" && typeof valor === "string") {
+    const err = validacoes.tel(valor);
+    if (err) {
+      avisar(err, "erro");
+      return false;
+    }
+  }
+
+  // Q7 — Profissão
+  if (p.id === 7 && typeof valor === "string") {
+    const err = validacoes.profissao(valor);
+    if (err) {
+      avisar(err, "erro");
+      return false;
+    }
+  }
+
+  // Q8 — Medidas de segurança
+  if (p.id === 8 && typeof valor === "string") {
+    const err = validacoes.medidas(valor);
+    if (err) {
+      avisar(err, "erro");
+      return false;
+    }
+  }
+
+  // Q14 — Cuidador direto
+  if (p.id === 14 && typeof valor === "string") {
+    const err = validacoes.cuidador(valor);
+    if (err) {
+      avisar(err, "erro");
+      return false;
+    }
+  }
+
+  // Q15 — Quantidade de pessoas
   if (p.id === 15) {
     const err = validacoes.quantidadePessoas(valor);
     if (err) {
@@ -515,6 +599,25 @@ function validarResposta(p, valor) {
       return false;
     }
   }
+
+  // Q17 — Convívio com crianças
+  if (p.id === 17 && typeof valor === "string") {
+    const err = validacoes.criancaConvivio(valor);
+    if (err) {
+      avisar(err, "erro");
+      return false;
+    }
+  }
+
+  // Q20 — Rotina familiar
+  if (p.id === 20 && typeof valor === "string") {
+    const err = validacoes.rotinaFamiliar(valor);
+    if (err) {
+      avisar(err, "erro");
+      return false;
+    }
+  }
+
   return true;
 }
 
@@ -522,15 +625,8 @@ function validarResposta(p, valor) {
 // MONTAGEM DO PAYLOAD
 // ==========================================================
 
-/**
- * Converte o objeto bruto `respostas` (IDs 1–21) no formato
- * exato da tabela `solicitacao_adocao`.
- *
- * Campos gerenciados pelo backend (NÃO incluídos aqui):
- *   - id (AUTO_INCREMENT)
- *   - data_solicitacao (DEFAULT CURRENT_TIMESTAMP)
- *   - status (DEFAULT 'PENDENTE')
- */
+import url from "../../ambiente.js";
+
 function montarPayload() {
   // ─── Q4: endereço estruturado → string única ─────────────
   const end = respostas[4] || {};
@@ -609,46 +705,58 @@ function montarPayload() {
 // ==========================================================
 
 async function finalizar() {
-  
-
   const payload = montarPayload();
+  const API_URL = `${url}/inserirSolicitacaoAdocao`;
 
-  console.group(
-    "%c📤 PAYLOAD PRONTO PARA ENVIO",
-    "color: #1d6b2b; font-size: 14px; font-weight: bold;",
-  );
-  console.log("%cPayload:", "color: #666; font-weight: bold;", payload);
-  console.log("%cJSON (para copiar):", "color: #666; font-weight: bold;");
-  console.log(JSON.stringify(payload, null, 2));
-  console.groupEnd();
+  // Bloqueia duplo envio
+  proximo.disabled = true;
+  const textoBotao = proximo.textContent;
+  proximo.textContent = "Enviando…";
 
-  // ==========================================================
-  // TODO: Enviar via POST quando o backend estiver pronto
-  // ==========================================================
-  // try {
-  //     const response = await fetch("https://SEU-BACKEND/api/solicitacoes", {
-  //         method: "POST",
-  //         headers: { "Content-Type": "application/json" },
-  //         body: JSON.stringify(payload)
-  //     });
-  //
-  //     if (!response.ok) {
-  //         throw new Error(`HTTP ${response.status} — ${response.statusText}`);
-  //     }
-  //
-  //     const data = await response.json().catch(() => ({}));
-  //     console.log("✅ Enviado com sucesso:", data);
-  // } catch (error) {
-  //     console.error("❌ Erro ao enviar:", error);
-  //     avisar("Não foi possível enviar o formulário. Tente novamente.", "erro");
-  //     return;
-  // }
-  // ==========================================================
+  try {
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
 
-  encerrar(
-    "Obrigado! 🐾",
-    "Seu formulário foi preenchido com sucesso. Entraremos em contato em breve.",
-  );
+    // 🔑 Lê o body ANTES de checar .ok (o backend manda {erro: "..."} nos 4xx)
+    const data = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+      // Tenta extrair mensagem de vários formatos comuns
+      const msgBackend =
+        data.erro ||
+        data.error ||
+        data.mensagem ||
+        data.message ||
+        `Erro ${response.status}: ${response.statusText}`;
+
+      console.error("❌ Backend respondeu erro:", response.status, data);
+      avisar(msgBackend, "erro");
+      return; // não mostra tela de sucesso
+    }
+
+    // Sucesso
+    console.log("✅ Enviado com sucesso:", data);
+
+    encerrar(
+      "Obrigado! 🐾",
+      data.mensagem ||
+        "Seu formulário foi preenchido com sucesso. Entraremos em contato em breve.",
+    );
+  } catch (error) {
+    // Erro de rede, timeout, ou falha antes da resposta chegar
+    console.error("❌ Erro ao enviar:", error);
+    avisar(
+      "Não foi possível conectar ao servidor. Verifique sua internet e tente novamente.",
+      "erro",
+    );
+  } finally {
+    // Restaura o botão caso o usuário volte (não bloqueia tela de sucesso)
+    proximo.disabled = false;
+    proximo.textContent = textoBotao;
+  }
 }
 
 function encerrar(titulo, mensagem) {

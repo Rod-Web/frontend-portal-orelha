@@ -287,46 +287,39 @@ function validarResposta(p, valor) {
 // MONTAGEM DO PAYLOAD
 // ==========================================================
 
-/**
- * Converte o objeto bruto `respostas` (IDs 1–15) no formato
- * ideal para a tabela `inscricao_trabalho_voluntario`.
- *
- * Campos gerenciados pelo backend (NÃO incluídos aqui):
- *   - id (AUTO_INCREMENT)
- *   - data_inscricao (DEFAULT CURRENT_TIMESTAMP)
- *   - status (DEFAULT 'PENDENTE')
- */
+import url from "../../ambiente.js";
+
 function montarPayload() {
   const dias = Array.isArray(respostas[7]) ? respostas[7] : [];
   const periodos = Array.isArray(respostas[8]) ? respostas[8] : [];
 
   return {
-    id_trabalho_voluntario: TRABALHO_ID,
+    id_oportunidade_voluntario: TRABALHO_ID,
 
     // Dados pessoais
     nome_completo: respostas[1] || "",
     idade: parseInt(respostas[2], 10),
     email: respostas[3] || "",
-    cidade_bairro: respostas[4] || "",
+    endereco_residencial: respostas[4] || "",
     telefone_contato: String(respostas[5] || "").replace(/\D/g, ""),
-    profissao: respostas[6] || "",
+    profissao_atual: respostas[6] || "",
 
     // Disponibilidade
     dias_disponiveis: dias.join(", "),
     periodos_disponiveis: periodos.join(", "),
-    disponibilidade_integral: respostas[9] === "Sim",
+    disponibilidade_durante_jornada: respostas[9] === "Sim",
 
     // Experiência
-    experiencia_voluntariado: respostas[10] || "",
-    habilidades_contribuicao: respostas[11] || "",
-    experiencia_animais: respostas[12] || "",
+    experiencias_anteriores_trabalho_voluntario: respostas[10] || "",
+    possui_habilidade_relevante: respostas[11] || "",
+    possui_experiencia_animais: respostas[12] || "",
 
     // Compromisso
-    ciente_atividades: respostas[13] === "Sim",
-    concorda_orientacoes: respostas[14] === "Sim",
+    ciente_atividades_responsabilidades: respostas[13] === "Sim",
+    concorda_orientacoes_regras_seguranca: respostas[14] === "Sim",
 
     // Motivação
-    motivacao: respostas[15] || "",
+    motivacao_interesse: respostas[15] || "",
   };
 }
 
@@ -340,36 +333,39 @@ async function finalizar() {
 
   const payload = montarPayload();
 
-  console.group(
-    "%c📤 PAYLOAD PRONTO PARA ENVIO",
-    "color: #1d6b2b; font-size: 14px; font-weight: bold;",
-  );
-  console.log("%cPayload:", "color: #666; font-weight: bold;", payload);
-  console.log("%cJSON (para copiar):", "color: #666; font-weight: bold;");
-  console.log(JSON.stringify(payload, null, 2));
-  console.groupEnd();
+  // console.group(
+  //  "%c📤 PAYLOAD PRONTO PARA ENVIO",
+  //  "color: #1d6b2b; font-size: 14px; font-weight: bold;",
+  // );
+  //console.log("%cPayload:", "color: #666; font-weight: bold;", payload);
+  //console.log("%cJSON (para copiar):", "color: #666; font-weight: bold;");
+  // console.log(JSON.stringify(payload, null, 2));
+  // console.groupEnd();
 
   // ==========================================================
-  // TODO: Enviar via POST quando o backend estiver pronto
+  // Enviar via POST 
   // ==========================================================
-  // try {
-  //     const response = await fetch("https://SEU-BACKEND/api/inscricoes-voluntario", {
-  //         method: "POST",
-  //         headers: { "Content-Type": "application/json" },
-  //         body: JSON.stringify(payload)
-  //     });
-  //
-  //     if (!response.ok) {
-  //         throw new Error(`HTTP ${response.status} — ${response.statusText}`);
-  //     }
-  //
-  //     const data = await response.json().catch(() => ({}));
-  //     console.log("✅ Enviado com sucesso:", data);
-  // } catch (error) {
-  //     console.error("❌ Erro ao enviar:", error);
-  //     avisar("Não foi possível enviar sua inscrição. Tente novamente.", "erro");
-  //     return;
-  // }
+
+  const API_URL = `${url}/inscricao-trabalho-voluntario`;
+
+  try {
+      const response = await fetch(API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) {
+          throw new Error(`HTTP ${response.status} — ${response.statusText}`);
+      }
+
+      const data = await response.json().catch(() => ({}));
+      console.log("✅ Enviado com sucesso:", data);
+  } catch (error) {
+      console.error("❌ Erro ao enviar:", error);
+      avisar("Não foi possível enviar sua inscrição. Tente novamente.", "erro");
+      return;
+  }
   // ==========================================================
 
   encerrar(
