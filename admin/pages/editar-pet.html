@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex, nofollow" />
-    <title>Cadastrar Pet · Painel Orelha</title>
+    <title>Editar Pet · Painel Orelha</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
@@ -14,16 +14,15 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     />
-    <link rel="stylesheet" href="./styles/admin-painel.css" />
-    <link rel="stylesheet" href="./styles/components/model.css" />
-    <link rel="stylesheet" href="./styles/admin-cadastrar-pet.css" />
+    <link rel="stylesheet" href="../styles/admin-painel.css" />
+    <link rel="stylesheet" href="../styles/components/model.css" />
+    <link rel="stylesheet" href="../styles/admin-editar-pet.css" />
   </head>
   <body>
     <div class="painel-layout">
       <!-- ================= SIDEBAR ================= -->
       <aside class="sidebar" id="sidebar">
-
-        <div class="sair sair-sidebar"id="sair">
+        <div class="sair sair-sidebar" id="sair">
           <i class="fa-solid fa-right-from-bracket"></i>
           <span>Sair</span>
         </div>
@@ -39,10 +38,10 @@
           <a href="./dashboard.html" class="nav-item">
             <i class="fa-solid fa-house"></i> Início
           </a>
-          <a href="./cadastrar-pet.html" class="nav-item ativo">
+          <a href="./cadastrar-pet.html" class="nav-item">
             <i class="fa-solid fa-paw"></i> Cadastrar Pet
           </a>
-          <a href="./pets.html" class="nav-item">
+          <a href="./pets.html" class="nav-item ativo">
             <i class="fa-solid fa-list-check"></i> Gerenciar Pets
           </a>
           <a href="./solicitacoes-adocao.html" class="nav-item">
@@ -66,7 +65,6 @@
 
       <!-- ================= CONTEÚDO ================= -->
       <div class="painel-main">
-        <!-- Topbar -->
         <header class="topbar">
           <button
             class="topbar-menu"
@@ -86,40 +84,53 @@
           </div>
         </header>
 
-        <!-- Área do formulário -->
         <main class="conteudo">
-          <a href="./dashboard.html" class="voltar" aria-label="Voltar">
+          <a href="./pets.html" class="voltar" aria-label="Voltar">
             <i class="fa-solid fa-arrow-left"></i>
           </a>
 
           <div class="titulo-bloco">
-            <h1>Cadastrar novo pet</h1>
-            <p>Preencha as informações para cadastrar um animal.</p>
+            <h1>
+              Editar pet <span class="pet-id-badge" id="petIdBadge"></span>
+            </h1>
+            <p id="petInfo">Carregando informações…</p>
           </div>
 
-          <form id="formPet" class="form-card">
+          <form id="formPet" class="form-card" aria-busy="true">
             <!-- Coluna esquerda: upload -->
             <div class="upload-col">
-              <label for="img" class="upload-box" id="uploadBox">
+              <label
+                for="img"
+                class="upload-box upload-box--filled"
+                id="uploadBox"
+              >
                 <input
                   type="file"
                   id="img"
-                  name="img"
+                  name="imagem"
                   accept="image/*"
                   hidden
                 />
-                <div class="upload-conteudo" id="uploadConteudo">
-                  <i class="fa-solid fa-plus"></i>
-                  <strong>Adicionar imagem</strong>
-                  <span>Clique para escolher uma foto</span>
+                <img id="previewImg" alt="Foto do pet" />
+                <div class="upload-overlay">
+                  <i class="fa-solid fa-camera"></i>
+                  <span>Trocar imagem</span>
                 </div>
-                <img id="previewImg" alt="Prévia da imagem" hidden />
               </label>
+
+              <button
+                type="button"
+                id="btnManterImagem"
+                class="botao-manter"
+                hidden
+              >
+                <i class="fa-solid fa-rotate-left"></i>
+                Manter original
+              </button>
             </div>
 
             <!-- Coluna direita: campos -->
             <div class="campos-col">
-              <!-- Linha 1 -->
               <div class="linha">
                 <div class="campo">
                   <label for="nome">Nome do pet</label>
@@ -127,7 +138,7 @@
                     type="text"
                     id="nome"
                     name="nome"
-                    placeholder="Ex.: Thor, Luna, Mel"
+                    maxlength="80"
                     required
                   />
                 </div>
@@ -139,20 +150,17 @@
                     id="idade"
                     name="idade"
                     min="0"
-                    max="40"
+                    max="200"
                     step="1"
-                    placeholder="Ex.: 3"
                     required
                   />
                 </div>
               </div>
 
-              <!-- Linha 2 -->
               <div class="linha">
                 <div class="campo">
                   <label for="grandeza_idade">Unidade de idade</label>
                   <select id="grandeza_idade" name="grandeza_idade" required>
-                    <option value="" disabled selected>Selecione</option>
                     <option value="dias">Dias</option>
                     <option value="semanas">Semanas</option>
                     <option value="meses">Meses</option>
@@ -163,7 +171,6 @@
                 <div class="campo">
                   <label for="especie">Espécie</label>
                   <select id="especie" name="especie" required>
-                    <option value="" disabled selected>Selecione</option>
                     <option value="cachorro">Cachorro</option>
                     <option value="gato">Gato</option>
                   </select>
@@ -177,7 +184,6 @@
                     name="peso"
                     min="0"
                     step="0.01"
-                    placeholder="Ex.: 12.5"
                     required
                   />
                 </div>
@@ -185,14 +191,12 @@
                 <div class="campo">
                   <label for="sexo">Sexo</label>
                   <select id="sexo" name="sexo" required>
-                    <option value="" disabled selected>Selecione</option>
                     <option value="macho">Macho</option>
                     <option value="femea">Fêmea</option>
                   </select>
                 </div>
               </div>
 
-              <!-- Linha 3 -->
               <div class="linha">
                 <div class="campo">
                   <label for="raca">Raça</label>
@@ -200,31 +204,38 @@
                     type="text"
                     id="raca"
                     name="raca"
-                    placeholder="Ex.: SRD, Poodle, Vira-lata"
+                    maxlength="60"
                     required
                   />
                 </div>
+
+                <div class="campo">
+                  <label for="status">Status</label>
+                  <select id="status" name="status" required>
+                    <option value="DISPONIVEL">Disponível</option>
+                    <option value="EM_PROCESSO">Em processo</option>
+                    <option value="ADOTADO">Adotado</option>
+                  </select>
+                </div>
               </div>
 
-              <!-- Descrição -->
               <div class="campo">
                 <label for="descricao">História do pet</label>
                 <textarea
                   id="descricao"
                   name="descricao"
                   rows="5"
-                  placeholder="Conte um pouco sobre o pet, sua história e personalidade…"
+                  maxlength="2000"
                   required
                 ></textarea>
               </div>
             </div>
 
-            <!-- Rodapé do form -->
             <div class="form-rodape">
               <button type="submit" class="botao-primario" id="botaoSalvar">
-                <i class="fa-solid fa-plus"></i> Cadastrar pet
+                <i class="fa-solid fa-floppy-disk"></i> Salvar alterações
               </button>
-              <a href="./dashboard.html" class="botao-secundario">Cancelar</a>
+              <a href="./pets.html" class="botao-secundario">Cancelar</a>
             </div>
 
             <p
@@ -247,7 +258,7 @@
       aria-labelledby="modalAvisoTitulo"
       aria-describedby="modalAvisoTexto"
       hidden
-    > 
+    >
       <div class="modal-caixa">
         <div class="modal-icone">
           <i class="fa-solid fa-triangle-exclamation"></i>
@@ -258,9 +269,9 @@
       </div>
     </div>
 
-    <script type="module" src="./scripts/components/nomeAdmin.js"></script>
-    <script type="module" src="./scripts/components/sidebar.js"></script>
-    <script type="module" src="./scripts/components/logout.js"></script>
-    <script type="module" src="./scripts/admin-cadastrar-pet.js"></script>
+    <script type="module" src="../scripts/components/nomeAdmin.js"></script>
+    <script type="module" src="../scripts/components/sidebar.js"></script>
+    <script type="module" src="../scripts/components/logout.js"></script>
+    <script type="module" src="../scripts/admin-editar-pet.js"></script>
   </body>
 </html>

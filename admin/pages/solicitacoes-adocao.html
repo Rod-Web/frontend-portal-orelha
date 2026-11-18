@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <title>Gerenciar Pets · Painel Orelha</title>
+    <title>Solicitações de Adoção · Painel Orelha</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-    <link rel="stylesheet" href="./styles/components/model.css">
-    <link rel="stylesheet" href="./styles/admin-painel.css">
-    <link rel="stylesheet" href="./styles/admin-pets.css">
+    <link rel="stylesheet" href="../styles/components/model.css">
+    <link rel="stylesheet" href="../styles/admin-painel.css">
+    <link rel="stylesheet" href="../styles/admin-solicitacoes-adocao.css">
 </head>
 <body>
 
@@ -20,7 +20,7 @@
     <!-- ================= SIDEBAR ================= -->
     <aside class="sidebar" id="sidebar">
 
-        <div class="sair sair-sidebar"id="sair">
+        <div class="sair sair-sidebar" id="sair">
           <i class="fa-solid fa-right-from-bracket"></i>
           <span>Sair</span>
         </div>
@@ -39,10 +39,10 @@
             <a href="./cadastrar-pet.html" class="nav-item">
                 <i class="fa-solid fa-paw"></i> Cadastrar Pet
             </a>
-            <a href="./pets.html" class="nav-item ativo">
+            <a href="./pets.html" class="nav-item">
                 <i class="fa-solid fa-list-check"></i> Gerenciar Pets
             </a>
-            <a href="./solicitacoes-adocao.html" class="nav-item">
+            <a href="./solicitacoes-adocao.html" class="nav-item ativo">
                 <i class="fa-solid fa-file-signature"></i> Solicitações de Adoção
             </a>
 
@@ -56,8 +56,6 @@
             <a href="./inscricoes-voluntariado.html" class="nav-item">
                 <i class="fa-solid fa-people-carry-box"></i> Inscrições para Serviços Voluntários
             </a>
-
-            
         </nav>
     </aside>
 
@@ -86,8 +84,8 @@
         <main class="conteudo">
 
             <div class="titulo-bloco">
-                <h1>Gerenciar pets</h1>
-                <p>Edite, atualize ou remova os pets cadastrados no portal.</p>
+                <h1>Solicitações de adoção</h1>
+                <p>Analise os pedidos de adoção recebidos pelo portal.</p>
             </div>
 
             <!-- ================= BARRA DE CONTROLE ================= -->
@@ -95,21 +93,25 @@
 
                 <div class="busca">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="search" id="busca" placeholder="Buscar por nome, raça ou espécie…">
+                    <input type="search" id="busca" placeholder="Buscar por nome, e-mail ou pet…">
                 </div>
 
                 <div class="filtros-status" id="filtrosStatus">
-                    <button class="filtro ativo" data-status="todos">Todos</button>
-                    <button class="filtro" data-status="DISPONIVEL">Disponíveis</button>
-                    <button class="filtro" data-status="EM_PROCESSO">Em processo</button>
-                    <button class="filtro" data-status="ADOTADO">Adotados</button>
+                    <button class="filtro ativo" data-status="TODAS" type="button">Todas</button>
+                    <button class="filtro" data-status="PENDENTE" type="button">Pendentes</button>
+                    <button class="filtro" data-status="EM_ANALISE" type="button">Em análise</button>
                 </div>
+
+                <button class="botao-historico" id="abrirHistorico" type="button">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    <span>Histórico</span>
+                </button>
 
             </div>
 
-            <!-- ================= LISTA DE PETS (pré-renderizada) ================= -->
-            <section class="lista-gerenciar" id="listaGerenciar">
-
+            <!-- ================= LISTA ================= -->
+            <section class="lista-solicitacoes" id="listaSolicitacoes">
+                <p class="vazio">Carregando solicitações…</p>
             </section>
 
             <p class="contador" id="contador"></p>
@@ -118,25 +120,51 @@
     </div>
 </div>
 
-    <!-- Modal de aviso reutilizável -->
-    <div
-      class="modal-overlay"
-      id="modalAviso"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="modalAvisoTitulo"
-      aria-describedby="modalAvisoTexto"
-      hidden
-    >
-      <div class="modal-caixa">
-        <div class="modal-icone">
-          <i class="fa-solid fa-triangle-exclamation"></i>
+<!-- ================= DRAWER: HISTÓRICO ================= -->
+<aside class="drawer" id="drawerHistorico" hidden aria-label="Histórico de solicitações">
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+    <div class="drawer-conteudo">
+
+        <header class="drawer-header">
+            <h2>Histórico de solicitações</h2>
+            <button class="botao-fechar" id="fecharDrawer" type="button" aria-label="Fechar histórico">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </header>
+
+        <div class="drawer-tabs" id="drawerTabs">
+            <button class="tab ativo" data-tab="APROVADA" type="button">
+                <i class="fa-solid fa-circle-check"></i> Aprovadas
+            </button>
+            <button class="tab" data-tab="REPROVADA" type="button">
+                <i class="fa-solid fa-circle-xmark"></i> Reprovadas
+            </button>
         </div>
-        <h3 id="modalAvisoTitulo">Aviso</h3>
-        <p id="modalAvisoTexto"></p>
-        <button type="button" class="modal-botao" id="modalAvisoOk">OK</button>
-      </div>
+
+        <div class="drawer-lista" id="drawerLista"></div>
+
     </div>
+</aside>
+
+<!-- Modal de aviso reutilizável -->
+<div
+  class="modal-overlay"
+  id="modalAviso"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="modalAvisoTitulo"
+  aria-describedby="modalAvisoTexto"
+  hidden
+>
+  <div class="modal-caixa">
+    <div class="modal-icone">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+    </div>
+    <h3 id="modalAvisoTitulo">Aviso</h3>
+    <p id="modalAvisoTexto"></p>
+    <button type="button" class="modal-botao" id="modalAvisoOk">OK</button>
+  </div>
+</div>
 
 <!-- Modal de confirmação de exclusão -->
 <div class="modal-overlay" id="modalExcluir" hidden>
@@ -144,7 +172,7 @@
         <div class="modal-icone">
             <i class="fa-solid fa-triangle-exclamation"></i>
         </div>
-        <h3>Excluir pet?</h3>
+        <h3 id="modalTitulo">Excluir solicitação?</h3>
         <p id="modalTexto">Essa ação não pode ser desfeita.</p>
         <div class="modal-acoes">
             <button type="button" class="botao-secundario" id="cancelarExclusao">Cancelar</button>
@@ -153,13 +181,13 @@
     </div>
 </div>
 
-<!-- Toast de feedback -->
+<!-- Toast -->
 <div class="toast" id="toast" hidden></div>
 
-<script type="module" src="./scripts/components/nomeAdmin.js"></script>
-<script type="module" src="./scripts/components/sidebar.js"></script>
-<script type="module" src="./scripts/components/logout.js"></script>
-<script type="module" src="./scripts/admin-pets.js"></script>
+<script type="module" src="../scripts/components/nomeAdmin.js"></script>
+<script type="module" src="../scripts/components/sidebar.js"></script>
+<script type="module" src="../scripts/components/logout.js"></script>
+<script type="module" src="../scripts/admin-solicitacoes-adocao.js"></script>
 
 </body>
 </html>
