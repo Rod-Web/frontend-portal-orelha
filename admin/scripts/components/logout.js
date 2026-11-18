@@ -18,7 +18,7 @@ botoesSair.forEach((sair) => {
       } else {
         mostrarAviso(
           "Logout realizado com sucesso!",
-          "./login.html",
+          "../index.html",
           "Sucesso",
         );
       }

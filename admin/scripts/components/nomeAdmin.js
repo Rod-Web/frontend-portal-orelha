@@ -4,7 +4,7 @@ import { mostrarAviso } from "../components/modal.js";
 document.addEventListener("DOMContentLoaded", async () => {
   const identificarSe = await fetchAuth();
   if (identificarSe.erro) {
-    return mostrarAviso(identificarSe.erro, "./login.html", "Não Autorizado");
+    return mostrarAviso(identificarSe.erro, "../index.html", "Não Autorizado");
   }
 
   const nome = document.querySelector(".topbar-usuario span");

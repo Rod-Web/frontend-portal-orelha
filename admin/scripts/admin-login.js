@@ -33,5 +33,5 @@ formulario.addEventListener("submit", async function (event) {
     return mensagem.textContent = resposta.erro;
   }
 
-  window.location.href = "dashboard.html";
+  window.location.href = "./pages/dashboard.html";
 });
