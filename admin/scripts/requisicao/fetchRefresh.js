@@ -1,4 +1,5 @@
-import url from '../../ambiente.js'const URL = url;
+import url from '../../iente.js'
+const URL = url;
 export async function fetchRefresh() {
   try {
     const response = await fetch(`${URL}/auth/refresh`, {
