@@ -1,0 +1,576 @@
+/* =========================
+   PÁGINA DE DOAÇÕES
+   Paleta e tipografia alinhadas com contato.css
+========================= */
+
+:root {
+    --vinho: #8e2d1c;
+    /* h2 do contato */
+    --vinho-botao: #96321e;
+    /* botão enviar do contato */
+    --vinho-hover: #762717;
+    /* hover do botão */
+    --terracota: #a9442a;
+    /* subtítulo do contato */
+    --bege: #f9eee5;
+    /* fundo do contato */
+    --bege-escuro: #ecd6c6;
+    /* borda do formulário */
+    --creme-card: #fffaf6;
+    /* fundo do form */
+    --texto: #542e2b;
+    /* body do contato */
+    --texto-suave: #704b3f;
+    /* parágrafo do contato */
+    --branco: #fffdfa;
+    /* fundo geral do site */
+    --raio: 18px;
+    --sombra: 0 10px 35px rgba(103, 48, 29, 0.06);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--branco);
+    color: var(--texto);
+    font-family: "DM Sans", sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+h1,
+h2,
+h3 {
+    font-family: "Playfair Display", serif;
+    line-height: 1.2;
+    margin: 0 0 12px;
+}
+
+p {
+    margin: 0 0 14px;
+}
+
+/* ---------- elementos comuns ---------- */
+
+.sobretitulo {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--terracota);
+    margin-bottom: 10px;
+}
+
+.secao {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 72px 24px 0;
+}
+
+.secao-titulo {
+    display: flex;
+    align-items: flex-end;
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.secao-titulo h2 {
+    font-size: clamp(28px, 3.4vw, 40px);
+    font-weight: 700;
+    color: var(--vinho);
+    margin: 0;
+}
+
+.linha-decorativa {
+    flex: 1;
+    height: 1px;
+    background: var(--bege-escuro);
+    margin-bottom: 12px;
+}
+
+.icone-card {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    font-size: 1.3rem;
+    background: var(--bege);
+    color: var(--terracota);
+    flex-shrink: 0;
+}
+
+.icone-card.claro {
+    background: rgba(255, 253, 250, 0.15);
+    color: var(--branco);
+}
+
+/* ---------- botões ---------- */
+
+.botao-principal,
+.botao-secundario {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 26px;
+    border-radius: 9px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    transition: transform 0.2s, background 0.2s, color 0.2s, border-color 0.2s;
+    cursor: pointer;
+}
+
+.botao-principal {
+    background: var(--vinho-botao);
+    color: var(--branco);
+    border: none;
+}
+
+.botao-principal:hover {
+    background: var(--vinho-hover);
+    transform: translateY(-2px);
+}
+
+.botao-secundario {
+    background: transparent;
+    color: var(--vinho-botao);
+    border: 1px solid var(--bege-escuro);
+}
+
+.botao-secundario:hover {
+    background: var(--bege);
+    border-color: var(--vinho-botao);
+}
+
+/* ---------- intro ---------- */
+
+.doacao-intro {
+    background: var(--bege);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 85px max(24px, calc((100% - 1200px) / 2)) 95px;
+}
+
+.doacao-intro h1 {
+    font-size: clamp(38px, 4.4vw, 52px);
+    font-weight: 700;
+    color: var(--vinho);
+    letter-spacing: -0.5px;
+    margin-bottom: 20px;
+}
+
+.doacao-intro p {
+    max-width: 560px;
+    color: var(--texto-suave);
+    font-size: 15px;
+    line-height: 1.9;
+}
+
+.doacao-intro .botao-principal {
+    margin-top: 14px;
+}
+
+.intro-icone {
+    width: 190px;
+    height: 190px;
+    border-radius: 50%;
+    background: var(--vinho-botao);
+    color: var(--bege);
+    display: grid;
+    place-items: center;
+    font-size: 4.2rem;
+    flex-shrink: 0;
+    box-shadow: var(--sombra);
+}
+
+/* ---------- destino das doações ---------- */
+
+.destino-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.destino-card {
+    background: var(--creme-card);
+    border: 1px solid var(--bege-escuro);
+    border-radius: var(--raio);
+    padding: 28px;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+
+.destino-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--sombra);
+    border-color: var(--terracota);
+}
+
+.destino-card .icone-card {
+    margin-bottom: 18px;
+}
+
+.destino-card h3 {
+    font-size: 19px;
+    color: var(--vinho);
+    font-weight: 700;
+}
+
+.destino-card p {
+    color: var(--texto-suave);
+    font-size: 14px;
+    line-height: 1.8;
+    margin: 0;
+}
+
+/* ---------- como doar ---------- */
+
+.doar-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    align-items: stretch;
+}
+
+.doar-card {
+    background: var(--creme-card);
+    border: 1px solid var(--bege-escuro);
+    border-radius: var(--raio);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.doar-card.destaque {
+    background: var(--vinho);
+    color: var(--branco);
+    border-color: var(--vinho);
+}
+
+.doar-topo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+}
+
+.doar-topo h3 {
+    margin: 0;
+    font-size: 19px;
+    color: var(--vinho);
+    font-weight: 700;
+}
+
+.doar-card.destaque .doar-topo h3 {
+    color: var(--branco);
+}
+
+.doar-card p {
+    color: var(--texto-suave);
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.doar-card.destaque p {
+    color: rgba(255, 253, 250, 0.88);
+}
+
+/* Pix */
+
+.pix-qr {
+    background: #fff;
+    border-radius: 14px;
+    padding: 10px 10px 12px;
+    margin: 4px auto 18px;
+    width: fit-content;
+    text-align: center;
+}
+
+.pix-qr img {
+    display: block;
+    margin: 0 auto;
+    width: 196px;
+    max-width: 100%;
+    height: auto;
+    image-rendering: pixelated;
+}
+
+.pix-qr figcaption {
+    margin-top: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--vinho);
+}
+
+.pix-chave {
+    background: rgba(255, 253, 250, 0.12);
+    border-radius: 14px;
+    padding: 16px;
+    margin-top: auto;
+}
+
+.pix-rotulo {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    opacity: 0.85;
+    margin-bottom: 8px;
+}
+
+.pix-linha {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.pix-linha code {
+    font-family: "DM Sans", monospace;
+    font-weight: 600;
+    word-break: break-all;
+    font-size: 13px;
+}
+
+.btn-copiar {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    background: var(--branco);
+    color: var(--vinho-botao);
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 9px 16px;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.btn-copiar:hover {
+    transform: scale(1.04);
+    background: var(--bege);
+}
+
+.pix-aviso {
+    min-height: 1.4em;
+    margin: 10px 0 0;
+    font-size: 12px;
+}
+
+/* Banco */
+
+.dados-banco {
+    list-style: none;
+    padding: 0;
+    margin: auto 0 0;
+}
+
+.dados-banco li {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--bege-escuro);
+    font-size: 14px;
+}
+
+.dados-banco li:last-child {
+    border-bottom: none;
+}
+
+.dados-banco span {
+    color: var(--texto-suave);
+}
+
+/* Itens */
+
+.lista-itens {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 18px;
+}
+
+.lista-itens li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 0;
+    font-size: 14px;
+    color: var(--texto);
+}
+
+.lista-itens i {
+    color: var(--terracota);
+    font-size: 0.85rem;
+}
+
+.link-card {
+    margin-top: auto;
+    font-weight: 700;
+    color: var(--vinho-botao);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    transition: color 0.2s;
+}
+
+.link-card:hover {
+    color: var(--vinho-hover);
+    text-decoration: underline;
+}
+
+/* ---------- outras formas de ajudar ---------- */
+
+.outras-formas {
+    max-width: 1200px;
+    margin: 72px auto;
+    padding: 40px;
+    background: var(--vinho);
+    color: var(--branco);
+    border-radius: var(--raio);
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.outras-icone {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    background: rgba(255, 253, 250, 0.15);
+    display: grid;
+    place-items: center;
+    font-size: 2.2rem;
+    flex-shrink: 0;
+}
+
+.outras-texto h2 {
+    font-size: clamp(24px, 2.6vw, 32px);
+    font-weight: 700;
+}
+
+.outras-texto p {
+    color: rgba(255, 253, 250, 0.88);
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.outras-botoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 18px;
+}
+
+.outras-formas .botao-principal {
+    background: var(--branco);
+    color: var(--vinho-botao);
+}
+
+.outras-formas .botao-principal:hover {
+    background: var(--bege);
+}
+
+.outras-formas .botao-secundario {
+    background: transparent;
+    color: var(--branco);
+    border-color: rgba(255, 253, 250, 0.5);
+}
+
+.outras-formas .botao-secundario:hover {
+    background: var(--branco);
+    color: var(--vinho-botao);
+    border-color: var(--branco);
+}
+
+/* ---------- responsivo ---------- */
+
+@media (max-width: 960px) {
+
+    .destino-grid,
+    .doar-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .doacao-intro {
+        flex-direction: column-reverse;
+        text-align: center;
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+
+    .doacao-intro p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .doacao-intro h1 {
+        font-size: 42px;
+    }
+
+    .intro-icone {
+        width: 130px;
+        height: 130px;
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 650px) {
+    .secao {
+        padding: 48px 20px 0;
+    }
+
+    .doacao-intro {
+        padding: 65px 6% 65px;
+    }
+
+    .doacao-intro h1 {
+        font-size: 38px;
+    }
+
+    .doacao-intro p {
+        font-size: 14px;
+    }
+
+    .secao-titulo {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .linha-decorativa {
+        display: none;
+    }
+
+    .outras-formas {
+        flex-direction: column;
+        text-align: center;
+        margin: 48px 20px;
+        padding: 32px 24px;
+    }
+
+    .outras-botoes {
+        justify-content: center;
+    }
+}

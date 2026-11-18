@@ -1,31 +1,305 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        body {
-            background-color: #f0f0f0;
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-    </style>
+
+    <meta name="description"
+        content="Ajude o Portal Orelha. Doe via Pix, transferência ou itens e transforme a vida de animais que esperam por um lar.">
+    <meta name="author" content="Portal Orelha">
+    <meta name="theme-color" content="#762b1c">
+    <meta name="robots" content="index, follow">
+
+    <title>Doações | Portal Orelha</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="../styles/doacao.css">
+    <link rel="stylesheet" href="../styles/components/navbar-menu.css">
+    <link rel="stylesheet" href="../styles/components/footer.css">
 </head>
+
 <body>
-    <div class="container">
-        <h1>Doação</h1>
-    </div>
+
+    <header class="cabecalho">
+        <a href="../index.html">
+            <img src="../img/logodois.png" alt="Portal Orelha">
+        </a>
+
+        <button class="menu-tres" aria-label="Abrir menu" aria-expanded="false">☰</button>
+
+        <nav class="menu">
+            <a href="../index.html">Início</a>
+            <a href="./voluntariado.html">Serviços Voluntários</a>
+            <a href="../index.html#sobre">ONG</a>
+            <a href="./doacao.html" class="ativo">Doações</a>
+            <a href="./contato.html">Contato</a>
+            <a href="./news.html">Notícias</a>
+            <a href="./catalogo.html" class="botao-adotar">♡ Adotar</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- CABEÇALHO DA PÁGINA -->
+        <section class="doacao-intro">
+
+            <div>
+                <span class="sobretitulo">Toda ajuda conta</span>
+
+                <h1>Sua doação muda<br>a vida de um animal.</h1>
+
+                <p>
+                    Cada contribuição, grande ou pequena, ajuda a garantir
+                    alimento, cuidados veterinários e acolhimento para quem
+                    está à espera de um lar.
+                </p>
+
+                <a href="#como-doar" class="botao-principal">
+                    Quero ajudar <i class="fa-solid fa-arrow-down"></i>
+                </a>
+            </div>
+
+            <div class="intro-icone">
+                <i class="fa-solid fa-hand-holding-heart"></i>
+            </div>
+
+        </section>
+
+        <!-- PARA ONDE VAI A DOAÇÃO -->
+        <section class="destino secao">
+
+            <div class="secao-titulo">
+                <div>
+                    <span class="sobretitulo">Transparência</span>
+                    <h2>Para onde vai a sua doação</h2>
+                </div>
+                <span class="linha-decorativa"></span>
+            </div>
+
+            <div class="destino-grid">
+
+                <article class="destino-card">
+                    <div class="icone-card"><i class="fa-solid fa-bowl-food"></i></div>
+                    <h3>Alimentação</h3>
+                    <p>Ração e alimentos de qualidade para manter cada animal saudável e forte.</p>
+                </article>
+
+                <article class="destino-card">
+                    <div class="icone-card"><i class="fa-solid fa-stethoscope"></i></div>
+                    <h3>Cuidados veterinários</h3>
+                    <p>Consultas, vacinas, castração e tratamentos para quem foi resgatado.</p>
+                </article>
+
+                <article class="destino-card">
+                    <div class="icone-card"><i class="fa-solid fa-house-chimney"></i></div>
+                    <h3>Abrigo e higiene</h3>
+                    <p>Estrutura, limpeza e conforto para que todos tenham um recomeço digno.</p>
+                </article>
+
+            </div>
+
+        </section>
+
+        <!-- COMO DOAR -->
+        <section class="como-doar secao" id="como-doar">
+
+            <div class="secao-titulo">
+                <div>
+                    <span class="sobretitulo">Escolha o seu jeito</span>
+                    <h2>Como doar</h2>
+                </div>
+                <span class="linha-decorativa"></span>
+            </div>
+
+            <div class="doar-grid">
+
+                <!-- PIX -->
+                <article class="doar-card destaque">
+
+                    <div class="doar-topo">
+                        <div class="icone-card claro"><i class="fa-brands fa-pix"></i></div>
+                        <h3>Doação via Pix</h3>
+                    </div>
+
+                    <p>
+                        Rápido, seguro e sem taxas. Aponte a câmera para o
+                        QR code ou copie a chave abaixo e faça a doação no
+                        aplicativo do seu banco.
+                    </p>
+
+                    <!-- QR code do Pix da ONG (imagem img/qr-pix.png, 196px). A chave exibida abaixo deve ser a mesma do QR. -->
+                    <figure class="pix-qr">
+                        <img src="../img/qr-code.jpeg"
+                             alt="QR code para doar via Pix ao Instituto Orelha"
+                             width="196" height="196">
+                        <figcaption>Escaneie com o app do seu banco</figcaption>
+                    </figure>
+
+                    <!-- TODO: substituir pela chave Pix real da ONG -->
+                    <div class="pix-chave">
+                        <span class="pix-rotulo">Chave Pix (e-mail)</span>
+                        <div class="pix-linha">
+                            <code id="chavePix">contaDaOng@gmail.com</code>
+                            <button type="button" class="btn-copiar" id="botaoCopiar" data-copiar="#chavePix">
+                                <i class="fa-regular fa-copy"></i>
+                                <span>Copiar</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <p class="pix-aviso" id="avisoCopia" role="status" aria-live="polite"></p>
+
+                </article>
+
+                <!-- TRANSFERÊNCIA -->
+                <article class="doar-card">
+
+                    <div class="doar-topo">
+                        <div class="icone-card"><i class="fa-solid fa-building-columns"></i></div>
+                        <h3>Transferência bancária</h3>
+                    </div>
+
+                    <p>Se preferir, faça uma transferência diretamente para a conta da ONG.</p>
+
+                    <!-- TODO: substituir pelos dados bancários reais -->
+   <ul class="dados-banco">
+    <li><span>Banco</span><strong>001 – Banco do Brasil</strong></li>
+    <li><span>Agência</span><strong>1234-5</strong></li>
+    <li><span>Conta</span><strong>12345-6</strong></li>
+    <li><span>Titular</span><strong>Conta da ONG</strong></li>
+    <li><span>Tipo de conta</span><strong>Conta corrente</strong></li>
+</ul>
+
+                </article>
+
+                <!-- ITENS -->
+                <article class="doar-card">
+
+                    <div class="doar-topo">
+                        <div class="icone-card"><i class="fa-solid fa-box-open"></i></div>
+                        <h3>Doação de itens</h3>
+                    </div>
+
+                    <p>Também aceitamos itens que ajudam no dia a dia dos animais:</p>
+
+                    <ul class="lista-itens">
+                        <li><i class="fa-solid fa-paw"></i> Ração para cães e gatos</li>
+                        <li><i class="fa-solid fa-paw"></i> Cobertores e caminhas</li>
+                        <li><i class="fa-solid fa-paw"></i> Produtos de limpeza</li>
+                        <li><i class="fa-solid fa-paw"></i> Medicamentos e antipulgas</li>
+                        <li><i class="fa-solid fa-paw"></i> Brinquedos e coleiras</li>
+                    </ul>
+
+                    <a href="./contato.html" class="link-card">
+                        Combinar entrega <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+
+                </article>
+
+            </div>
+
+        </section>
+
+        <!-- OUTRAS FORMAS DE AJUDAR -->
+        <section class="outras-formas">
+
+            <div class="outras-icone">
+                <i class="fa-solid fa-paw"></i>
+            </div>
+
+            <div class="outras-texto">
+                <h2>Não pode doar agora? Ainda dá para ajudar.</h2>
+
+                <p>
+                    Divulgue os animais do catálogo, seja voluntário ou
+                    compartilhe a nossa causa. Pequenas atitudes geram
+                    grandes mudanças.
+                </p>
+
+                <div class="outras-botoes">
+                    <a href="./voluntariado.html" class="botao-principal">Ser voluntário</a>
+                    <a href="./catalogo.html" class="botao-secundario">Ver animais para adoção</a>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- =========================
+             FOOTER
+        ========================== -->
+    <footer class="footer">
+
+        <div class="footer-container">
+
+            <!-- IDENTIDADE DO PORTAL -->
+            <div class="footer-marca">
+                <a href="../index.html" class="footer-logo">
+                    <i class="fa-solid fa-paw"></i>
+                    <span>Portal <strong>Orelha</strong></span>
+                </a>
+
+                <p>
+                    Cada vida importa. <br>
+                    Um mundo mais seguro e acolhedor
+                    começa com pequenas atitudes.
+                </p>
+            </div>
+
+            <!-- NAVEGAÇÃO -->
+            <div class="footer-links">
+                <h3>NAVEGAÇÃO</h3>
+                <a href="../index.html">Início</a>
+                <a href="./catalogo.html">Pets</a>
+                <a href="./doacao.html">Ajudar</a>
+                <a href="./contato.html">Entrar em contato</a>
+            </div>
+
+            <!-- CONTATO -->
+            <div class="footer-contato">
+                <h3>FALE CONOSCO</h3>
+
+                <a href="mailto:portalorelha@gmail.com">
+                    <i class="fa-regular fa-envelope"></i>
+                    portalorelha@gmail.com
+                </a>
+
+                <a href="./contato.html">
+                    <i class="fa-solid fa-comment-dots"></i>
+                    Envie uma mensagem
+                </a>
+            </div>
+
+            <!-- REDES SOCIAIS -->
+            <div class="footer-redes">
+                <h3>ACOMPANHE</h3>
+
+                <div class="redes-icons">
+                    <a href="https://atlas-solutions.netlify.app/" aria-label="Atlas Solutions" target="_blank" rel="noopener noreferrer">
+                        <img src="https://atlas-solutions.netlify.app/assets/logo.png" alt="Atlas Solution" width="24" height="24">
+                    </a>
+                    <!-- Adicionar vídeo Pitch -->
+                    <a href="#"  aria-label="Youtube" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- RODAPÉ INFERIOR -->
+        <div class="footer-bottom">
+            <p>&copy; 2026 Portal Orelha. Todos os direitos reservados.</p>
+            <p>Feito com <i class="fa-solid fa-heart"></i> pelos animais.</p>
+        </div>
+
+    </footer>
+
+    <script src="../scripts/components/menu-lateral.js"></script>
+    <script src="../scripts/doacao.js"></script>
 </body>
 </html>
