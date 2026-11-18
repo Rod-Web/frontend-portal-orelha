@@ -40,6 +40,23 @@ function nomeMesCurto(date) {
     .replace(/^./, (c) => c.toUpperCase());
 }
 
+/** Nome completo do mês ("Novembro") */
+function nomeMesCompleto(date) {
+  return date
+    .toLocaleDateString("pt-BR", { month: "long" })
+    .replace(/^./, (c) => c.toUpperCase());
+}
+
+/**
+ * Verifica se uma data ISO pertence a um dado ano/mês (timezone local).
+ */
+function pertenceAoMes(iso, ano, mes) {
+  if (!iso) return false;
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return false;
+  return d.getFullYear() === ano && d.getMonth() === mes;
+}
+
 /* =========================================================
    1) SITUAÇÃO DOS ANIMAIS  (doughnut) — DINÂMICO
    ========================================================= */
@@ -87,9 +104,9 @@ async function iniciarGraficoSituacao() {
 iniciarGraficoSituacao();
 
 /* =========================================================
-   2) SOLICITAÇÕES APROVADAS POR MÊS  (bar) — DINÂMICO
-   Conta solicitações com status APROVADA agrupadas
-   pelo mês de data_solicitacao (últimos 8 meses).
+   2) ADOÇÕES APROVADAS POR MÊS  (bar) — DINÂMICO
+   Conta solicitações com status APROVADA agrupadas pelo
+   mês de data_solicitacao (últimos 8 meses).
    ========================================================= */
 
 async function iniciarGraficoAdocoes() {
@@ -228,9 +245,9 @@ async function iniciarGraficoEspecies() {
 iniciarGraficoEspecies();
 
 /* =========================================================
-   4) COMPARATIVO DE REGISTROS  (bar horizontal) — DINÂMICO
-   Compara os totais de cada entidade do sistema:
-   pets, solicitações, oportunidades e inscrições.
+   4) REGISTROS DO MÊS ATUAL  (bar horizontal) — DINÂMICO
+   Compara quantos pets, solicitações, oportunidades e
+   inscrições entraram NO MÊS CORRENTE (não histórico total).
    ========================================================= */
 
 async function iniciarGraficoAtividades() {
@@ -245,13 +262,32 @@ async function iniciarGraficoAtividades() {
       fetchCapturarInscricoesVoluntariado(),
     ]);
 
-  const totalPets = extrairLista(resPets).length;
-  const totalSolicitacoes = extrairLista(
-    resSolicitacoes,
-    "solicitacoes",
+  const pets = extrairLista(resPets);
+  const solicitacoes = extrairLista(resSolicitacoes, "solicitacoes");
+  const trabalhos = extrairLista(resTrabalhos, "oportunidades");
+  const inscricoes = extrairLista(resInscricoes, "inscricoes");
+
+  // ─── Mês corrente ─────────────────────────────────────
+  const agora = new Date();
+  const anoAtual = agora.getFullYear();
+  const mesAtual = agora.getMonth();
+
+  // ─── Filtra cada lista pelo mês atual ─────────────────
+  const petsDoMes = pets.filter((p) =>
+    pertenceAoMes(p.data_cadastro, anoAtual, mesAtual),
   ).length;
-  const totalTrabalhos = extrairLista(resTrabalhos, "oportunidades").length;
-  const totalInscricoes = extrairLista(resInscricoes, "inscricoes").length;
+
+  const solicitacoesDoMes = solicitacoes.filter((s) =>
+    pertenceAoMes(s.data_solicitacao, anoAtual, mesAtual),
+  ).length;
+
+  const trabalhosDoMes = trabalhos.filter((t) =>
+    pertenceAoMes(t.data_cadastro, anoAtual, mesAtual),
+  ).length;
+
+  const inscricoesDoMes = inscricoes.filter((i) =>
+    pertenceAoMes(i.data_inscricao, anoAtual, mesAtual),
+  ).length;
 
   new Chart(canvas, {
     type: "bar",
@@ -264,13 +300,13 @@ async function iniciarGraficoAtividades() {
       ],
       datasets: [
         {
-          label: "Total de registros",
-          data: [totalPets, totalSolicitacoes, totalTrabalhos, totalInscricoes],
+          label: `Registros em ${nomeMesCompleto(agora)}`,
+          data: [petsDoMes, solicitacoesDoMes, trabalhosDoMes, inscricoesDoMes],
           backgroundColor: [
             cores.vinho,
             cores.vinhoClaro,
             cores.bege,
-            cores.begeClaro,
+            cores.marrom,
           ],
           borderRadius: 8,
           maxBarThickness: 38,
