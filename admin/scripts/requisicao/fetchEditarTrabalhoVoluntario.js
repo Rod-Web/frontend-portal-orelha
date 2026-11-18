@@ -2,7 +2,7 @@
 
 import { fetchRefresh } from "./fetchRefresh.js";
 
-import url from '../../../ambiente.js'
+import url from '../../ambiente.js'
 const URL = url;
 export async function fetchEditarTrabalhoVoluntario(id, dados) {
 try {

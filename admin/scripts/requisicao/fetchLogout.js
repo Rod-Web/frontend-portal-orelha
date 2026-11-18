@@ -1,4 +1,4 @@
-import url from '../../../ambiente.js'
+import url from '../../ambiente.js'
 const URL = url;
 export async function fetchLogout() {
   try {
