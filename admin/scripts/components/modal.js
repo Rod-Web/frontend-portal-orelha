@@ -1,15 +1,26 @@
-// modal-aviso.js
+// ./admin/scripts/components/modal-aviso.js
+
 const modal = document.getElementById("modalAviso");
 const texto = document.getElementById("modalAvisoTexto");
+const tituloEl = document.getElementById("modalAvisoTitulo");
 const botaoOk = document.getElementById("modalAvisoOk");
+
+// A página pode não ter o modal — nesse caso, viram no-op
+const temModal = !!(modal && texto && tituloEl && botaoOk);
 
 let urlRedirecionar = null;
 let elementoFocadoAntes = null;
 
-
 export function mostrarAviso(mensagem, url = null, titulo = "Aviso") {
+  if (!temModal) {
+    // Fallback para páginas sem o HTML do modal
+    console.warn("[modal-aviso]", `${titulo}:`, mensagem);
+    if (url) window.location.replace(url);
+    return;
+  }
+
   texto.textContent = mensagem;
-  document.getElementById("modalAvisoTitulo").textContent = titulo;
+  tituloEl.textContent = titulo;
   urlRedirecionar = url;
 
   elementoFocadoAntes = document.activeElement;
@@ -20,21 +31,22 @@ export function mostrarAviso(mensagem, url = null, titulo = "Aviso") {
 }
 
 function fecharModal() {
+  if (!temModal) return;
   modal.hidden = true;
   urlRedirecionar = null;
   elementoFocadoAntes?.focus?.();
 }
 
-// Botão OK
-botaoOk.addEventListener("click", function () {
-  const destino = urlRedirecionar;
-  fecharModal();
-  if (destino) window.location.replace(destino);
-});
-
-// ESC fecha o modal
-document.addEventListener("keydown", function (event) {
-  if (event.key === "Escape" && !modal.hidden) {
+if (temModal) {
+  botaoOk.addEventListener("click", function () {
+    const destino = urlRedirecionar;
     fecharModal();
-  }
-});
+    if (destino) window.location.replace(destino);
+  });
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape" && !modal.hidden) {
+      fecharModal();
+    }
+  });
+}

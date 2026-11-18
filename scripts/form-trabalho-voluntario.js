@@ -1,6 +1,7 @@
 // ./scripts/forms-trabalho-voluntario.js
 
 import { perguntas } from "./forms-questions/solicitacao-trabalho-voluntario.js";
+import url from "../../ambiente.js";
 
 let indice = 0;
 const respostas = {};
@@ -224,6 +225,7 @@ function obterResposta(p) {
 const validacoes = {
   nome(valor) {
     if (valor.length < 3) return "O nome deve ter pelo menos 3 caracteres.";
+    if (valor.length > 100) return "O nome deve ter até 100 caracteres.";
     if (!valor.includes(" "))
       return "Por favor, informe seu nome completo (nome e sobrenome).";
     return null;
@@ -249,9 +251,25 @@ const validacoes = {
     }
     return null;
   },
+
+  /**
+   * Genérico para campos de texto livre.
+   * @param {string} valor
+   * @param {string} nomeCampo - aparece na mensagem de erro
+   * @param {number} min
+   * @param {number} max
+   */
+  textoLivre(valor, nomeCampo = "Este campo", min = 3, max = 1000) {
+    if (valor.length < min)
+      return `${nomeCampo} deve ter pelo menos ${min} caracteres.`;
+    if (valor.length > max)
+      return `${nomeCampo} deve ter até ${max} caracteres.`;
+    return null;
+  },
 };
 
 function validarResposta(p, valor) {
+  // Q1 — Nome completo
   if (p.id === 1 && typeof valor === "string") {
     const err = validacoes.nome(valor);
     if (err) {
@@ -259,6 +277,8 @@ function validarResposta(p, valor) {
       return false;
     }
   }
+
+  // Q2 — Idade
   if (p.id === 2) {
     const err = validacoes.idade(valor);
     if (err) {
@@ -266,6 +286,8 @@ function validarResposta(p, valor) {
       return false;
     }
   }
+
+  // Q3 — Email
   if (p.tipo === "email" && typeof valor === "string") {
     const err = validacoes.email(valor);
     if (err) {
@@ -273,6 +295,17 @@ function validarResposta(p, valor) {
       return false;
     }
   }
+
+  // Q4 — Cidade e bairro (5–250)
+  if (p.id === 4 && typeof valor === "string") {
+    const err = validacoes.textoLivre(valor, "A cidade e bairro", 5, 250);
+    if (err) {
+      avisar(err, "erro");
+      return false;
+    }
+  }
+
+  // Q5 — Telefone
   if (p.tipo === "tel" && typeof valor === "string") {
     const err = validacoes.tel(valor);
     if (err) {
@@ -280,14 +313,68 @@ function validarResposta(p, valor) {
       return false;
     }
   }
+
+  // Q6 — Profissão atual (3–100)
+  if (p.id === 6 && typeof valor === "string") {
+    const err = validacoes.textoLivre(valor, "A profissão", 3, 100);
+    if (err) {
+      avisar(err, "erro");
+      return false;
+    }
+  }
+
+  // Q10 — Experiência em voluntariado (3–1000)
+  if (p.id === 10 && typeof valor === "string") {
+    const err = validacoes.textoLivre(
+      valor,
+      "A experiência em voluntariado",
+      3,
+      1000,
+    );
+    if (err) {
+      avisar(err, "erro");
+      return false;
+    }
+  }
+
+  // Q11 — Habilidades relevantes (3–1000)
+  if (p.id === 11 && typeof valor === "string") {
+    const err = validacoes.textoLivre(valor, "As habilidades", 3, 1000);
+    if (err) {
+      avisar(err, "erro");
+      return false;
+    }
+  }
+
+  // Q12 — Experiência com animais (3–1000)
+  if (p.id === 12 && typeof valor === "string") {
+    const err = validacoes.textoLivre(
+      valor,
+      "A experiência com animais",
+      3,
+      1000,
+    );
+    if (err) {
+      avisar(err, "erro");
+      return false;
+    }
+  }
+
+  // Q15 — Motivação (3–1000)
+  if (p.id === 15 && typeof valor === "string") {
+    const err = validacoes.textoLivre(valor, "A motivação", 10, 1000);
+    if (err) {
+      avisar(err, "erro");
+      return false;
+    }
+  }
+
   return true;
 }
 
 // ==========================================================
 // MONTAGEM DO PAYLOAD
 // ==========================================================
-
-import url from "../../ambiente.js";
 
 function montarPayload() {
   const dias = Array.isArray(respostas[7]) ? respostas[7] : [];
@@ -324,54 +411,62 @@ function montarPayload() {
 }
 
 // ==========================================================
-// LOG + FINALIZAÇÃO
+// FINALIZAÇÃO (envio + tratamento de erro)
 // ==========================================================
 
-
-
 async function finalizar() {
-
   const payload = montarPayload();
-
-  // console.group(
-  //  "%c📤 PAYLOAD PRONTO PARA ENVIO",
-  //  "color: #1d6b2b; font-size: 14px; font-weight: bold;",
-  // );
-  //console.log("%cPayload:", "color: #666; font-weight: bold;", payload);
-  //console.log("%cJSON (para copiar):", "color: #666; font-weight: bold;");
-  // console.log(JSON.stringify(payload, null, 2));
-  // console.groupEnd();
-
-  // ==========================================================
-  // Enviar via POST 
-  // ==========================================================
-
   const API_URL = `${url}/inscricao-trabalho-voluntario`;
 
+  // Bloqueia duplo envio
+  proximo.disabled = true;
+  const textoBotao = proximo.textContent;
+  proximo.textContent = "Enviando…";
+
   try {
-      const response = await fetch(API_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-      });
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
 
-      if (!response.ok) {
-          throw new Error(`HTTP ${response.status} — ${response.statusText}`);
-      }
+    // 🔑 Lê o body ANTES de checar .ok (o backend manda {erro: "..."} nos 4xx)
+    const data = await response.json().catch(() => ({}));
 
-      const data = await response.json().catch(() => ({}));
-      console.log("✅ Enviado com sucesso:", data);
+    if (!response.ok) {
+      // Tenta extrair mensagem de vários formatos comuns
+      const msgBackend =
+        data.erro ||
+        data.error ||
+        data.mensagem ||
+        data.message ||
+        `Erro ${response.status}: ${response.statusText}`;
+
+      console.error("❌ Backend respondeu erro:", response.status, data);
+      avisar(msgBackend, "erro");
+      return; // não mostra tela de sucesso
+    }
+
+    // Sucesso
+    console.log("✅ Enviado com sucesso:", data);
+
+    encerrar(
+      "Obrigado! 🐾",
+      data.mensagem ||
+        "Sua inscrição foi preenchida com sucesso. Nossa equipe analisará suas respostas e entrará em contato em breve.",
+    );
   } catch (error) {
-      console.error("❌ Erro ao enviar:", error);
-      avisar("Não foi possível enviar sua inscrição. Tente novamente.", "erro");
-      return;
+    // Erro de rede, timeout, ou falha antes da resposta chegar
+    console.error("❌ Erro ao enviar:", error);
+    avisar(
+      "Não foi possível conectar ao servidor. Verifique sua internet e tente novamente.",
+      "erro",
+    );
+  } finally {
+    // Restaura o botão caso o usuário volte (não bloqueia tela de sucesso)
+    proximo.disabled = false;
+    proximo.textContent = textoBotao;
   }
-  // ==========================================================
-
-  encerrar(
-    "Obrigado! 🐾",
-    "Sua inscrição foi preenchida com sucesso. Nossa equipe analisará suas respostas e entrará em contato em breve.",
-  );
 }
 
 function encerrar(titulo, mensagem) {
@@ -403,7 +498,6 @@ proximo.addEventListener("click", async () => {
   respostas[p.id] = valor;
 
   if (p.eliminar && p.eliminar(valor)) {
-
     encerrar(
       "Inscrição encerrada",
       "Infelizmente, sua resposta não atende aos critérios obrigatórios para participar desta oportunidade de trabalho voluntário.",

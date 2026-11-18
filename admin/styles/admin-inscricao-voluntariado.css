@@ -1,0 +1,698 @@
+/* ./admin/styles/admin-inscricao-voluntariado.css
+   CSS da página de detalhes da inscrição de voluntariado.
+   Layout (sidebar/topbar) vem de admin-painel.css.
+*/
+
+/* =========================================================
+   CABEÇALHO DA PÁGINA
+   ========================================================= */
+
+.voltar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin-bottom: 20px;
+    border-radius: 50%;
+    background: #fffaf3;
+    border: 1px solid #ecd7c7;
+    color: #8f2c1c;
+    transition: background 0.2s, transform 0.15s;
+}
+
+.voltar:hover {
+    background: #fff3e9;
+    transform: translateX(-2px);
+}
+
+.titulo-bloco {
+    margin-bottom: 28px;
+}
+
+.titulo-linha {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+}
+
+.titulo-linha h1 {
+    margin: 0;
+    font: 700 clamp(24px, 3vw, 32px) / 1.2 "Playfair Display", serif;
+    color: #63291e;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.id-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #f0cbb5;
+    background: #8f2c1c;
+    border-radius: 20px;
+}
+
+.titulo-bloco p {
+    margin: 0;
+    font-size: 13.5px;
+    color: #806557;
+}
+
+/* Badge de status */
+
+.badge-status {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.badge-status.pendente {
+    background: #fbe6d7;
+    color: #7e2415;
+}
+
+.badge-status.em_analise {
+    background: #fde2c8;
+    color: #a34a00;
+}
+
+.badge-status.aprovada {
+    background: #e6f4ea;
+    color: #2e7d32;
+}
+
+.badge-status.reprovada {
+    background: #fdeeea;
+    color: #a92d17;
+}
+
+/* =========================================================
+   GRID DE CARTÕES
+   ========================================================= */
+
+.detalhes-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    gap: 20px;
+    align-items: start;
+    margin-bottom: 24px;
+}
+
+.detalhes-card {
+    background: #fffaf3;
+    border: 1px solid #ecd7c7;
+    border-radius: 16px;
+    padding: 24px;
+}
+
+/* =========================================================
+   CABEÇALHO DO CARD
+   ========================================================= */
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #f0e2d4;
+}
+
+.card-header.mt {
+    margin-top: 24px;
+}
+
+.card-header i {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9px;
+    background: #fbe6d7;
+    color: #a92d17;
+    font-size: 13px;
+    flex-shrink: 0;
+}
+
+.card-header h2 {
+    margin: 0;
+    font-family: "Playfair Display", serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: #7e2415;
+}
+
+/* =========================================================
+   INFO GRID (label + valor)
+   ========================================================= */
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 20px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.info-item.full {
+    grid-column: 1 / -1;
+}
+
+.info-item .label {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #a4876f;
+}
+
+.info-item .value {
+    font-size: 14px;
+    color: #542e2b;
+    line-height: 1.55;
+    word-break: break-word;
+}
+
+.info-item .value.link {
+    color: #8f2c1c;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.info-item .value.link:hover {
+    color: #7e2415;
+    text-decoration: underline;
+}
+
+.info-item .value.text {
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: #63291e;
+}
+
+/* Chips (dias, períodos) */
+
+.chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.chip {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 14px;
+    background: #f3e4d5;
+    color: #7e2415;
+}
+
+.chip.vazio {
+    background: transparent;
+    color: #b9a89b;
+    font-style: italic;
+    padding: 0;
+}
+
+/* Badge sim/não */
+
+.badge-sim-nao {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 14px;
+    width: fit-content;
+}
+
+.badge-sim-nao.sim {
+    background: #e6f4ea;
+    color: #2e7d32;
+}
+
+.badge-sim-nao.nao {
+    background: #fdeeea;
+    color: #a92d17;
+}
+
+/* =========================================================
+   BLOCO DA OPORTUNIDADE
+   ========================================================= */
+
+.oportunidade-bloco {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.oportunidade-titulo {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.oportunidade-titulo h3 {
+    margin: 0;
+    font-family: "Playfair Display", serif;
+    font-size: 19px;
+    font-weight: 700;
+    color: #7e2415;
+    line-height: 1.3;
+    flex: 1;
+    min-width: 0;
+}
+
+.badge-oportunidade {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    padding: 5px 11px;
+    border-radius: 14px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.badge-oportunidade.aberta {
+    background: #e6f4ea;
+    color: #2e7d32;
+}
+
+.badge-oportunidade.encerrada {
+    background: #e5e5e5;
+    color: #666;
+}
+
+.oportunidade-descricao {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #6d4a3e;
+}
+
+.oportunidade-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 16px;
+    border-top: 1px solid #f0e2d4;
+}
+
+.meta-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    color: #542e2b;
+    line-height: 1.5;
+}
+
+.meta-item i {
+    color: #a94b2b;
+    font-size: 13px;
+    width: 16px;
+    text-align: center;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+/* =========================================================
+   AÇÕES (footer)
+   ========================================================= */
+
+.acoes-footer {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+
+    padding: 20px;
+    background: #fffaf3;
+    border: 1px solid #ecd7c7;
+    border-radius: 16px;
+}
+
+.botao-acao {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    min-height: 46px;
+    padding: 12px 24px;
+
+    border: 1px solid transparent;
+    border-radius: 24px;
+
+    font-family: inherit;
+    font-size: 13.5px;
+    font-weight: 700;
+
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, transform 0.15s, opacity 0.2s;
+}
+
+.botao-acao i {
+    font-size: 14px;
+}
+
+.botao-acao:hover:not(:disabled) {
+    transform: translateY(-1px);
+}
+
+.botao-acao:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.botao-acao.recusar {
+    background: transparent;
+    color: #a92d17;
+    border-color: #e9c4b9;
+}
+
+.botao-acao.recusar:hover:not(:disabled) {
+    background: #fdeee9;
+    border-color: #d8a999;
+}
+
+.botao-acao.contato {
+    background: transparent;
+    color: #2e7d32;
+    border-color: #bfe4c5;
+}
+
+.botao-acao.contato:hover:not(:disabled) {
+    background: #ecf8ee;
+    border-color: #9bc9a3;
+}
+
+.botao-acao.aprovar {
+    background: #a92d17;
+    color: #fff;
+    border-color: #a92d17;
+}
+
+.botao-acao.aprovar:hover:not(:disabled) {
+    background: #7e2415;
+    border-color: #7e2415;
+}
+
+.botao-acao.atual {
+    box-shadow: inset 0 0 0 2px currentColor;
+}
+
+/* =========================================================
+   ESTADO DE ERRO (fallback)
+   ========================================================= */
+
+.estado-erro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 60px 20px;
+    text-align: center;
+    background: #fffaf3;
+    border: 1px solid #ecd7c7;
+    border-radius: 16px;
+}
+
+/* 🔑 hidden precisa vencer o display:flex */
+.estado-erro[hidden] {
+    display: none;
+}
+
+.estado-erro i {
+    font-size: 40px;
+    color: #a92d17;
+}
+
+.estado-erro p {
+    margin: 0;
+    font-size: 14px;
+    color: #806557;
+}
+
+.estado-erro .botao-secundario {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
+    border: 1px solid #e5d4be;
+    border-radius: 20px;
+    background: transparent;
+    color: #7e2415;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.estado-erro .botao-secundario:hover {
+    background: #fbe6d7;
+}
+
+/* =========================================================
+   MODAIS (aviso + confirmação)
+   ========================================================= */
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(45, 20, 15, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 300;
+    padding: 20px;
+    animation: fadeIn 0.15s ease;
+}
+
+.modal-overlay[hidden] {
+    display: none;
+}
+
+.modal {
+    background: #fffaf3;
+    border-radius: 18px;
+    padding: 28px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(45, 20, 15, 0.25);
+    animation: subirModal 0.2s ease;
+}
+
+.modal-icone {
+    width: 54px;
+    height: 54px;
+    margin: 0 auto 16px;
+    background: #fdeee9;
+    color: #a92d17;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+}
+
+.modal-icone.sucesso {
+    background: #e6f4ea;
+    color: #2e7d32;
+}
+
+.modal-icone.contato {
+    background: #e6f4ea;
+    color: #2e7d32;
+}
+
+.modal-icone.perigo {
+    background: #fdeee9;
+    color: #a92d17;
+}
+
+.modal h3 {
+    font-family: "Playfair Display", serif;
+    font-size: 21px;
+    color: #7e2415;
+    margin-bottom: 8px;
+}
+
+.modal p {
+    color: #9c7d68;
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 22px;
+}
+
+.modal-acoes {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.botao-secundario,
+.botao-perigo {
+    flex: 1;
+    min-height: 42px;
+    padding: 10px 18px;
+    border-radius: 22px;
+    border: 1px solid transparent;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.botao-secundario {
+    background: transparent;
+    color: #7e2415;
+    border-color: #e5d4be;
+}
+
+.botao-secundario:hover {
+    background: #fbe6d7;
+}
+
+.botao-perigo {
+    background: #a92d17;
+    color: #fff;
+}
+
+.botao-perigo:hover {
+    background: #7e2415;
+}
+
+.botao-perigo:disabled,
+.botao-secundario:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+.toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: #7e2415;
+    color: #fff;
+    padding: 14px 22px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    box-shadow: 0 10px 28px rgba(45, 20, 15, 0.25);
+    z-index: 400;
+    animation: subirToast 0.25s ease;
+}
+
+.toast[hidden] {
+    display: none;
+}
+
+.toast.sucesso {
+    background: #2e7d32;
+}
+
+.toast.falha {
+    background: #a92d17;
+}
+
+/* =========================================================
+   ANIMAÇÕES
+   ========================================================= */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes subirModal {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes subirToast {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* =========================================================
+   RESPONSIVO
+   ========================================================= */
+
+@media (max-width: 900px) {
+    .detalhes-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .acoes-footer {
+        flex-direction: column;
+        padding: 16px;
+    }
+
+    .botao-acao {
+        width: 100%;
+    }
+
+    .toast {
+        left: 16px;
+        right: 16px;
+        bottom: 16px;
+    }
+}

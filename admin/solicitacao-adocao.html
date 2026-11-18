@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Detalhes da Solicitação · Painel Orelha</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="./styles/components/model.css">
+    <link rel="stylesheet" href="./styles/admin-painel.css">
+    <link rel="stylesheet" href="./styles/admin-solicitacao-adocao.css">
+</head>
+<body>
+
+<div class="painel-layout">
+
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sair sair-sidebar" id="sair">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          <span>Sair</span>
+        </div>
+
+        <div class="sidebar-logo">
+          <a href="./dashboard.html" class="logo-link">
+            <img src="../img/logodois.png" alt="Portal Orelha" />
+          </a>
+        </div>
+
+        <nav class="sidebar-nav">
+            <p class="nav-grupo">Menu principal</p>
+            <a href="./dashboard.html" class="nav-item">
+                <i class="fa-solid fa-house"></i> Início
+            </a>
+            <a href="./cadastrar-pet.html" class="nav-item">
+                <i class="fa-solid fa-paw"></i> Cadastrar Pet
+            </a>
+            <a href="./pets.html" class="nav-item">
+                <i class="fa-solid fa-list-check"></i> Gerenciar Pets
+            </a>
+            <a href="./solicitacoes-adocao.html" class="nav-item ativo">
+                <i class="fa-solid fa-file-signature"></i> Solicitações de Adoção
+            </a>
+
+            <p class="nav-grupo">Trabalho Voluntário</p>
+            <a href="./cadastrar-servico-voluntario.html" class="nav-item">
+                <i class="fa-solid fa-user-plus"></i> Cadastrar Serviços Voluntários
+            </a>
+            <a href="./servicos-voluntarios.html" class="nav-item">
+                <i class="fa-solid fa-users-gear"></i> Gerenciar Serviços Voluntários
+            </a>
+            <a href="./inscricoes-voluntariado.html" class="nav-item">
+                <i class="fa-solid fa-people-carry-box"></i> Inscrições para Serviços Voluntários
+            </a>
+        </nav>
+    </aside>
+
+    <!-- ================= CONTEÚDO ================= -->
+    <div class="painel-main">
+
+        <header class="topbar">
+          <button
+            class="topbar-menu"
+            id="menuToggle"
+            aria-label="Abrir menu"
+            aria-expanded="false"
+          >
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <div class="topbar-usuario" id="topbarUsuario">
+            <i class="fa-solid fa-circle-user"></i>
+            <span></span>
+          </div>
+          <div class="sair desktop" id="sair">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Sair</span>
+          </div>
+        </header>
+
+        <main class="conteudo" id="conteudoDetalhes">
+
+            <a href="./solicitacoes-adocao.html" class="voltar" aria-label="Voltar">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+
+            <div class="titulo-bloco">
+                <div class="titulo-linha">
+                    <h1>
+                        Solicitação
+                        <span class="id-badge" id="solicitacaoId">#—</span>
+                    </h1>
+                    <span class="badge-status pendente" id="statusBadge">—</span>
+                </div>
+                <p id="infoData">Carregando informações…</p>
+            </div>
+
+            <div id="conteudoCarregado" hidden>
+                <div class="detalhes-grid">
+
+                    <!-- ============ DADOS DO ADOTANTE ============ -->
+                    <section class="detalhes-card">
+                        <header class="card-header">
+                            <i class="fa-solid fa-user"></i>
+                            <h2>Dados do adotante</h2>
+                        </header>
+
+                        <div class="info-grid">
+                            <div class="info-item full">
+                                <span class="label">Nome completo</span>
+                                <span class="value" id="candNome">—</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Idade</span>
+                                <span class="value" id="candIdade">—</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Profissão</span>
+                                <span class="value" id="candProfissao">—</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">E-mail</span>
+                                <a class="value link" id="candEmail" href="#">—</a>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Telefone</span>
+                                <a class="value link" id="candTelefone" href="#">—</a>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">CEP</span>
+                                <span class="value" id="candCep">—</span>
+                            </div>
+                            <div class="info-item full">
+                                <span class="label">Endereço</span>
+                                <span class="value" id="candEndereco">—</span>
+                            </div>
+                        </div>
+
+                        <!-- Residência -->
+                        <header class="card-header mt">
+                            <i class="fa-solid fa-house"></i>
+                            <h2>Residência</h2>
+                        </header>
+
+                        <div class="info-grid">
+                            <div class="info-item full">
+                                <span class="label">Medidas de segurança</span>
+                                <span class="value text" id="resSeguranca">—</span>
+                            </div>
+                            <div class="info-item full">
+                                <span class="label">Cômodos de acesso do animal</span>
+                                <div class="chips" id="resComodos"></div>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Pessoas na residência</span>
+                                <span class="value" id="resPessoas">—</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Família ciente e concorda</span>
+                                <span class="badge-sim-nao" id="resFamilia">—</span>
+                            </div>
+                            <div class="info-item full">
+                                <span class="label">Crianças no convívio</span>
+                                <span class="value text" id="resCriancas">—</span>
+                            </div>
+                        </div>
+
+                        <!-- Animais -->
+                        <header class="card-header mt">
+                            <i class="fa-solid fa-paw"></i>
+                            <h2>Animais</h2>
+                        </header>
+
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <span class="label">Possui outros animais</span>
+                                <span class="badge-sim-nao" id="anPossui">—</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Já teve animais antes</span>
+                                <span class="badge-sim-nao" id="anAnteriores">—</span>
+                            </div>
+
+                            <div class="info-item full" id="anDescricaoWrap" hidden>
+                                <span class="label">Animais atuais</span>
+                                <span class="value text" id="anDescricao">—</span>
+                            </div>
+                            <div class="info-item" id="anRacaoWrap" hidden>
+                                <span class="label">Ração atual</span>
+                                <span class="value" id="anRacao">—</span>
+                            </div>
+                            <div class="info-item" id="anVetWrap" hidden>
+                                <span class="label">Veterinário</span>
+                                <span class="value" id="anVet">—</span>
+                            </div>
+                            <div class="info-item full" id="anAnterioresDescWrap" hidden>
+                                <span class="label">Animais anteriores</span>
+                                <span class="value text" id="anAnterioresDesc">—</span>
+                            </div>
+                        </div>
+
+                        <!-- Cuidados -->
+                        <header class="card-header mt">
+                            <i class="fa-solid fa-handshake"></i>
+                            <h2>Cuidados e compromisso</h2>
+                        </header>
+
+                        <div class="info-grid">
+                            <div class="info-item full">
+                                <span class="label">Cuidador direto</span>
+                                <span class="value text" id="cuiResponsavel">—</span>
+                            </div>
+                            <div class="info-item full">
+                                <span class="label">Rotina familiar</span>
+                                <span class="value text" id="cuiRotina">—</span>
+                            </div>
+                            <div class="info-item full">
+                                <span class="label">Compromisso de adoção</span>
+                                <span class="badge-sim-nao" id="cuiCompromisso">—</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ============ PET DE INTERESSE ============ -->
+                    <section class="detalhes-card">
+                        <header class="card-header">
+                            <i class="fa-solid fa-paw"></i>
+                            <h2>Pet de interesse</h2>
+                        </header>
+
+                        <div class="pet-bloco">
+                            <div class="pet-foto-grande">
+                                <img id="petImagem" alt="Foto do pet" src="">
+                            </div>
+
+                            <div class="pet-cabecalho">
+                                <h3 id="petNome">—</h3>
+                                <span class="badge-oportunidade aberta" id="petStatus">—</span>
+                            </div>
+
+                            <div class="pet-meta">
+                                <div class="meta-item">
+                                    <i class="fa-solid fa-dog"></i>
+                                    <span id="petEspecie">—</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fa-solid fa-tag"></i>
+                                    <span id="petRaca">—</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fa-solid fa-venus-mars"></i>
+                                    <span id="petSexo">—</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fa-solid fa-cake-candles"></i>
+                                    <span id="petIdade">—</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fa-solid fa-weight-scale"></i>
+                                    <span id="petPeso">—</span>
+                                </div>
+                            </div>
+
+                            <p class="pet-descricao" id="petDescricao">—</p>
+
+                            <a href="#" class="pet-link" id="petLink">
+                                Ver pet completo
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </a>
+                        </div>
+                    </section>
+
+                </div>
+
+                <!-- ============ AÇÕES ============ -->
+                <footer class="acoes-footer" id="acoesFooter">
+                    <button type="button" class="botao-acao recusar" data-acao="REPROVADA">
+                        <i class="fa-solid fa-xmark"></i>
+                        <span>Recusar</span>
+                    </button>
+
+                    <button type="button" class="botao-acao contato" data-acao="EM_ANALISE">
+                        <i class="fa-brands fa-whatsapp"></i>
+                        <span>Entrar em contato</span>
+                    </button>
+
+                    <button type="button" class="botao-acao aprovar" data-acao="APROVADA">
+                        <i class="fa-solid fa-check"></i>
+                        <span>Aprovado</span>
+                    </button>
+                </footer>
+            </div>
+
+            <!-- Estado de erro -->
+            <div id="estadoErro" hidden class="estado-erro">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <p id="estadoErroTexto">Não foi possível carregar a solicitação.</p>
+                <a href="./solicitacoes-adocao.html" class="botao-secundario">Voltar para a lista</a>
+            </div>
+
+        </main>
+    </div>
+</div>
+
+<!-- ============ MODAL DE AVISO (reutilizável) ============ -->
+<div
+  class="modal-overlay"
+  id="modalAviso"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="modalAvisoTitulo"
+  aria-describedby="modalAvisoTexto"
+  hidden
+>
+  <div class="modal-caixa">
+    <div class="modal-icone">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+    </div>
+    <h3 id="modalAvisoTitulo">Aviso</h3>
+    <p id="modalAvisoTexto"></p>
+    <button type="button" class="modal-botao" id="modalAvisoOk">OK</button>
+  </div>
+</div>
+
+<!-- ============ MODAL DE CONFIRMAÇÃO ============ -->
+<div class="modal-overlay" id="modalConfirmar" hidden>
+    <div class="modal">
+        <div class="modal-icone" id="modalIcone">
+            <i class="fa-solid fa-circle-question"></i>
+        </div>
+        <h3 id="modalTitulo">Confirmar ação</h3>
+        <p id="modalTexto">Tem certeza?</p>
+        <div class="modal-acoes">
+            <button type="button" class="botao-secundario" id="modalCancelar">Cancelar</button>
+            <button type="button" class="botao-perigo" id="modalConfirmarBtn">Confirmar</button>
+        </div>
+    </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast" hidden></div>
+
+<script type="module" src="./scripts/components/nomeAdmin.js"></script>
+<script type="module" src="./scripts/components/sidebar.js"></script>
+<script type="module" src="./scripts/components/logout.js"></script>
+<script type="module" src="./scripts/admin-solicitacao-adocao.js"></script>
+
+</body>
+</html>
