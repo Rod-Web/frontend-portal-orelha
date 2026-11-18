@@ -2,6 +2,9 @@
 // Depende de window.Chart (Chart.js via CDN no <head> do HTML)
 
 import { fetchCapturarPets } from "../requisicao/fetchCapturarPets.js";
+import { fetchCapturarSolicitacoes } from "../requisicao/fetchCapturarSolicitacoes.js";
+import { fetchCapturarTrabalhosVoluntarios } from "../requisicao/fetchCapturarTrabalhosVoluntarios.js";
+import { fetchCapturarInscricoesVoluntariado } from "../requisicao/fetchCapturarInscricoesVoluntariado.js";
 
 /* =========================================================
    PALETA E PADRÕES
@@ -19,12 +22,22 @@ Chart.defaults.font.family = "DM Sans";
 Chart.defaults.color = cores.marrom;
 
 /* =========================================================
-   HELPER — normaliza a resposta da API
-   (pode vir como array direto OU { pets: [...] })
+   HELPERS
    ========================================================= */
-function extrairPets(resultado) {
+
+/** Normaliza resposta da API — aceita array direto ou {chave: [...]} */
+function extrairLista(resultado, chave = "pets") {
   if (!resultado || resultado.erro) return [];
-  return Array.isArray(resultado) ? resultado : resultado.pets || [];
+  if (Array.isArray(resultado)) return resultado;
+  return resultado[chave] || [];
+}
+
+/** "Nov", "Dez"... a partir de um Date */
+function nomeMesCurto(date) {
+  return date
+    .toLocaleDateString("pt-BR", { month: "short" })
+    .replace(".", "")
+    .replace(/^./, (c) => c.toUpperCase());
 }
 
 /* =========================================================
@@ -36,7 +49,7 @@ async function iniciarGraficoSituacao() {
   if (!canvas) return;
 
   const resultado = await fetchCapturarPets();
-  const pets = extrairPets(resultado);
+  const pets = extrairLista(resultado);
 
   const conta = { ADOTADO: 0, DISPONIVEL: 0, EM_PROCESSO: 0 };
 
@@ -74,41 +87,91 @@ async function iniciarGraficoSituacao() {
 iniciarGraficoSituacao();
 
 /* =========================================================
-   2) ADOÇÕES POR MÊS  (bar) — MOCK
-   Não há "data_adocao" no banco. Quando o backend adicionar,
-   troque o `data` do dataset por contagem real abaixo.
+   2) SOLICITAÇÕES APROVADAS POR MÊS  (bar) — DINÂMICO
+   Conta solicitações com status APROVADA agrupadas
+   pelo mês de data_solicitacao (últimos 8 meses).
    ========================================================= */
 
-new Chart(document.getElementById("graficoAdocoes"), {
-  type: "bar",
-  data: {
-    labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago"],
-    datasets: [
-      {
-        label: "Adoções",
-        data: [2, 3, 4, 2, 5, 4, 3, 4],
-        backgroundColor: [
-          cores.bege,
-          cores.vinhoClaro,
-          cores.vinhoClaro,
-          cores.bege,
-          cores.vinho,
-          cores.vinhoClaro,
-          cores.vinhoClaro,
-          cores.vinhoClaro,
-        ],
-        borderRadius: 8,
-        maxBarThickness: 35,
+async function iniciarGraficoAdocoes() {
+  const canvas = document.getElementById("graficoAdocoes");
+  if (!canvas) return;
+
+  const resultado = await fetchCapturarSolicitacoes();
+  const solicitacoes = extrairLista(resultado, "solicitacoes");
+
+  // Monta os últimos 8 meses (do mais antigo pro atual)
+  const agora = new Date();
+  const meses = [];
+
+  for (let i = 7; i >= 0; i--) {
+    const d = new Date(agora.getFullYear(), agora.getMonth() - i, 1);
+    meses.push({
+      label: nomeMesCurto(d),
+      ano: d.getFullYear(),
+      mes: d.getMonth(),
+      total: 0,
+    });
+  }
+
+  // Conta as APROVADAS por mês de data_solicitacao
+  solicitacoes
+    .filter(
+      (s) =>
+        (s.status || "").toUpperCase() === "APROVADA" && s.data_solicitacao,
+    )
+    .forEach((s) => {
+      const d = new Date(s.data_solicitacao);
+      if (Number.isNaN(d.getTime())) return;
+
+      const slot = meses.find(
+        (m) => m.ano === d.getFullYear() && m.mes === d.getMonth(),
+      );
+      if (slot) slot.total++;
+    });
+
+  const totais = meses.map((m) => m.total);
+
+  new Chart(canvas, {
+    type: "bar",
+    data: {
+      labels: meses.map((m) => m.label),
+      datasets: [
+        {
+          label: "Adoções aprovadas",
+          data: totais,
+          backgroundColor: meses.map((m) =>
+            m.total > 0 ? cores.vinhoClaro : cores.begeClaro,
+          ),
+          borderRadius: 8,
+          maxBarThickness: 35,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => {
+              const n = ctx.parsed.y;
+              return `${n} ${n === 1 ? "adoção" : "adoções"}`;
+            },
+          },
+        },
       },
-    ],
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: { legend: { display: false } },
-    scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } },
-  },
-});
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: { stepSize: 1, precision: 0 },
+        },
+      },
+    },
+  });
+}
+
+iniciarGraficoAdocoes();
 
 /* =========================================================
    3) CACHORROS × GATOS DISPONÍVEIS  (bar) — DINÂMICO
@@ -119,7 +182,7 @@ async function iniciarGraficoEspecies() {
   if (!canvas) return;
 
   const resultado = await fetchCapturarPets();
-  const pets = extrairPets(resultado);
+  const pets = extrairLista(resultado);
 
   const disponiveis = pets.filter(
     (p) => (p.status || "").toUpperCase() === "DISPONIVEL",
@@ -165,43 +228,83 @@ async function iniciarGraficoEspecies() {
 iniciarGraficoEspecies();
 
 /* =========================================================
-   4) ATIVIDADES DA ONG  (radar) — MOCK
-   Precisa de endpoints separados (voluntários, doações,
-   cadastros, acompanhamentos). Sem eles, fica mockado.
+   4) COMPARATIVO DE REGISTROS  (bar horizontal) — DINÂMICO
+   Compara os totais de cada entidade do sistema:
+   pets, solicitações, oportunidades e inscrições.
    ========================================================= */
 
-new Chart(document.getElementById("graficoAtividades"), {
-  type: "radar",
-  data: {
-    labels: [
-      "Adoções",
-      "Voluntários",
-      "Doações",
-      "Cadastros",
-      "Acompanhamentos",
-    ],
-    datasets: [
-      {
-        label: "Atividades registradas",
-        data: [27, 14, 22, 30, 18],
-        borderColor: cores.vinho,
-        backgroundColor: "rgba(112, 44, 56, 0.18)",
-        pointBackgroundColor: cores.vinho,
-        pointRadius: 4,
+async function iniciarGraficoAtividades() {
+  const canvas = document.getElementById("graficoAtividades");
+  if (!canvas) return;
+
+  const [resPets, resSolicitacoes, resTrabalhos, resInscricoes] =
+    await Promise.all([
+      fetchCapturarPets(),
+      fetchCapturarSolicitacoes(),
+      fetchCapturarTrabalhosVoluntarios(),
+      fetchCapturarInscricoesVoluntariado(),
+    ]);
+
+  const totalPets = extrairLista(resPets).length;
+  const totalSolicitacoes = extrairLista(
+    resSolicitacoes,
+    "solicitacoes",
+  ).length;
+  const totalTrabalhos = extrairLista(resTrabalhos, "oportunidades").length;
+  const totalInscricoes = extrairLista(resInscricoes, "inscricoes").length;
+
+  new Chart(canvas, {
+    type: "bar",
+    data: {
+      labels: [
+        "Pets cadastrados",
+        "Solicitações de adoção",
+        "Oportunidades de voluntariado",
+        "Inscrições em voluntariado",
+      ],
+      datasets: [
+        {
+          label: "Total de registros",
+          data: [totalPets, totalSolicitacoes, totalTrabalhos, totalInscricoes],
+          backgroundColor: [
+            cores.vinho,
+            cores.vinhoClaro,
+            cores.bege,
+            cores.begeClaro,
+          ],
+          borderRadius: 8,
+          maxBarThickness: 38,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      indexAxis: "y", // 👈 barras horizontais
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => {
+              const n = ctx.parsed.x;
+              return `${n} ${n === 1 ? "registro" : "registros"}`;
+            },
+          },
+        },
       },
-    ],
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-      r: {
-        beginAtZero: true,
-        ticks: { stepSize: 10 },
-        grid: { color: "#eadfd4" },
-        angleLines: { color: "#eadfd4" },
-        pointLabels: { color: "#806b5d" },
+      scales: {
+        x: {
+          beginAtZero: true,
+          ticks: { stepSize: 1, precision: 0 },
+        },
+        y: {
+          ticks: {
+            font: { size: 12 },
+          },
+        },
       },
     },
-  },
-});
+  });
+}
+
+iniciarGraficoAtividades();
