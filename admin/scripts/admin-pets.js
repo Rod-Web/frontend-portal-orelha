@@ -219,7 +219,7 @@ btnConfirmar?.addEventListener("click", async () => {
       { method: "DELETE", credentials: "include" },
     );
 
-    if (!resposta.ok && resposta.status !== 204) {
+    if (!resposta.ok && resposta.status !== 200) {
       throw new Error(`HTTP ${resposta.status}`);
     }
 
