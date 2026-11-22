@@ -2,7 +2,7 @@ import { fetchLogin } from "./requisicao/fetchLogin.js";
 
 // ELEMENTOS DO HTML
 const formulario = document.getElementById("adminLoginForm");
-const cpfInput = document.getElementById("cpf");
+const usernameInput = document.getElementById("username");
 const senhaInput = document.getElementById("senha");
 const mensagem = document.getElementById("loginMensagem");
 
@@ -14,12 +14,12 @@ formulario.addEventListener("submit", async function (event) {
   event.preventDefault();
 
 
-  const cpf = cpfInput.value;
+  const username = usernameInput.value;
   const senha = senhaInput.value;
 
   // Dados que serão enviados para a API
   const dados = {
-    cpf: cpf,
+    username: username,
     senha: senha,
   };
 
