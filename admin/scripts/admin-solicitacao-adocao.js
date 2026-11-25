@@ -3,6 +3,8 @@
 import { fetchCapturarSolicitacaoAdocao } from "./requisicao/fetchCapturarSolicitacaoAdocao.js";
 import { fetchEditarStatusSolicitacao } from "./requisicao/fetchEditarStatusSolicitacao.js";
 import { fetchEditarStatusPet } from "./requisicao/fetchEditarStatusPet.js";
+import { fetchEditarEntrevista } from "./requisicao/fetchEditarEntrevista.js";
+import { fetchSalvarNotasEntrevista } from "./requisicao/fetchSalvarNotasEntrevista.js";
 import { fetchCapturarPets } from "./requisicao/fetchCapturarPets.js";
 
 /* =========================================================
@@ -60,13 +62,24 @@ const petPeso = document.getElementById("petPeso");
 const petDescricao = document.getElementById("petDescricao");
 const petLink = document.getElementById("petLink");
 
-// Modal
+// Entrevista / Notas
+const btnEntrevista = document.getElementById("btnEntrevista");
+const btnNotas = document.getElementById("btnNotas");
+
+// Modal confirmação
 const modalConfirmar = document.getElementById("modalConfirmar");
 const modalIcone = document.getElementById("modalIcone");
 const modalTitulo = document.getElementById("modalTitulo");
 const modalTexto = document.getElementById("modalTexto");
 const modalCancelar = document.getElementById("modalCancelar");
 const modalConfirmarBtn = document.getElementById("modalConfirmarBtn");
+
+// Modal notas
+const modalNotas = document.getElementById("modalNotas");
+const fecharNotasBtn = document.getElementById("fecharNotas");
+const cancelarNotas = document.getElementById("cancelarNotas");
+const salvarNotasBtn = document.getElementById("salvarNotas");
+const campoNotas = document.getElementById("campoNotas");
 
 // Toast
 const toastEl = document.getElementById("toast");
@@ -81,6 +94,8 @@ let solicitacao = null;
 let pet = null;
 let acaoEmAndamento = false;
 let acaoPendente = null;
+let entrevistaEmAndamento = false;
+let notasEmAndamento = false;
 
 /* =========================================================
    PLACEHOLDER
@@ -386,8 +401,8 @@ function renderizar() {
     petLink.style.display = "none";
   }
 
-  // Botões: só desabilita ações finais
-  document.querySelectorAll(".botao-acao").forEach((btn) => {
+  // Botões de ação: só desabilita ações finais
+  document.querySelectorAll(".botao-acao[data-acao]").forEach((btn) => {
     const acao = btn.dataset.acao;
     const ehAcaoFinal = acao === "APROVADA" || acao === "REPROVADA";
     const ehStatusAtual = acao === solicitacao.status;
@@ -400,6 +415,29 @@ function renderizar() {
       btn.disabled = false;
     }
   });
+
+  // Entrevista
+  const entrevistaMarcada = solicitacao.entrevista === true;
+
+  if (btnEntrevista) {
+    btnEntrevista.dataset.marcada = entrevistaMarcada ? "true" : "false";
+    btnEntrevista.innerHTML = entrevistaMarcada
+      ? '<i class="fa-solid fa-clipboard-check"></i><span>Entrevista</span>'
+      : '<i class="fa-regular fa-clipboard"></i><span>Entrevista</span>';
+    btnEntrevista.title = entrevistaMarcada
+      ? "Desmarcar entrevista realizada"
+      : "Marcar entrevista como realizada";
+  }
+
+  // Notas
+  if (btnNotas) {
+    btnNotas.hidden = !entrevistaMarcada;
+    const temNotas = !!(solicitacao.infos_entrevista || "").trim();
+    btnNotas.dataset.temNotas = temNotas ? "true" : "false";
+    btnNotas.title = temNotas
+      ? "Ver/editar anotações da entrevista"
+      : "Adicionar anotações da entrevista";
+  }
 
   conteudoCarregado.hidden = false;
 }
@@ -493,16 +531,11 @@ modalConfirmarBtn?.addEventListener("click", () => {
 });
 
 /* =========================================================
-   EXECUÇÃO DAS AÇÕES
-   ---------------------------------------------------------
-   Regras:
-     REPROVADA   →  solicitação REPROVADA + pet DISPONIVEL
-     APROVADA    →  solicitação APROVADA  + pet ADOTADO
-     EM_ANALISE  →  solicitação EM_ANALISE (pet não muda)
+   AÇÕES DE STATUS (recusar / contatar / aprovar)
    ========================================================= */
 
-function desabilitarBotoes(desabilitar) {
-  document.querySelectorAll(".botao-acao").forEach((btn) => {
+function desabilitarBotoesStatus(desabilitar) {
+  document.querySelectorAll(".botao-acao[data-acao]").forEach((btn) => {
     btn.disabled = desabilitar;
   });
 }
@@ -527,23 +560,20 @@ function abrirWhatsAppNovaAba(telefone) {
 async function executarAcao(status) {
   if (acaoEmAndamento) return;
   acaoEmAndamento = true;
-  desabilitarBotoes(true);
+  desabilitarBotoesStatus(true);
 
-  // 1) Atualiza status da SOLICITAÇÃO
   const resultado = await fetchEditarStatusSolicitacao(solicitacaoId, status);
 
   if (resultado.erro) {
     mostrarToast(resultado.erro, "falha");
-    desabilitarBotoes(false);
+    desabilitarBotoesStatus(false);
     acaoEmAndamento = false;
     return;
   }
 
-  // 2) Atualiza status do PET — só ações finais mudam
   const mapaStatusPet = {
     REPROVADA: "DISPONIVEL",
     APROVADA: "ADOTADO",
-    // EM_ANALISE: undefined → pet não muda
   };
 
   const novoStatusPet = mapaStatusPet[status];
@@ -562,7 +592,6 @@ async function executarAcao(status) {
     }
   }
 
-  // 3) Feedback específico + ação extra
   if (status === "APROVADA") {
     mostrarToast("Adoção aprovada. Pet marcado como adotado. 🐾", "sucesso");
   } else if (status === "REPROVADA") {
@@ -586,17 +615,12 @@ async function executarAcao(status) {
     }
   }
 
-  // 4) Volta pra lista
   setTimeout(() => {
     window.location.href = "./solicitacoes-adocao.html";
   }, 900);
 }
 
-/* =========================================================
-   EVENTOS DOS BOTÕES
-   ========================================================= */
-
-document.querySelectorAll(".botao-acao").forEach((btn) => {
+document.querySelectorAll(".botao-acao[data-acao]").forEach((btn) => {
   btn.addEventListener("click", () => {
     const status = btn.dataset.acao;
     const nome = solicitacao?.nome_completo || "este candidato";
@@ -628,6 +652,152 @@ document.querySelectorAll(".botao-acao").forEach((btn) => {
       });
     }
   });
+});
+
+/* =========================================================
+   ENTREVISTA — toggle
+   ========================================================= */
+
+async function alternarEntrevista() {
+  if (!solicitacao || entrevistaEmAndamento) return;
+
+  const marcadaAtual = solicitacao.entrevista === true;
+  const novaMarcada = !marcadaAtual;
+
+  // Se vai desmarcar e tem anotações → confirma
+  const temNotas = !!(solicitacao.infos_entrevista || "").trim();
+
+  if (marcadaAtual === true && novaMarcada === false && temNotas) {
+    pedirConfirmacao({
+      titulo: "Desmarcar entrevista?",
+      texto:
+        "Esta solicitação possui anotações da entrevista. Ao desmarcar, as anotações serão apagadas permanentemente e não poderão ser recuperadas.",
+      icone: "fa-triangle-exclamation",
+      cor: "perigo",
+      onConfirm: () => executarToggleEntrevista(novaMarcada),
+    });
+    return;
+  }
+
+  await executarToggleEntrevista(novaMarcada);
+}
+
+async function executarToggleEntrevista(novoValor) {
+  if (entrevistaEmAndamento) return;
+  entrevistaEmAndamento = true;
+
+  btnEntrevista.disabled = true;
+  btnEntrevista.innerHTML =
+    '<i class="fa-solid fa-spinner fa-spin"></i><span>Salvando…</span>';
+
+  try {
+    const resultado = await fetchEditarEntrevista(solicitacaoId, novoValor);
+
+    if (resultado.erro) {
+      mostrarToast(resultado.erro, "falha");
+      return;
+    }
+
+    solicitacao.entrevista = novoValor;
+
+    if (novoValor === false) {
+      solicitacao.infos_entrevista = null;
+    }
+
+    renderizar();
+
+    mostrarToast(
+      novoValor
+        ? "Entrevista marcada como realizada."
+        : "Entrevista desmarcada.",
+      "sucesso",
+    );
+  } catch (erro) {
+    console.error("Erro ao alternar entrevista:", erro);
+    mostrarToast("Não foi possível atualizar a entrevista.", "falha");
+  } finally {
+    entrevistaEmAndamento = false;
+    btnEntrevista.disabled = false;
+  }
+}
+
+btnEntrevista?.addEventListener("click", alternarEntrevista);
+
+/* =========================================================
+   NOTAS DA ENTREVISTA — popup
+   ========================================================= */
+
+function abrirModalNotas() {
+  if (!solicitacao || solicitacao.entrevista !== true) return;
+
+  campoNotas.value = solicitacao.infos_entrevista || "";
+  modalNotas.hidden = false;
+
+  setTimeout(() => {
+    campoNotas.focus();
+    campoNotas.setSelectionRange(
+      campoNotas.value.length,
+      campoNotas.value.length,
+    );
+  }, 50);
+}
+
+function fecharModalNotas() {
+  modalNotas.hidden = true;
+}
+
+async function salvarNotas() {
+  if (!solicitacao || notasEmAndamento) return;
+
+  notasEmAndamento = true;
+  const textoOriginal = salvarNotasBtn.textContent;
+  salvarNotasBtn.disabled = true;
+  cancelarNotas.disabled = true;
+  salvarNotasBtn.innerHTML =
+    '<i class="fa-solid fa-spinner fa-spin"></i> Salvando…';
+
+  try {
+    const texto = campoNotas.value.trim();
+
+    const resultado = await fetchSalvarNotasEntrevista(solicitacaoId, texto);
+
+    if (resultado.erro) {
+      mostrarToast(resultado.erro, "falha");
+      return;
+    }
+
+    solicitacao.infos_entrevista = texto || null;
+
+    if (btnNotas) {
+      btnNotas.dataset.temNotas = texto ? "true" : "false";
+    }
+
+    fecharModalNotas();
+    mostrarToast("Anotações salvas.", "sucesso");
+  } catch (erro) {
+    console.error("Erro ao salvar anotações:", erro);
+    mostrarToast("Não foi possível salvar as anotações.", "falha");
+  } finally {
+    notasEmAndamento = false;
+    salvarNotasBtn.disabled = false;
+    cancelarNotas.disabled = false;
+    salvarNotasBtn.textContent = textoOriginal;
+  }
+}
+
+btnNotas?.addEventListener("click", abrirModalNotas);
+fecharNotasBtn?.addEventListener("click", fecharModalNotas);
+cancelarNotas?.addEventListener("click", fecharModalNotas);
+salvarNotasBtn?.addEventListener("click", salvarNotas);
+
+modalNotas?.addEventListener("click", (e) => {
+  if (e.target === modalNotas) fecharModalNotas();
+});
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && !modalNotas.hidden) {
+    fecharModalNotas();
+  }
 });
 
 /* =========================================================

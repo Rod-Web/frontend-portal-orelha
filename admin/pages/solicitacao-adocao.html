@@ -277,6 +277,16 @@
 
                 <!-- ============ AÇÕES ============ -->
                 <footer class="acoes-footer" id="acoesFooter">
+                    <button type="button" class="botao-acao entrevista" id="btnEntrevista" data-marcada="false">
+                        <i class="fa-regular fa-clipboard"></i>
+                        <span>Entrevista</span>
+                    </button>
+
+                    <button type="button" class="botao-acao notas" id="btnNotas" hidden>
+                        <i class="fa-solid fa-note-sticky"></i>
+                        <span>Notas</span>
+                    </button>
+
                     <button type="button" class="botao-acao recusar" data-acao="REPROVADA">
                         <i class="fa-solid fa-xmark"></i>
                         <span>Recusar</span>
@@ -336,6 +346,26 @@
         <div class="modal-acoes">
             <button type="button" class="botao-secundario" id="modalCancelar">Cancelar</button>
             <button type="button" class="botao-perigo" id="modalConfirmarBtn">Confirmar</button>
+        </div>
+    </div>
+</div>
+
+<!-- ============ POPUP DE ANOTAÇÕES ============ -->
+<div class="modal-overlay" id="modalNotas" hidden>
+    <div class="modal modal-notas">
+        <div class="modal-header-notas">
+            <h3>Anotações da entrevista</h3>
+            <button type="button" class="botao-fechar-notas" id="fecharNotas" aria-label="Fechar">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <p class="modal-ajuda">
+            Use este espaço para registrar informações sobre a entrevista com o adotante.
+        </p>
+        <textarea id="campoNotas" placeholder="Escreva suas anotações aqui..." maxlength="3000"></textarea>
+        <div class="modal-acoes">
+            <button type="button" class="botao-secundario" id="cancelarNotas">Cancelar</button>
+            <button type="button" class="botao-perigo" id="salvarNotas">Salvar</button>
         </div>
     </div>
 </div>
